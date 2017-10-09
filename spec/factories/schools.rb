@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :school do
-    inep "123"
+    inep { rand(1..1000) }
     name "Escola teste"
   end
 end
