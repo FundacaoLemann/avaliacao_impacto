@@ -1,17 +1,59 @@
-<%= form_with url: search_path, local: true, method: :get do |form| %>
-  <%= form.hidden_field :form_assembly_url, value: ENV['FORM_ASSEMBLY_URL'] %>
-  <%= form.text_field :name, placeholder: 'Nome' %>
-  <%= form.text_field :email, placeholder: 'Email' %>
-  <br/>
-  Estado
-  <%= form.collection_select :state_id, @states, :id, :name, prompt: 'Estado' %>
-  <br/>
-  Cidade
-  <%= form.collection_select :city_name, @cities, :name, :name, prompt: 'Cidade' %>
-  <br/>
-  Dependencia Administrativa
-  <%= form.select :administration, options_for_select(MecSchool::ADMINISTRATIONS), prompt: 'Dependencia Administrativa' %>
-  <br/>
-  <%= form.text_field :school, placeholder: 'Escola', data: { behavior: 'search' } %>
-  <%= form.submit 'Ir para o questionário' %>
-<% end %>
+<div class="column col-6 centered">
+  <%= form_with url: search_path, local: true, method: :get, html: { class: "form-horizontal"} do |form| %>
+    <%= form.hidden_field :form_assembly_url, value: ENV['FORM_ASSEMBLY_URL'] %>
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="name">Nome</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :name, class: "form-input", id: "name" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="email">Email</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :email, class: "form-input", id: "email" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Estado</label>
+      </div>
+      <div class="col-6">
+        <%= form.collection_select :state_id, @states, :id, :name, { prompt: 'Estado' }, { id: 'state', class: 'form-select select-lg' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Cidade</label>
+      </div>
+      <div class="col-6">
+        <%= form.collection_select :city_name, @cities, :name, :name, { prompt: 'Cidade' }, { id: 'city', class: 'form-select select-lg' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Dependência Administrativa</label>
+      </div>
+      <div class="col-6">
+        <%= form.select :administration, options_for_select(MecSchool::ADMINISTRATIONS), { prompt: 'Dependencia Administrativa' }, { id: 'city', class: 'form-select select-lg' } %>
+      </div>
+    </div>
+    
+    <div class="form-group school">
+      <div class="col-12">
+        <%= form.text_field :school, class: "form-input", placeholder: 'Escola', data: { behavior: 'search' } %>
+      </div>
+    </div>
+    
+    <div class="form-group float-right">
+      <%= form.submit 'Ir para o questionário', class: "btn btn-lg" %>
+    </div>
+  <% end %>
+</div>
