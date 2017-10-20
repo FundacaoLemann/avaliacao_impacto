@@ -1,3 +1,4 @@
+.elasticbeanstalk
 *.rbc
 capybara-*.html
 .rspec
