@@ -1,8 +1,8 @@
 // get cities by state
-var state = ""
+var state = "";
 $(function() {
-  $("[name='state_id']").on('change', function() {
-    state = $("[name='state_id']").val();
+  $("#state").on('change', function() {
+    state = $("#state").val();
     $.ajax({
       url: '/state/' + state,
       method: 'GET'
@@ -13,22 +13,22 @@ $(function() {
 // set city
 var city = "";
 $(function() {
-  $("[name='city_name']").on('change', function() {
-    city = $("[name='city_name']").val();
+  $("#city").on('change', function() {
+    city = $("#city").val();
   });
 });
 
 // set administration
 var administration = "";
 $(function() {
-  $("[name='administration']").on('change', function() {
-    administration = $("[name='administration']").val();
+  $("#administration").on('change', function() {
+    administration = $("#administration").val();
   });
 });
 
 // set school
 document.addEventListener("turbolinks:load", function() {
-  $input = $("[data-behavior='search']")
+  $input = $("[data-behavior='search']");
   var options = {
     getValue: 'name',
     url: function(phrase) {
@@ -36,19 +36,25 @@ document.addEventListener("turbolinks:load", function() {
       '&administration=' + administration + '&school=' + phrase);
     },
     listLocation: 'mec_schools'
-  }
-  $input.easyAutocomplete(options)
+  };
+
+  $input.easyAutocomplete(options);
 });
 
 // prefill form assembly
 $(function() {
   $("input[type=submit]").on('click', function(e) {
     e.preventDefault();
-    var url = $("[name='form_assembly_url']").val();
-    var tfa_2 = "tfa_2=" + $("[name='name']").val();
-    var tfa_3 = "&tfa_3=" + $("[name='email']").val();
-    var inep = $("[name='inep']").val();
-    var school = $("[name='school']").val();
-    window.open(url + tfa_2 + tfa_3)
+
+    url = $("#form_assembly_url").val();
+    id_inep_name = $("#school").val().split(' - ');
+
+    tfa_2 = "tfa_2=" + $("#name").val();
+    tfa_3 = "&tfa_3=" + $("#email").val();
+    tfa_5 = "&tfa_5=" + id_inep_name[2];
+    tfa_6 = "&tfa_6=" + id_inep_name[0];
+    tfa_7 = "&tfa_7=" + id_inep_name[1];
+
+    window.open(url + tfa_2 + tfa_3 + tfa_5 + tfa_6 + tfa_7);
   });
 });

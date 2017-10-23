@@ -1,0 +1,26 @@
+.header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  background: #5e6680;
+}
+
+.header h1, .header h4 {
+  color: #ffffff;
+}
+
+.header h1 {
+  padding-top: 20px;
+}
+
+.form {
+  padding-left: 50px;
+}
+
+.school {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.form-select.select-lg {
+  height: 2.2rem !important;
+}

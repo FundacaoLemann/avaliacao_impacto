@@ -3,12 +3,21 @@
   <head>
     <title>Sistema Preditores</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="columns">
+        <div class="column col-12 text-center header">
+          <%= image_tag("logo") %>
+          <h1>Sistema Preditores</h1>
+          <h4>Sistema de preditores que visa a criação de um formulário, cálculo da pontuação das redes e monitoramento das escolas.</h4>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
