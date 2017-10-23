@@ -10,6 +10,7 @@ ActiveAdmin.register MecSchool do
   filter :inep
 
   index do
+    column :id
     column :inep
     column :name
     column :tp_dependencia_desc

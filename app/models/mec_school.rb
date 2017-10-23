@@ -3,6 +3,6 @@ class MecSchool < ApplicationRecord
   ADMINISTRATIONS = %w(Privada Federal Estadual Municipal).freeze
 
   def to_s
-    inep + ' - ' + name
+    "#{id} - #{inep} - #{name}"
   end
 end
