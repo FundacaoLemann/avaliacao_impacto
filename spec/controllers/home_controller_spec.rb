@@ -16,28 +16,28 @@ RSpec.describe HomeController, type: :controller do
   describe "GET #search" do
     render_views
     before(:all) do
-      @mec_school = create :mec_school, name: 'Testing mec school'
-      @another_mec_school = create :mec_school, name: 'Another Mec school'
+      @school = create :school, name: 'Testing school'
+      @another_school = create :school, name: 'Another school'
     end
 
     let(:expected_json) {
       {
-        "mec_schools" => [
+        "schools" => [
           {
-            "name" => @mec_school.to_s
+            "name" => @school.to_s
           }
         ]
       }
     }
 
-    let(:all_mec_schools) {
+    let(:all_schools) {
       {
-        "mec_schools" => [
+        "schools" => [
           {
-            "name" => @mec_school.to_s
+            "name" => @school.to_s
           },
           {
-            "name" => @another_mec_school.to_s
+            "name" => @another_school.to_s
           }
         ]
       }
@@ -52,9 +52,9 @@ RSpec.describe HomeController, type: :controller do
 
     it "returns only the matching schools" do
       request.accept = 'application/json'
-      get :search, params: { school: 'mec' }
+      get :search, params: { school: 'school' }
 
-      expect(JSON.parse(response.body)).to eq(all_mec_schools)
+      expect(JSON.parse(response.body)).to eq(all_schools)
     end
   end
 end

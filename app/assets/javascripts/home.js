@@ -35,7 +35,7 @@ document.addEventListener("turbolinks:load", function() {
       return ('/search.json?state=' + state + '&city=' + city + 
       '&administration=' + administration + '&school=' + phrase);
     },
-    listLocation: 'mec_schools'
+    listLocation: 'schools'
   };
 
   $input.easyAutocomplete(options);
