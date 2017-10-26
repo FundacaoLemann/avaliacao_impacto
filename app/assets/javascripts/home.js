@@ -37,7 +37,7 @@ $(function() {
     }
     else{
       $.ajax({
-        url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D' + city + '&q%5Bdependencia_desc_equals%5D=' + administration,
+        url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D=' + city + '&q%5Bdependencia_desc_equals%5D=' + administration,
         method: 'GET',
         success: function(data){
           form_assembly_params = data[0].form_assembly_params;
