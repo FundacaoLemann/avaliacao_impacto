@@ -41,23 +41,16 @@ ActiveRecord::Schema.define(version: 20171013181138) do
     t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
-  create_table "mec_schools", force: :cascade do |t|
+  create_table "schools", force: :cascade do |t|
     t.string "inep"
     t.text "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "tp_dependencia"
     t.string "tp_dependencia_desc"
     t.string "cod_municipio"
     t.text "municipio"
-    t.text "unidade_federativa"
+    t.string "unidade_federativa"
     t.integer "num_estudantes"
     t.integer "ano_censo"
-  end
-
-  create_table "schools", force: :cascade do |t|
-    t.string "inep"
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_schools_on_name"

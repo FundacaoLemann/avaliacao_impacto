@@ -42,7 +42,7 @@
         <label class="form-label label-lg" for="state">Dependência Administrativa</label>
       </div>
       <div class="col-6">
-        <%= form.select :administration, options_for_select(MecSchool::ADMINISTRATIONS), { prompt: 'Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg' } %>
+        <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg' } %>
       </div>
     </div>
     
