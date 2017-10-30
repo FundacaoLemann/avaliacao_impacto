@@ -82,10 +82,12 @@ $(function() {
     tfa_80 = "&tfa_80=" + $("#email").val();
     // prefill school phone
     tfa_84 = "&tfa_84=" + $("#phone").val();
+    // prefill personal phone
+    tfa_86 = "&tfa_86=" + $("#personal_phone").val();
     
     if(!form_assembly_params){
       form_assembly_params = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
     }
-    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84);
+    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84 + tfa_86);
   });
 });
