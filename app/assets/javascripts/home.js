@@ -62,6 +62,8 @@ document.addEventListener("turbolinks:load", function() {
     list: {
       onChooseEvent: function() {
         $('#button').removeAttr('disabled');
+        var value = $("#school").getSelectedItemData().school_id;
+        $("#school_id").val(value).trigger("change");
       }
     }
   };
@@ -78,11 +80,11 @@ $(function() {
     id_inep_name = $("#school").val().split(' - ');
     
     // prefill id
-    tfa_3707 = "&tfa_3707=" + id_inep_name[0];
+    tfa_3707 = "&tfa_3707=" + $("#school_id").val();
     // prefill inep
-    tfa_5 = "&tfa_5=" + id_inep_name[1];
+    tfa_5 = "&tfa_5=" + id_inep_name[0];
     // prefill school name
-    tfa_7 = "&tfa_7=" + id_inep_name[2];
+    tfa_7 = "&tfa_7=" + id_inep_name[1];
     // prefill person name
     tfa_112 = "&tfa_112=" + $("#name").val();
     // prefill person email

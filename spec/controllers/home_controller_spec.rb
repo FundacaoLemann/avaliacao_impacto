@@ -24,7 +24,8 @@ RSpec.describe HomeController, type: :controller do
       {
         "schools" => [
           {
-            "name" => @school.to_s
+            "name" => @school.to_s,
+            "school_id" => @school.id
           }
         ]
       }
@@ -34,10 +35,12 @@ RSpec.describe HomeController, type: :controller do
       {
         "schools" => [
           {
-            "name" => @school.to_s
+            "name" => @school.to_s,
+            "school_id" => @school.id
           },
           {
-            "name" => @another_school.to_s
+            "name" => @another_school.to_s,
+            "school_id" => @another_school.id
           }
         ]
       }
