@@ -9,6 +9,7 @@ $(function() {
       url: '/state/' + state,
       method: 'GET'
     });
+    $('#city').removeAttr('disabled');
   });
 });
 
@@ -17,6 +18,7 @@ var city = "";
 $(function() {
   $("#city").on('change', function() {
     city = $("#city").val();
+    $('#administration').removeAttr('disabled');
   });
 });
 
@@ -56,9 +58,14 @@ document.addEventListener("turbolinks:load", function() {
       return ('/search.json?state=' + state + '&city=' + city + 
       '&administration=' + administration + '&school=' + phrase);
     },
-    listLocation: 'schools'
+    listLocation: 'schools',
+    list: {
+      onChooseEvent: function() {
+        $('#button').removeAttr('disabled');
+      }
+    }
   };
-
+  
   $input.easyAutocomplete(options);
 });
 
