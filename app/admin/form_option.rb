@@ -1,5 +1,5 @@
 ActiveAdmin.register FormOption do
-  permit_params :dependencia_desc, :state_or_city, {sections_to_show: []}
+  permit_params :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
 
   before_save do |form_option|
     form_option.form_assembly_params = form_option.sections_to_form_assembly_params
@@ -12,6 +12,7 @@ ActiveAdmin.register FormOption do
     column 'Seções habilitadas', :sections_to_show
     column 'Rede de ensino', :dependencia_desc
     column :state_or_city
+    column 'Prazo de entrega', :deadline
     actions
   end
 
@@ -20,6 +21,7 @@ ActiveAdmin.register FormOption do
       input :dependencia_desc, as: :select, collection: %w[Estadual Municipal], label: 'Rede de ensino'
       input :state_or_city, label: 'Estado ou municipio'
       input :sections_to_show, as: :check_boxes, collection: %w[A B C D E F], label: 'Habilitar seções'
+      input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
     end
 
     actions
