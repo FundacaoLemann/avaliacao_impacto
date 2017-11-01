@@ -3,6 +3,6 @@ class School < ApplicationRecord
   ADMINISTRATIONS = %w[Privada Federal Estadual Municipal].freeze
 
   def to_s
-    "#{id} - #{inep} - #{name}"
+    "#{inep} - #{name}"
   end
 end

@@ -9,6 +9,7 @@ $(function() {
       url: '/state/' + state,
       method: 'GET'
     });
+    $('#city').removeAttr('disabled');
   });
 });
 
@@ -17,6 +18,7 @@ var city = "";
 $(function() {
   $("#city").on('change', function() {
     city = $("#city").val();
+    $('#administration').removeAttr('disabled');
   });
 });
 
@@ -56,9 +58,16 @@ document.addEventListener("turbolinks:load", function() {
       return ('/search.json?state=' + state + '&city=' + city + 
       '&administration=' + administration + '&school=' + phrase);
     },
-    listLocation: 'schools'
+    listLocation: 'schools',
+    list: {
+      onChooseEvent: function() {
+        $('#button').removeAttr('disabled');
+        var value = $("#school").getSelectedItemData().school_id;
+        $("#school_id").val(value).trigger("change");
+      }
+    }
   };
-
+  
   $input.easyAutocomplete(options);
 });
 
@@ -71,21 +80,23 @@ $(function() {
     id_inep_name = $("#school").val().split(' - ');
     
     // prefill id
-    tfa_3707 = "&tfa_3707=" + id_inep_name[0];
+    tfa_3707 = "&tfa_3707=" + $("#school_id").val();
     // prefill inep
-    tfa_5 = "&tfa_5=" + id_inep_name[1];
+    tfa_5 = "&tfa_5=" + id_inep_name[0];
     // prefill school name
-    tfa_7 = "&tfa_7=" + id_inep_name[2];
+    tfa_7 = "&tfa_7=" + id_inep_name[1];
     // prefill person name
     tfa_112 = "&tfa_112=" + $("#name").val();
     // prefill person email
     tfa_80 = "&tfa_80=" + $("#email").val();
     // prefill school phone
     tfa_84 = "&tfa_84=" + $("#phone").val();
+    // prefill personal phone
+    tfa_86 = "&tfa_86=" + $("#personal_phone").val();
     
     if(!form_assembly_params){
       form_assembly_params = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
     }
-    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84);
+    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84 + tfa_86);
   });
 });
