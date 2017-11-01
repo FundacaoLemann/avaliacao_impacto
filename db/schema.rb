@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031124725) do
+ActiveRecord::Schema.define(version: 20171101132952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,5 +74,21 @@ ActiveRecord::Schema.define(version: 20171031124725) do
     t.index ["name"], name: "index_states_on_name"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "school_id"
+    t.string "status"
+    t.string "school_phone"
+    t.string "submitter_name"
+    t.string "submitter_email"
+    t.string "submitter_phone"
+    t.integer "response_id"
+    t.string "redirected_at"
+    t.string "created_at"
+    t.string "modified_at"
+    t.string "submitted_at"
+    t.index ["school_id"], name: "index_submissions_on_school_id"
+  end
+
   add_foreign_key "cities", "states"
+  add_foreign_key "submissions", "schools"
 end
