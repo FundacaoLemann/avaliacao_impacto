@@ -15,9 +15,11 @@ $(function() {
 
 // set city
 var city = "";
+var city_name = "";
 $(function() {
   $("#city").on('change', function() {
     city = $("#city").val();
+    city_name = $("#city option:selected").text();
     $('#administration').removeAttr('disabled');
   });
 });
@@ -96,8 +98,19 @@ $(function() {
     tfa_84 = "&tfa_84=" + $("#phone").val();
     // prefill personal phone
     tfa_86 = "&tfa_86=" + $("#personal_phone").val();
+    if(administration == 'Estadual'){
+      // prefill secretaria 1
+      tfa_3710 = "&tfa_3710=Secretaria Estadual" + ' de ' + state_name;
+      // prefill secretaria 2
+      tfa_3715 = "&tfa_3715=Secretaria Estadual" + ' de ' + state_name;
+    }else{
+      // prefill secretaria 1
+      tfa_3710 = "&tfa_3710=Secretaria Municipal" + ' de ' + state_name;
+      // prefill secretaria 2
+      tfa_3715 = "&tfa_3715=Secretaria Municipal" + ' de ' + state_name;
+    }
     // prefill deadline
-    tfa_3710 = "&tfa_3710=" + deadline;
+    tfa_3713 = "&tfa_3713=" + deadline;
 
     if(!form_assembly_params){
       form_assembly_params = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
@@ -119,6 +132,7 @@ $(function() {
       method: 'POST'
     });
 
-    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710);
+    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + 
+      tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3715 + tfa_3713);
   });
 });
