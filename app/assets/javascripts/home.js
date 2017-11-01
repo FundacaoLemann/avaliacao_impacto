@@ -25,6 +25,7 @@ $(function() {
 // set administration and update section fields
 var administration = "";
 var form_assembly_params = "";
+var deadline = "";
 $(function() {
   $("#administration").on('change', function() {
     administration = $("#administration").val();
@@ -33,6 +34,7 @@ $(function() {
         url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D=' + state_name + '&q%5Bdependencia_desc_equals%5D=' + administration,
         method: 'GET',
         success: function(data){
+          deadline = data[0].deadline;
           form_assembly_params = data[0].form_assembly_params;
         }
       });
@@ -42,6 +44,7 @@ $(function() {
         url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D=' + city + '&q%5Bdependencia_desc_equals%5D=' + administration,
         method: 'GET',
         success: function(data){
+          deadline = data[0].deadline;
           form_assembly_params = data[0].form_assembly_params;
         }
       });
@@ -93,10 +96,12 @@ $(function() {
     tfa_84 = "&tfa_84=" + $("#phone").val();
     // prefill personal phone
     tfa_86 = "&tfa_86=" + $("#personal_phone").val();
-    
+    // prefill deadline
+    tfa_3710 = "&tfa_3710=" + deadline;
+
     if(!form_assembly_params){
       form_assembly_params = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
     }
-    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84 + tfa_86);
+    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710);
   });
 });
