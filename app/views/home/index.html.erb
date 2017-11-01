@@ -43,7 +43,7 @@
         <label class="form-label label-lg" for="state">Estado</label>
       </div>
       <div class="col-6">
-        <%= form.collection_select :state_id, @states, :id, :name, { prompt: 'Estado' }, { id: 'state', class: 'form-select select-lg' } %>
+        <%= form.collection_select :state_id, @states, :id, :name, { prompt: 'Selecione o Estado' }, { id: 'state', class: 'form-select select-lg' } %>
       </div>
     </div>
 
@@ -52,7 +52,7 @@
         <label class="form-label label-lg" for="state">Cidade</label>
       </div>
       <div class="col-6">
-        <%= form.collection_select :city_name, @cities, :name, :name, { prompt: 'Cidade' }, { id: 'city', class: 'form-select select-lg', disabled: true } %>
+        <%= form.collection_select :city_name, @cities, :name, :name, { prompt: 'Selecione a Cidade' }, { id: 'city', class: 'form-select select-lg', disabled: true } %>
       </div>
     </div>
 
@@ -61,13 +61,13 @@
         <label class="form-label label-lg" for="state">Dependência Administrativa</label>
       </div>
       <div class="col-6">
-        <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg', disabled: true } %>
+        <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Selecione a Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg', disabled: true } %>
       </div>
     </div>
     
     <div class="form-group school">
       <div class="col-12">
-        <%= form.text_field :school, class: "form-input", placeholder: 'Escola', id: 'school', data: { behavior: 'search' } %>
+        <%= form.text_field :school, class: "form-input", placeholder: 'Digite o nome da sua escola', id: 'school', data: { behavior: 'search' } %>
       </div>
     </div>
     
