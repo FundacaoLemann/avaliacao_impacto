@@ -102,6 +102,23 @@ $(function() {
     if(!form_assembly_params){
       form_assembly_params = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
     }
+    // create submission
+    $.ajax({
+      url: '/submissions',
+      data: {
+        submission:{
+          school_id: $("#school_id").val(),
+          status: 'redirected',
+          school_phone: $("#phone").val(),
+          submitter_name: $("#name").val(),
+          submitter_email: $("#email").val(),
+          submitter_phone: $("#personal_phone").val(),
+          redirected_at: new Date()
+        }
+      },
+      method: 'POST'
+    });
+
     window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710);
   });
 });
