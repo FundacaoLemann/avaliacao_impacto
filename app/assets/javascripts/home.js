@@ -31,6 +31,7 @@ var deadline = "";
 $(function() {
   $("#administration").on('change', function() {
     administration = $("#administration").val();
+    $('#school').removeAttr('disabled');
     if(administration == 'Estadual'){
       $.ajax({
         url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D=' + state_name + '&q%5Bdependencia_desc_equals%5D=' + administration,
@@ -60,7 +61,7 @@ document.addEventListener("turbolinks:load", function() {
   var options = {
     getValue: 'name',
     url: function(phrase) {
-      return ('/search.json?state=' + state + '&city=' + city + 
+      return ('/search.json?state=' + state + '&city=' + city +
       '&administration=' + administration + '&school=' + phrase);
     },
     listLocation: 'schools',
@@ -72,7 +73,7 @@ document.addEventListener("turbolinks:load", function() {
       }
     }
   };
-  
+
   $input.easyAutocomplete(options);
 });
 
@@ -83,7 +84,7 @@ $(function() {
     url = $("#form_assembly_url").val();
     // split id, inep and name from school
     id_inep_name = $("#school").val().split(' - ');
-    
+
     // prefill id
     tfa_3707 = "&tfa_3707=" + $("#school_id").val();
     // prefill inep
@@ -100,14 +101,19 @@ $(function() {
     tfa_86 = "&tfa_86=" + $("#personal_phone").val();
     if(administration == 'Estadual'){
       // prefill secretaria 1
-      tfa_3710 = "&tfa_3710=Secretaria Estadual" + ' de ' + state_name;
+      tfa_3710 = "&tfa_3710=Rede Estadual" + ' de ' + state_name;
       // prefill secretaria 2
-      tfa_3715 = "&tfa_3715=Secretaria Estadual" + ' de ' + state_name;
-    }else{
+      tfa_3715 = "&tfa_3715=Rede Estadual" + ' de ' + state_name;
+    }else if (administration == 'Municipal'){
       // prefill secretaria 1
-      tfa_3710 = "&tfa_3710=Secretaria Municipal" + ' de ' + state_name;
+      tfa_3710 = "&tfa_3710=Rede Municipal" + ' de ' + state_name;
       // prefill secretaria 2
-      tfa_3715 = "&tfa_3715=Secretaria Municipal" + ' de ' + state_name;
+      tfa_3715 = "&tfa_3715=Rede Municipal" + ' de ' + state_name;
+    }else {
+      // prefill secretaria 1
+      tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil"
+      // prefill secretaria 2
+      tfa_3715 = "&tfa_3715=Rede Federal de Ensino do Brasil"
     }
     // prefill deadline
     tfa_3713 = "&tfa_3713=" + deadline;
@@ -132,7 +138,7 @@ $(function() {
       method: 'POST'
     });
 
-    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 + 
+    window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 +
       tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3715 + tfa_3713);
   });
 });
