@@ -106,9 +106,9 @@ $(function() {
       tfa_3715 = "&tfa_3715=Rede Estadual" + ' de ' + state_name;
     }else if (administration == 'Municipal'){
       // prefill secretaria 1
-      tfa_3710 = "&tfa_3710=Rede Municipal" + ' de ' + state_name;
+      tfa_3710 = "&tfa_3710=Rede Municipal" + ' de ' + city_name;
       // prefill secretaria 2
-      tfa_3715 = "&tfa_3715=Rede Municipal" + ' de ' + state_name;
+      tfa_3715 = "&tfa_3715=Rede Municipal" + ' de ' + city_name;
     }else {
       // prefill secretaria 1
       tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil"
