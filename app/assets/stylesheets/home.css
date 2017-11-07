@@ -1,25 +1,34 @@
 .header {
   padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 40px;
+  /*padding-bottom: 20px;
+  margin-bottom: 40px;*/
   background: #5e6680;
 }
 
-.header h1, .header h5 {
+.header h2, .header h5 {
   color: #ffffff;
 }
 
-.header h1 {
+.header h2 {
   padding-top: 20px;
 }
 
-.form {
-  padding-left: 50px;
+.sub-header {
+  padding: 20px 30px 20px 20px;
+}
+
+.sub-header p {
+  font-size: 16px;
+  color: #313131;
+}
+
+.form-horizontal {
+  padding-bottom: 150px;
 }
 
 .school {
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 .form-select.select-lg {
   height: 2.2rem !important;

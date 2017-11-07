@@ -31,7 +31,7 @@
 
     <div class="form-group">
       <div class="col-6">
-        <label class="form-label" for="phone">Telefone pessoal</label>
+        <label class="form-label" for="phone">Telefone pessoal ou celular para contato</label>
       </div>
       <div class="col-6">
         <%= form.text_field :personal_phone, class: "form-input", id: "personal_phone" %>
@@ -64,13 +64,13 @@
         <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Selecione a Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg', disabled: true } %>
       </div>
     </div>
-    
+
     <div class="form-group school">
       <div class="col-12">
-        <%= form.text_field :school, class: "form-input", placeholder: 'Digite o nome da sua escola', id: 'school', data: { behavior: 'search' } %>
+        <%= form.text_field :school, class: "form-input", placeholder: 'Digite o nome da sua escola sem caracteres especiais. Ex: Flavia Dutra', id: 'school', disabled: true, data: { behavior: 'search' } %>
       </div>
     </div>
-    
+
     <div class="form-group float-right">
       <%= form.submit 'Ir para o questionário', class: "btn btn-lg", id: 'button', disabled: true %>
     </div>

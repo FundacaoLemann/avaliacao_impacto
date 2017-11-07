@@ -11,7 +11,7 @@ class HomeController < ApplicationController
       municipio_eq: params[:city],
       tp_dependencia_desc_eq: params[:administration]
     )
-    @schools = @q.result(distinct: true)
+    @schools = @q.result(distinct: true).limit(5)
   end
 
   private
