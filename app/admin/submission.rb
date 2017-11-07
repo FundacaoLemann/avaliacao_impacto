@@ -1,6 +1,6 @@
 ActiveAdmin.register Submission do
-  filter :school, label: 'Escola'
-  filter :status
+  config.clear_action_items!
+  filter :status, as: :select, collection: %w[redirected in_progress submitted]
 
   index do
     column 'Escola', :school
@@ -10,6 +10,13 @@ ActiveAdmin.register Submission do
     column 'Email do responsável', :submitter_email
     column 'Telefone do responsável', :submitter_phone
     column 'Data de redirecionamento', :redirected_at
-    actions
+    column 'Data de salvamento', :saved_at
+    column 'Data de submissão', :submitted_at
+  end
+
+  controller do
+    def scoped_collection
+      super.includes :school
+    end
   end
 end
