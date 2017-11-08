@@ -17,7 +17,7 @@ $(function() {
 var city = "";
 var city_name = "";
 $(function() {
-  $("#city").on('change', function() {
+  $("#city").on('click', function() {
     city = $("#city").val();
     city_name = $("#city option:selected").text();
     $('#administration').removeAttr('disabled');
@@ -116,7 +116,10 @@ $(function() {
       tfa_3715 = "&tfa_3715=Rede Federal de Ensino do Brasil"
     }
     // prefill deadline
-    tfa_3713 = "&tfa_3713=" + deadline;
+    tfa_3713 = "";
+    if(deadline.length > 0){
+      tfa_3713 = "&tfa_3713=" + deadline;
+    }
 
     if(!form_assembly_params){
       form_assembly_params = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
