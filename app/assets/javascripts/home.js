@@ -90,7 +90,7 @@ $(function() {
     // prefill school name
     tfa_7 = "&tfa_7=" + id_inep_name[1];
     // prefill person name
-    tfa_112 = "&tfa_112=" + $("#name").val();
+    tfa_3719 = "&tfa_3719=" + $("#name").val();
     // prefill person email
     tfa_80 = "&tfa_80=" + $("#email").val();
     // prefill school phone
@@ -134,6 +134,6 @@ $(function() {
     });
 
     window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 +
-      tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3713);
+      tfa_3719 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3713);
   });
 });
