@@ -14,11 +14,9 @@ $(function() {
 });
 
 // set city
-var city = "";
 var city_name = "";
 $(function() {
-  $("#city").on('click', function() {
-    city = $("#city").val();
+  $("#city").on('blur', function() {
     city_name = $("#city option:selected").text();
     $('#administration').removeAttr('disabled');
   });
@@ -44,7 +42,7 @@ $(function() {
     }
     else{
       $.ajax({
-        url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D=' + city + '&q%5Bdependencia_desc_equals%5D=' + administration,
+        url: '/admin/form_options.json?q%5Bstate_or_city_equals%5D=' + city_name + '&q%5Bdependencia_desc_equals%5D=' + administration,
         method: 'GET',
         success: function(data){
           deadline = data[0].deadline;
@@ -61,7 +59,7 @@ document.addEventListener("turbolinks:load", function() {
   var options = {
     getValue: 'name',
     url: function(phrase) {
-      return ('/search.json?state=' + state + '&city=' + city +
+      return ('/search.json?state=' + state + '&city=' + city_name +
       '&administration=' + administration + '&school=' + phrase);
     },
     listLocation: 'schools',
@@ -102,18 +100,12 @@ $(function() {
     if(administration == 'Estadual'){
       // prefill secretaria 1
       tfa_3710 = "&tfa_3710=Rede Estadual" + ' de ' + state_name;
-      // prefill secretaria 2
-      tfa_3715 = "&tfa_3715=Rede Estadual" + ' de ' + state_name;
     }else if (administration == 'Municipal'){
       // prefill secretaria 1
       tfa_3710 = "&tfa_3710=Rede Municipal" + ' de ' + city_name;
-      // prefill secretaria 2
-      tfa_3715 = "&tfa_3715=Rede Municipal" + ' de ' + city_name;
     }else {
       // prefill secretaria 1
       tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil"
-      // prefill secretaria 2
-      tfa_3715 = "&tfa_3715=Rede Federal de Ensino do Brasil"
     }
     // prefill deadline
     tfa_3713 = "";
@@ -142,6 +134,6 @@ $(function() {
     });
 
     window.open(url + form_assembly_params + tfa_3707 + tfa_7 + tfa_5 +
-      tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3715 + tfa_3713);
+      tfa_112 + tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3713);
   });
 });
