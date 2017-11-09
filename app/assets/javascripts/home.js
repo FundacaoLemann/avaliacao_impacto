@@ -10,13 +10,16 @@ $(function() {
       method: 'GET'
     });
     $('#city').removeAttr('disabled');
+    if(state == 1){
+        $('#administration').removeAttr('disabled');
+    }
   });
 });
 
 // set city
 var city_name = "";
 $(function() {
-  $("#city").on('change', function() {
+  $("#city").on('blur', function() {
     city_name = $("#city option:selected").text();
     $('#administration').removeAttr('disabled');
   });
