@@ -16,7 +16,7 @@ $(function() {
 // set city
 var city_name = "";
 $(function() {
-  $("#city").on('blur', function() {
+  $("#city").on('change', function() {
     city_name = $("#city option:selected").text();
     $('#administration').removeAttr('disabled');
   });
