@@ -10,7 +10,7 @@ $(function() {
       method: 'GET'
     });
     $('#city').removeAttr('disabled');
-    if(state == 1){
+    if(state == 7){ // Distrito Federal has only one city and avoids 
         $('#administration').removeAttr('disabled');
     }
   });
