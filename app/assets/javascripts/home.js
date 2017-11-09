@@ -10,6 +10,9 @@ $(function() {
       method: 'GET'
     });
     $('#city').removeAttr('disabled');
+    if(state == 7){ // Distrito Federal has only one city and on change trigger doesnt work  
+        $('#administration').removeAttr('disabled');
+    }
   });
 });
 
