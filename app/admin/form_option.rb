@@ -26,4 +26,8 @@ ActiveAdmin.register FormOption do
 
     actions
   end
+
+  controller do
+    skip_before_action :authenticate_active_admin_user
+  end
 end
