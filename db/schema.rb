@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107173617) do
+ActiveRecord::Schema.define(version: 20171114124516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20171107173617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "deadline"
+    t.string "form_name"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 20171107173617) do
     t.string "saved_at"
     t.string "modified_at"
     t.string "submitted_at"
+    t.string "form_name"
     t.index ["school_id"], name: "index_submissions_on_school_id"
   end
 

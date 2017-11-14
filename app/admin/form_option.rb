@@ -1,14 +1,16 @@
 ActiveAdmin.register FormOption do
-  permit_params :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
+  permit_params :form_name, :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
 
   before_save do |form_option|
     form_option.form_assembly_params = form_option.sections_to_form_assembly_params
   end
 
+  filter :form_name, label: 'Questionário', as: :select, collection: %w[baseline follow_up]
   filter :dependencia_desc, label: 'Rede de ensino'
   filter :state_or_city, label: 'Estado ou cidade'
 
   index do
+    column 'Questionário', :form_name
     column 'Seções habilitadas', :sections_to_show
     column 'Rede de ensino', :dependencia_desc
     column :state_or_city
@@ -18,6 +20,7 @@ ActiveAdmin.register FormOption do
 
   form title: 'Inserir opções de seções por rede de ensino' do |f|
     inputs do
+      input :form_name, as: :select, collection: %w[baseline follow_up], label: 'Questionário'
       input :dependencia_desc, as: :select, collection: %w[Estadual Municipal], label: 'Rede de ensino'
       input :state_or_city, label: 'Estado ou municipio'
       input :sections_to_show, as: :check_boxes, collection: %w[A B C D E F], label: 'Habilitar seções'
