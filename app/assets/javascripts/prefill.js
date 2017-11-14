@@ -1,9 +1,8 @@
-const baselineFormUrl = "<%= ENV['DEFAULT_FORM_ASSEMBLY_URL'] %>";
-const followUpFormUrl = "<%= ENV['FOLLOW_UP_FORM_ASSEMBLY_URL'] %>";
-
 $(function() {
   $("input[type=submit]").on('click', function(e) {
     e.preventDefault();
+    baselineFormUrl = $("#baseline_url").val();
+    followupFormUrl = $("#follow_up_url").val();
     // split id, inep and name from school
     id_inep_name = $("#school").val().split(' - ');
 
@@ -47,7 +46,7 @@ $(function() {
       openForm(baselineFormUrl);
     }else {
       createSubmission('follow_up');
-      openForm(followUpFormUrl);
+      openForm(followupFormUrl);
     }
   });
 });
