@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  get '/fup6271', to: 'home#follow_up'
   get :search, controller: :home
   get 'schools/:id', to: 'schools#show', as: 'school'
   get 'state/:id', to: 'states#show'
