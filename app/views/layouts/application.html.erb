@@ -11,7 +11,10 @@
   <body class="<%= controller_name %> <%= action_name %>">
     <%= hidden_field_tag :baseline_url, ENV['BASELINE_FORM_ASSEMBLY_URL'], id: 'baseline_url' %>
     <%= hidden_field_tag :follow_up_url, ENV['FOLLOW_UP_FORM_ASSEMBLY_URL'], id: 'follow_up_url' %>
-
-    <%= yield %>
+    <div class="container">
+      <div class="columns">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,113 +1,109 @@
-<div class="container">
-  <div class="columns">
-    <div class="column col-12 text-center header">
-      <%= image_tag("logo") %>
-      <h2>Levantamento escolar</h2>
+<div class="column col-12 text-center header">
+  <%= image_tag("logo") %>
+  <h2>Levantamento escolar</h2>
+</div>
+<div class="column col-12 sub-header text-left text-justify">
+  <p>
+    Esta pesquisa está sendo realizada pela Secretaria de Educação em parceria com a Fundação Lemann e será aplicada em uma amostra representativa das escolas da rede.
+  </p>
+  <p>
+    O objetivo é buscar mais efetividade nas políticas públicas, nas ações formativas da rede e nos demais programas pedagógicos como o <b>Formar</b>. Para isso, este questionário solicita <b>informações administrativas e pedagógicas</b> que devem ser fornecidas pelo <b>diretor da escola, de preferência com o apoio ou a participação do(s) coordenador(es) pedagógico(s)</b>. Todas as respostas aqui registradas são <b>confidenciais</b> e não serão divulgadas. <b>Pedimos bastante sinceridade nas respostas</b>.
+  </p>
+  <p>
+    Reserve aproximadamente 50 minutos para responder ao questionário.
+  </p>
+  <p>
+    A sua escola já respondeu este questionário referente ao PRIMEIRO semestre letivo de 2017.
+  </p>
+  <p>
+    Para responder o ATUAL questionário, considere a realidade do <b>SEGUNDO SEMESTRE LETIVO DE 2017 (PERÍODO POSTERIOR AO RECESSO ESCOLAR / FÉRIAS DO MEIO DO ANO)</b>.
+  </p>
+  <p>
+    <b>É altamente recomendável que o</b> respondente do ATUAL formulário seja o mesmo que preencheu o questionário anterior. Caso isso não seja possível, o respondente do ATUAL formulário pode ser outro gestor escolar.
+  </p>
+  <p>
+    Lembre-se de salvar suas respostas ao longo do preenchimento! Assim você evita perdê-las caso haja alguma oscilação na internet. Para salvar suas respostas clique no botão <i>“Salvar minhas respostas e continuar mais tarde”</i> no canto superior direito de todo questionário.
+  </p>
+  <p>
+    Agradecemos pelo seu tempo, dedicação e sinceridade!</br>
+    <b>EQUIPE DA SECRETARIA DE EDUCAÇÃO</b>
+  </p>
+</div>
+<div class="column col-6 col-lg-12 centered">
+  <%= form_with url: search_path, local: true, method: :get, html: { class: "form-horizontal"} do |form| %>
+    <%= form.hidden_field :school_id, id: "school_id" %>
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="name">Nome</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :name, class: "form-input", id: "name" %>
+      </div>
     </div>
-    <div class="column col-12 sub-header text-left text-justify">
-      <p>
-        Esta pesquisa está sendo realizada pela Secretaria de Educação em parceria com a Fundação Lemann e será aplicada em uma amostra representativa das escolas da rede.
-      </p>
-      <p>
-        O objetivo é buscar mais efetividade nas políticas públicas, nas ações formativas da rede e nos demais programas pedagógicos como o <b>Formar</b>. Para isso, este questionário solicita <b>informações administrativas e pedagógicas</b> que devem ser fornecidas pelo <b>diretor da escola, de preferência com o apoio ou a participação do(s) coordenador(es) pedagógico(s)</b>. Todas as respostas aqui registradas são <b>confidenciais</b> e não serão divulgadas. <b>Pedimos bastante sinceridade nas respostas</b>.
-      </p>
-      <p>
-        Reserve aproximadamente 50 minutos para responder ao questionário.
-      </p>
-      <p>
-        A sua escola já respondeu este questionário referente ao PRIMEIRO semestre letivo de 2017.
-      </p>
-      <p>
-        Para responder o ATUAL questionário, considere a realidade do <b>SEGUNDO SEMESTRE LETIVO DE 2017 (PERÍODO POSTERIOR AO RECESSO ESCOLAR / FÉRIAS DO MEIO DO ANO)</b>.
-      </p>
-      <p>
-        <b>É altamente recomendável que o</b> respondente do ATUAL formulário seja o mesmo que preencheu o questionário anterior. Caso isso não seja possível, o respondente do ATUAL formulário pode ser outro gestor escolar.
-      </p>
-      <p>
-        Lembre-se de salvar suas respostas ao longo do preenchimento! Assim você evita perdê-las caso haja alguma oscilação na internet. Para salvar suas respostas clique no botão <i>“Salvar minhas respostas e continuar mais tarde”</i> no canto superior direito de todo questionário.
-      </p>
-      <p>
-        Agradecemos pelo seu tempo, dedicação e sinceridade!</br>
-        <b>EQUIPE DA SECRETARIA DE EDUCAÇÃO</b>
-      </p>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="email">Email</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :email, class: "form-input", id: "email" %>
+      </div>
     </div>
-    <div class="column col-6 centered">
-      <%= form_with url: search_path, local: true, method: :get, html: { class: "form-horizontal"} do |form| %>
-        <%= form.hidden_field :school_id, id: "school_id" %>
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label" for="name">Nome</label>
-          </div>
-          <div class="col-6">
-            <%= form.text_field :name, class: "form-input", id: "name" %>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label" for="email">Email</label>
-          </div>
-          <div class="col-6">
-            <%= form.text_field :email, class: "form-input", id: "email" %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label" for="phone">Telefone da Escola</label>
-          </div>
-          <div class="col-6">
-            <%= form.text_field :phone, class: "form-input", id: "phone" %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label" for="phone">Telefone pessoal ou celular para contato</label>
-          </div>
-          <div class="col-6">
-            <%= form.text_field :personal_phone, class: "form-input", id: "personal_phone" %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label label-lg" for="state">Estado</label>
-          </div>
-          <div class="col-6">
-            <%= form.collection_select :state_id, @states, :id, :name, { prompt: 'Selecione o Estado' }, { id: 'state', class: 'form-select select-lg' } %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label label-lg" for="state">Cidade</label>
-          </div>
-          <div class="col-6">
-            <%= form.collection_select :city_name, @cities, :name, :name, { prompt: 'Selecione a Cidade' }, { id: 'city', class: 'form-select select-lg', disabled: true } %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-6">
-            <label class="form-label label-lg" for="state">Dependência Administrativa</label>
-          </div>
-          <div class="col-6">
-            <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Selecione a Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg', disabled: true } %>
-          </div>
-        </div>
-
-        <div class="form-group school">
-          <div class="col-12">
-            <%= form.text_field :school, placeholder: 'Digite o nome da sua escola sem caracteres especiais. Ex: Flavia Dutra', id: 'school', disabled: true, data: { behavior: 'search' } %>
-          </div>
-        </div>
-
-        <div class="form-group float-right">
-          <%= form.submit 'Ir para o questionário', class: "btn btn-lg", id: 'button', disabled: true %>
-        </div>
-        <br/>
-      <% end %>
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="phone">Telefone da Escola</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :phone, class: "form-input", id: "phone" %>
+      </div>
     </div>
-  </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="phone">Telefone pessoal ou celular para contato</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :personal_phone, class: "form-input", id: "personal_phone" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Estado</label>
+      </div>
+      <div class="col-6">
+        <%= form.collection_select :state_id, @states, :id, :name, { prompt: 'Selecione o Estado' }, { id: 'state', class: 'form-select select-lg' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Cidade</label>
+      </div>
+      <div class="col-6">
+        <%= form.collection_select :city_name, @cities, :name, :name, { prompt: 'Selecione a Cidade' }, { id: 'city', class: 'form-select select-lg', disabled: true } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Dependência Administrativa</label>
+      </div>
+      <div class="col-6">
+        <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Selecione a Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg', disabled: true } %>
+      </div>
+    </div>
+
+    <div class="form-group school">
+      <div class="col-12">
+        <%= form.text_field :school, class: "form-input", placeholder: 'Digite o nome da sua escola sem caracteres especiais. Ex: Flavia Dutra', id: 'school', disabled: true, data: { behavior: 'search' } %>
+      </div>
+    </div>
+
+    <div class="form-group float-right">
+      <%= form.submit 'Ir para o questionário', class: "btn btn-lg", id: 'button', disabled: true %>
+    </div>
+    <br/>
+  <% end %>
 </div>
