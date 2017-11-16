@@ -2,6 +2,7 @@
 document.addEventListener("turbolinks:load", function() {
   $input = $("[data-behavior='search']");
   var options = {
+    adjustWidth: false,
     getValue: 'name',
     url: function(phrase) {
       return ('/search.json?state=' + state + '&city=' + cityName +
