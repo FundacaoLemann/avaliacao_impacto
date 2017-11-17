@@ -1,8 +1,5 @@
-var cityName = "";
-
 $(function() {
-  $("#city").on('blur', function() {
-    cityName = $("#city option:selected").text();
+  $("#city").on('focus', function() {
     $('#administration').removeAttr('disabled');
   });
 });

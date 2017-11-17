@@ -1,5 +1,6 @@
 var state = "";
 var stateName = "";
+var cityName = "";
 
 $(function() {
   $("#state").on('change', function() {
@@ -10,5 +11,9 @@ $(function() {
       method: 'GET'
     });
     $('#city').removeAttr('disabled');
+
+    setTimeout(function(){
+      cityName = $("#city option:selected").text();
+    }, 500);
   });
 });

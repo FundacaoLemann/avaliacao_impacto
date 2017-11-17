@@ -7,6 +7,7 @@ var cityUrl = "";
 
 $(function() {
   $("#administration").on('change', function() {
+    cityName = $("#city option:selected").text();
     administration = $("#administration").val();
     $('#school').removeAttr('disabled');
     deadline = "";
