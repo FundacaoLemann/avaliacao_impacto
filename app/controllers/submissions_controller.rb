@@ -15,6 +15,7 @@ class SubmissionsController < ApplicationController
   private
   def set_submission
     @submission = Submission.where(
+      form_name: params[:form_name],
       school_id: params[:school_id],
       submitter_phone: params[:submitter_phone]
     ).first
@@ -27,7 +28,7 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_fa_params
-    params.permit(:school_id, :submitter_phone, :response_id, :saved_at,
+    params.permit(:form_name, :school_id, :submitter_phone, :response_id, :saved_at,
       :modified_at, :submitted_at, :status)
   end
 end
