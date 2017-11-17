@@ -23,7 +23,7 @@ class SubmissionsController < ApplicationController
   def submission_params
     params.require(:submission).permit(:school_id, :status, :school_phone,
       :submitter_name, :submitter_email, :submitter_phone, :response_id,
-      :redirected_at, :saved_at, :modified_at, :submitted_at)
+      :redirected_at, :saved_at, :modified_at, :submitted_at, :form_name)
   end
 
   def submission_fa_params

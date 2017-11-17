@@ -1,9 +1,11 @@
 ActiveAdmin.register Submission do
   config.clear_action_items!
   filter :status, as: :select, collection: %w[redirected in_progress submitted]
+  filter :form_name, label: 'Questionário', as: :select, collection: %w[baseline follow_up]
 
   index do
     column 'Escola', :school
+    column 'Questionário', :form_name
     column :status
     column 'Telefone da escola', :school_phone
     column 'Nome do responsável', :submitter_name

@@ -1,10 +1,10 @@
 /*
  * easy-autocomplete
  * jQuery plugin for autocompletion
- * 
+ *
  * @author Łukasz Pawełczak (http://github.com/pawelczak)
  * @version 1.3.5
- * Copyright  License: 
+ * Copyright  License:
  */
 
 .easy-autocomplete {
@@ -316,5 +316,3 @@
   right: -4px;
   top: -8px;
 }
-
-/*# sourceMappingURL=easy-autocomplete.css.map */

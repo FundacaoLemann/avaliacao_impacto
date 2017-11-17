@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
   def index
-    @states = State.all
-    @cities = @states.first.cities.order(:name)
+    load_state_and_cities
+  end
+
+  def follow_up
+    load_state_and_cities
   end
 
   def search
@@ -17,5 +20,10 @@ class HomeController < ApplicationController
   private
   def state_name
     params[:state].blank? ? '' : State.find(params[:state]).name
+  end
+
+  def load_state_and_cities
+    @states = State.all
+    @cities = @states.first.cities.order(:name)
   end
 end
