@@ -5,8 +5,8 @@ document.addEventListener("turbolinks:load", function() {
     adjustWidth: false,
     getValue: 'name',
     url: function(phrase) {
-      return ('/search.json?state=' + state + '&city=' + cityName +
-      '&administration=' + administration + '&school=' + phrase);
+      return ('/search.json?city=' + city + '&administration=' + administration
+              + '&school=' + phrase);
     },
     listLocation: 'schools',
     list: {
