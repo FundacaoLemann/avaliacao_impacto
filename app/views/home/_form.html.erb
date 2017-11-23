@@ -1,0 +1,78 @@
+<div class="column col-6 col-xl-12 centered">
+  <%= form_with url: search_path, local: true, method: :get, html: { class: "form-horizontal"} do |form| %>
+    <%= form.hidden_field :school_id, id: "school_id" %>
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="name">Nome</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :name, class: "form-input", id: "name" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="email">Email</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :email, class: "form-input", id: "email" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="phone">Telefone da Escola</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :phone, class: "form-input", id: "phone" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label" for="phone">Telefone pessoal ou celular para contato</label>
+      </div>
+      <div class="col-6">
+        <%= form.text_field :personal_phone, class: "form-input", id: "personal_phone" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Estado</label>
+      </div>
+      <div class="col-6">
+        <%= form.collection_select :state_id, @states, :id, :name, { prompt: 'Selecione o Estado' }, { id: 'state', class: 'form-select select-lg' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Cidade</label>
+      </div>
+      <div class="col-6">
+        <%= form.collection_select :city_id, @cities, :ibge_code, :name, { prompt: 'Selecione a Cidade' }, { id: 'city', class: 'form-select select-lg', disabled: true } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-6">
+        <label class="form-label label-lg" for="state">Dependência Administrativa</label>
+      </div>
+      <div class="col-6">
+        <%= form.select :administration, options_for_select(School::ADMINISTRATIONS), { prompt: 'Selecione a Dependencia Administrativa' }, { id: 'administration', class: 'form-select select-lg', disabled: true } %>
+      </div>
+    </div>
+
+    <div class="form-group school">
+      <div class="col-12">
+        <%= form.text_field :school, class: "form-input", placeholder: 'Digite o nome da sua escola sem caracteres especiais. Ex: Flavia Dutra', id: 'school', disabled: true, data: { behavior: 'search' } %>
+      </div>
+    </div>
+
+    <div class="form-group float-right">
+      <%= form.submit 'Ir para o questionário', class: "btn btn-lg", id: 'button', disabled: true %>
+    </div>
+    <br/>
+  <% end %>
+</div>

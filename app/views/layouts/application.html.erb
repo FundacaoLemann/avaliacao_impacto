@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Acompanhamento de dados educacionais</title>
+    <%= yield :title %>
+
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -13,7 +14,14 @@
     <%= hidden_field_tag :follow_up_url, ENV['FOLLOW_UP_FORM_ASSEMBLY_URL'], id: 'follow_up_url' %>
     <div class="container">
       <div class="columns">
-        <%= yield %>
+        <div class="column col-12 text-center header">
+          <%= image_tag("logo") %>
+          <%= yield :description %>
+        </div>
+        <div class="column col-12 sub-header text-left text-justify">
+          <%= yield %>
+        </div>
+        <%= render 'form' %>
       </div>
     </div>
   </body>
