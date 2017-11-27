@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114124516) do
+ActiveRecord::Schema.define(version: 20171122142730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171114124516) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "state_id"
+    t.string "ibge_code"
     t.index ["name"], name: "index_cities_on_name"
     t.index ["state_id"], name: "index_cities_on_state_id"
   end

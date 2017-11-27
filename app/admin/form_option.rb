@@ -13,7 +13,7 @@ ActiveAdmin.register FormOption do
     column 'Questionário', :form_name
     column 'Seções habilitadas', :sections_to_show
     column 'Rede de ensino', :dependencia_desc
-    column :state_or_city
+    column 'Estado ou cidade', :name_state_or_city
     column 'Prazo de entrega', :deadline
     actions
   end
@@ -22,7 +22,7 @@ ActiveAdmin.register FormOption do
     inputs do
       input :form_name, as: :select, collection: %w[baseline follow_up], label: 'Questionário'
       input :dependencia_desc, as: :select, collection: %w[Estadual Municipal], label: 'Rede de ensino'
-      input :state_or_city, label: 'Estado ou municipio'
+      input :state_or_city, label: 'Código ibge do estado ou municipio'
       input :sections_to_show, as: :check_boxes, collection: %w[A B C D E F], label: 'Habilitar seções'
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
     end

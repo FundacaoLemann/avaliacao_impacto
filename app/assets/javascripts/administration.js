@@ -8,6 +8,7 @@ var cityUrl = "";
 $(function() {
   $("#administration").on('change', function() {
     cityName = $("#city option:selected").text();
+    city = $("#city").val();
     administration = $("#administration").val();
     $('#school').removeAttr('disabled');
     deadline = "";
@@ -35,12 +36,12 @@ function getFormOption(adm){
 function getStateUrl(){
   var stateUrl = '/admin/form_options.json?' +
                  'q%5Bform_name_eq%5D=baseline' +
-                 '&q%5Bstate_or_city_equals%5D=' + stateName +
+                 '&q%5Bstate_or_city_equals%5D=' + state +
                  '&q%5Bdependencia_desc_equals%5D=Estadual';
   if ($(".home.follow_up").length > 0) {
     stateUrl = '/admin/form_options.json?' +
                'q%5Bform_name_eq%5D=follow_up' +
-               '&q%5Bstate_or_city_equals%5D=' + stateName +
+               '&q%5Bstate_or_city_equals%5D=' + state +
                '&q%5Bdependencia_desc_equals%5D=Estadual';
   }
   return stateUrl;
@@ -50,12 +51,12 @@ function getStateUrl(){
 function getCityUrl(){
   var cityUrl = '/admin/form_options.json?' +
                 'q%5Bform_name%5D=baseline' +
-                '&q%5Bstate_or_city_equals%5D=' + cityName +
+                '&q%5Bstate_or_city_equals%5D=' + city +
                 '&q%5Bdependencia_desc_equals%5D=Municipal';
   if ($(".home.follow_up").length > 0) {
     cityUrl = '/admin/form_options.json?' +
               'q%5Bform_name%5D=baseline' +
-              '&q%5Bstate_or_city_equals%5D=' + cityName +
+              '&q%5Bstate_or_city_equals%5D=' + city +
               '&q%5Bdependencia_desc_equals%5D=Municipal';
   }
   return cityUrl;

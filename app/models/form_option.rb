@@ -22,4 +22,20 @@ class FormOption < ApplicationRecord
     end
     fa_params
   end
+
+  def name_state_or_city
+    state_or_city.length > 2 ? name_city : name_state
+  end
+
+  private
+
+  def name_city
+    city = City.find_by(ibge_code: state_or_city)
+    state_or_city << ' - ' << city.name unless city.nil?
+  end
+
+  def name_state
+    state = State.find_by(id: state_or_city)
+    state_or_city << ' - ' << state.name unless state.nil?
+  end
 end
