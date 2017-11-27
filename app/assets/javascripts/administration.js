@@ -26,6 +26,7 @@ function checkAllowedAdministrations() {
         attributes: {
           href: 'http://questionarioformar.fundacaolemann.org.br/fup6271',
           innerHTML: 'Ir para o questionário correto',
+          target: '_blank'
         }
       },
       icon: 'warning',
