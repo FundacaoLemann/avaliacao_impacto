@@ -8,7 +8,7 @@ class SubmissionsController < ApplicationController
   end
 
   def update
-    @submission.update(submission_fa_params)
+    @submission.update(submission_fa_params) if @submission
     head :ok
   end
 
@@ -16,9 +16,8 @@ class SubmissionsController < ApplicationController
   def set_submission
     @submission = Submission.where(
       form_name: params[:form_name],
-      school_id: params[:school_id],
-      submitter_phone: params[:submitter_phone]
-    ).first
+      school_id: params[:school_id]
+    ).last
   end
 
   def submission_params
@@ -28,7 +27,7 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_fa_params
-    params.permit(:form_name, :school_id, :submitter_phone, :response_id, :saved_at,
+    params.permit(:form_name, :school_id, :response_id, :saved_at,
       :modified_at, :submitted_at, :status)
   end
 end
