@@ -6,8 +6,8 @@ ActiveAdmin.register FormOption do
   end
 
   filter :form_name, label: 'Questionário', as: :select, collection: %w[baseline follow_up]
-  filter :dependencia_desc, label: 'Rede de ensino'
-  filter :state_or_city, label: 'Estado ou cidade'
+  filter :dependencia_desc, as: :select, collection: %w[Estadual Municipal Federal], label: 'Rede de ensino'
+  filter :state_or_city_cont, label: 'Código IBGE do Estado ou cidade'
 
   index do
     column 'Questionário', :form_name
