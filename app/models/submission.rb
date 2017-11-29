@@ -1,5 +1,11 @@
 class Submission < ApplicationRecord
   belongs_to :school
+  STATUSES = [
+    ['Não iniciado',''],
+    ['Iniciado', 'redirected'],
+    ['Em progresso','in_progress'],
+    ['Enviado', 'submitted']
+  ]
 
   def redirected_at_parsed
     DateTime.parse(redirected_at).strftime("%d/%m/%Y %H:%M") if redirected_at
