@@ -21,15 +21,19 @@ $(function() {
     // prefill personal phone
     tfa_86 = "&tfa_86=" + $("#personal_phone").val();
     // prefill secretaria
+    adm_for_submission = "";
     if(administration == 'Estadual'){
+      adm_for_submission = "Rede Estadual" + ' de ' + stateName;
       tfa_3710 = "&tfa_3710=Rede Estadual" + ' de ' + stateName;
       tfa_5734 = "&tfa_5734=Rede Estadual" + ' de ' + stateName;
     }else if (administration == 'Municipal'){
+      adm_for_submission = "Rede Municipal" + ' de ' + cityName;
       tfa_3710 = "&tfa_3710=Rede Municipal" + ' de ' + cityName;
       tfa_5734 = "&tfa_5734=Rede Municipal" + ' de ' + cityName;
     }else {
-      tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil"
-      tfa_5734 = "&tfa_5734=Rede Federal de Ensino do Brasil"
+      adm_for_submission = "Rede Federal de Ensino do Brasil";
+      tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil";
+      tfa_5734 = "&tfa_5734=Rede Federal de Ensino do Brasil";
     }
     // prefill deadline
     tfa_3713 = "";
@@ -63,7 +67,8 @@ function createSubmission(form) {
         submitter_name: $("#name").val(),
         submitter_email: $("#email").val(),
         submitter_phone: $("#personal_phone").val(),
-        redirected_at: new Date()
+        redirected_at: new Date(),
+        administration: adm_for_submission
       }
     },
     method: 'POST'

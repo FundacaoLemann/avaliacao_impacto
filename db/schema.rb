@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122142730) do
+ActiveRecord::Schema.define(version: 20171128183239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20171122142730) do
     t.string "modified_at"
     t.string "submitted_at"
     t.string "form_name"
+    t.string "administration"
     t.index ["school_id"], name: "index_submissions_on_school_id"
   end
 
