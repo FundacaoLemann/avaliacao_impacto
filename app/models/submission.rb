@@ -15,6 +15,7 @@ class Submission < ApplicationRecord
 
   private
   def parse_date(date)
+    return unless date
     month = date.slice!(0..2)
     date.insert(3,month)
   end
