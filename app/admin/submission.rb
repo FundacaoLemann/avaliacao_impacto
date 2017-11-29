@@ -10,12 +10,12 @@ ActiveAdmin.register Submission do
     column 'Questionário', :form_name
     column :status
     column 'Telefone da escola', :school_phone
-    column 'Nome do responsável', :submitter_name
-    column 'Email do responsável', :submitter_email
-    column 'Telefone do responsável', :submitter_phone
-    column 'Data de redirecionamento', :redirected_at
-    column 'Data de salvamento', :saved_at
-    column 'Data de submissão', :submitted_at
+    column 'Nome do gestor', :submitter_name
+    column 'Email do gestor', :submitter_email
+    column 'Telefone do gestor', :submitter_phone
+    column 'Data de redirecionamento', :redirected_at_parsed
+    column 'Data de salvamento', :saved_at_parsed
+    column 'Data de submissão', :submitted_at_parsed
   end
 
   controller do
