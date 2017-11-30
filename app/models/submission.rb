@@ -1,11 +1,16 @@
 class Submission < ApplicationRecord
   belongs_to :school
   STATUSES = [
-    ['Não iniciado',''],
     ['Iniciado', 'redirected'],
     ['Em progresso','in_progress'],
     ['Enviado', 'submitted']
   ]
+
+  STATUSES_HASH = {
+    redirected: 'Iniciado',
+    in_progress: 'Em progresso',
+    submitted: 'Enviado'
+  }
 
   def redirected_at_parsed
     DateTime.parse(redirected_at).strftime("%d/%m/%Y %H:%M") if redirected_at
@@ -17,6 +22,14 @@ class Submission < ApplicationRecord
 
   def submitted_at_parsed
     parse_date(submitted_at)
+  end
+
+  def sample_school?
+    School.find(school_id).sample
+  end
+
+  def parsed_status
+    STATUSES_HASH[status.to_sym]
   end
 
   private
