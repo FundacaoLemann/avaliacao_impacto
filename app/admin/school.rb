@@ -1,6 +1,7 @@
 ActiveAdmin.register School do
   menu label: 'Escolas'
   active_admin_import
+  batch_action :destroy, false
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
     :municipio, :unidade_federativa, :num_estudantes, :ano_censo, :sample
 
@@ -30,14 +31,14 @@ ActiveAdmin.register School do
     actions
   end
 
-  batch_action :adicionar_na_amostra do |ids|
+  batch_action :adicionar_na_amostra, confirm: "Confirme a ação" do |ids|
     batch_action_collection.find(ids).each do |school|
       school.update(sample: true)
     end
     redirect_to collection_path, alert: "As escolas foram inseridas na amostra"
   end
 
-  batch_action :remover_da_amostra do |ids|
+  batch_action :remover_da_amostra, confirm: "Confirme a ação" do |ids|
     batch_action_collection.find(ids).each do |school|
       school.update(sample: false)
     end
