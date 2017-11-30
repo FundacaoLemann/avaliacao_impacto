@@ -25,11 +25,6 @@ class School < ApplicationRecord
     where(sample: true, tp_dependencia_desc: 'Federal')
   }
 
-  def submission_status
-    submission = Submission.find_by_school_id(id)
-    submission.status if submission
-  end
-
   def to_s
     "#{inep} - #{name}"
   end

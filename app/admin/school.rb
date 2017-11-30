@@ -25,10 +25,19 @@ ActiveAdmin.register School do
     column 'Rede de ensino', :tp_dependencia_desc
     column :unidade_federativa
     column :municipio
-    column 'Código IBGE do municipio', :cod_municipio
-    column 'Amostra', :sample
-    column 'Status', :submission_status
-    actions
+    column 'Status' do |school|
+      school.submissions.first.parsed_status if school.submissions.any?
+    end
+    column 'Telefone da escola' do |school|
+      school.submissions.first.school_phone if school.submissions.any?
+    end
+    column 'Telefone do gestor' do |school|
+      school.submissions.first.submitter_phone if school.submissions.any?
+    end
+    column 'Nome do gestor' do |school|
+      school.submissions.first.submitter_name if school.submissions.any?
+    end
+
   end
 
   batch_action :adicionar_na_amostra, confirm: "Confirme a ação" do |ids|

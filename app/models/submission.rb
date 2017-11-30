@@ -2,13 +2,13 @@ class Submission < ApplicationRecord
   belongs_to :school
   STATUSES = [
     ['Iniciado', 'redirected'],
-    ['Em progresso','in_progress'],
+    ['Em progresso (salvo)','in_progress'],
     ['Enviado', 'submitted']
   ]
 
   STATUSES_HASH = {
     redirected: 'Iniciado',
-    in_progress: 'Em progresso',
+    in_progress: 'Em progresso (salvo)',
     submitted: 'Enviado'
   }
 
