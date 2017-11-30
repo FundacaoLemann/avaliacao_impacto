@@ -111,16 +111,4 @@ ActiveAdmin.register_page "Relatório Gerencial" do
       end
     end
   end
-  # School.on_sample_grouped_by_adm.each do |group|
-    # table_for group[1], class: 'index_table' do
-    #   column :id
-    #   column :inep
-    #   column 'Nome da escola', :name
-    #   column 'Rede de ensino', :tp_dependencia_desc
-    #   column :unidade_federativa
-    #   column :municipio
-    #   column 'Código IBGE do municipio', :cod_municipio
-    # end
-  # end
-
 end
