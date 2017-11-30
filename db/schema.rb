@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128183239) do
+ActiveRecord::Schema.define(version: 20171130115425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20171128183239) do
     t.integer "ano_censo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "sample", default: false
     t.index ["name"], name: "index_schools_on_name"
   end
 
