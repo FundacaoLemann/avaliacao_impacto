@@ -8,22 +8,20 @@ ActiveAdmin.register School do
   scope("Amostra") { |school| school.where(sample: true) }
   scope("Amostra e não iniciadas") { |school| school.where(sample: true).includes(:submissions).where(submissions: { school_id: nil }) }
 
-  filter :id_cont, label: 'id'
   filter :inep_cont, label: 'INEP'
   filter :name_cont, label: 'Nome'
   filter :tp_dependencia_desc, as: :select, collection: %w[Estadual Municipal Federal], label: 'Rede de ensino'
   filter :unidade_federativa_cont, label: 'Estado'
-  filter :municipio_cont, label: 'Cidade'
-  filter :cod_municipio_cont, label: 'Código IBGE'
-  filter :submissions_status, label: 'Status', as: :check_boxes, collection: Submission::STATUSES
+  filter :municipio_cont, label: 'Municipio'
+  filter :submissions_status, label: 'Status das escolas que já iniciaram', as: :check_boxes, collection: Submission::STATUSES
 
-  index title: 'Escolas' do
+  index title: 'Relatório detalhado' do
     selectable_column
-    id_column
+    column 'Amostra', :sample
     column :inep
     column 'Nome da escola', :name
     column 'Rede de ensino', :tp_dependencia_desc
-    column :unidade_federativa
+    column 'Estado', :unidade_federativa
     column :municipio
     column 'Status' do |school|
       school.submissions.first.parsed_status if school.submissions.any?
