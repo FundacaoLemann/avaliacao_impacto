@@ -1,5 +1,6 @@
 ActiveAdmin.register FormOption do
   permit_params :form_name, :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
+  menu label: "Opções do Questionário"
 
   before_save do |form_option|
     form_option.form_assembly_params = form_option.sections_to_form_assembly_params
@@ -9,7 +10,7 @@ ActiveAdmin.register FormOption do
   filter :dependencia_desc, as: :select, collection: %w[Estadual Municipal Federal], label: 'Rede de ensino'
   filter :state_or_city_cont, label: 'Código IBGE do Estado ou cidade'
 
-  index do
+  index title: 'Opções do Questionário' do
     column 'Questionário', :form_name
     column 'Seções habilitadas', :sections_to_show
     column 'Rede de ensino', :dependencia_desc
@@ -30,7 +31,5 @@ ActiveAdmin.register FormOption do
     actions
   end
 
-  controller do
-    skip_before_action :authenticate_active_admin_user
-  end
+
 end

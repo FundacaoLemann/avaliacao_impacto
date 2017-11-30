@@ -5,10 +5,12 @@ ActiveAdmin.register Submission do
   filter :administration, label: 'Rede de Ensino', as: :select, collection: proc { Submission.all.map(&:administration).uniq }
 
   index do
+    column :id
     column 'Escola', :school
     column 'Rede de Ensino', :administration
+    column 'Amostra', :sample_school?
     column 'Questionário', :form_name
-    column :status
+    column 'Status', :parsed_status
     column 'Telefone da escola', :school_phone
     column 'Nome do gestor', :submitter_name
     column 'Email do gestor', :submitter_email
