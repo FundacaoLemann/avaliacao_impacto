@@ -1,5 +1,5 @@
 ActiveAdmin.register School do
-  menu label: 'Escolas'
+  menu label: 'Relatório detalhado', priority: 0
   active_admin_import
   batch_action :destroy, false
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,

@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
-  menu label: "Usuários"
+  menu label: "Usuários", priority: 5
 
   index title: 'Usuários' do
     selectable_column

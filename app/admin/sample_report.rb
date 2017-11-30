@@ -1,4 +1,5 @@
-ActiveAdmin.register_page "Relatório de amostra" do
+ActiveAdmin.register_page "Relatório Gerencial" do
+  menu priority: 1
   content do
     table do
       thead do

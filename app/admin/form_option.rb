@@ -1,6 +1,6 @@
 ActiveAdmin.register FormOption do
   permit_params :form_name, :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
-  menu label: "Opções do Questionário"
+  menu label: "Opções do Questionário", priority: 4
 
   before_save do |form_option|
     form_option.form_assembly_params = form_option.sections_to_form_assembly_params
