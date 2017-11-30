@@ -86,12 +86,14 @@ ActiveAdmin.register_page "Relatório Gerencial" do
           end
         end
         # footer
+        school_count_on_sample = School.count_on_sample
+        submitted_schools_count_on_sample = School.count_by_status('submitted')
         tr do
           td do
             h4 b 'Total'
           end
           td do
-            h4 b School.count_on_sample
+            h4 b school_count_on_sample
           end
           td do
             h4 b School.count_by_status('redirected')
@@ -100,7 +102,10 @@ ActiveAdmin.register_page "Relatório Gerencial" do
             h4 b School.count_by_status('in_progress')
           end
           td do
-            h4 b School.count_by_status('submitted')
+            h4 b submitted_schools_count_on_sample
+          end
+          td do
+            h4 b calculate_submitted_percent(School.count_on_sample, submitted_schools_count_on_sample)
           end
         end
       end
