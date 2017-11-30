@@ -3,13 +3,13 @@ ActiveAdmin.register School do
   active_admin_import
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
     :municipio, :unidade_federativa, :num_estudantes, :ano_censo
-  filter :id
-  filter :inep
-  filter :name, label: 'Nome'
-  filter :tp_dependencia_desc, label: 'Rede de ensino'
-  filter :unidade_federativa, label: 'Estado'
-  filter :municipio, label: 'Cidade'
-  filter :cod_municipio, label: 'Código IBGE'
+  filter :id_cont, label: 'id'
+  filter :inep_cont, label: 'INEP'
+  filter :name_cont, label: 'Nome'
+  filter :tp_dependencia_desc, as: :select, collection: %w[Estadual Municipal Federal], label: 'Rede de ensino'
+  filter :unidade_federativa_cont, label: 'Estado'
+  filter :municipio_cont, label: 'Cidade'
+  filter :cod_municipio_cont, label: 'Código IBGE'
 
   index do
     column :id
