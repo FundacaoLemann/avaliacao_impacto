@@ -24,16 +24,16 @@ ActiveAdmin.register School do
     column 'Estado', :unidade_federativa
     column :municipio
     column 'Status' do |school|
-      school.submissions.first.parsed_status if school.submissions.any?
+      school.submissions.last.parsed_status if school.submissions.any?
     end
     column 'Telefone da escola' do |school|
-      school.submissions.first.school_phone if school.submissions.any?
+      school.submissions.last.school_phone if school.submissions.any?
     end
     column 'Telefone do gestor' do |school|
-      school.submissions.first.submitter_phone if school.submissions.any?
+      school.submissions.last.submitter_phone if school.submissions.any?
     end
     column 'Nome do gestor' do |school|
-      school.submissions.first.submitter_name if school.submissions.any?
+      school.submissions.last.submitter_name if school.submissions.any?
     end
 
   end
