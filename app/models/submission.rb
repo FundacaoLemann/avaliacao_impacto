@@ -33,7 +33,7 @@ class Submission < ApplicationRecord
   end
 
   def to_s
-    "#{school_id} - #{status}"
+    "#{id} #{school_id} - #{status}"
   end
 
   private
