@@ -15,3 +15,14 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+.status_tag.iniciado {
+  background: #3498db;
+}
+
+.status_tag.salvo {
+  background: #f1c40f;
+}
+
+.status_tag.enviado {
+  background: #2ecc71;
+}

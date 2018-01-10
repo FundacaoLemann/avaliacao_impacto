@@ -24,7 +24,10 @@ ActiveAdmin.register School do
     column 'Estado', :unidade_federativa
     column :municipio
     column 'Status' do |school|
-      school.submissions.last.parsed_status if school.submissions.any?
+      if school.submissions.any?
+        status = school.submissions.last.parsed_status
+        status_tag "#{status}", label: status
+      end
     end
     column 'Telefone da escola' do |school|
       school.submissions.last.school_phone if school.submissions.any?

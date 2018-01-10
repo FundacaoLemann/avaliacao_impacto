@@ -11,7 +11,10 @@ ActiveAdmin.register Submission do
     column 'Rede de Ensino', :administration
     column 'Amostra', :sample_school?
     column 'Questionário', :form_name
-    column 'Status', :parsed_status
+    column 'Status' do |submission|
+      status = submission.parsed_status
+      status_tag "#{status}", label: status
+     end
     column 'Telefone da escola', :school_phone
     column 'Nome do gestor', :submitter_name
     column 'Email do gestor', :submitter_email
