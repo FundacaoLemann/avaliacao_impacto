@@ -32,6 +32,10 @@ class Submission < ApplicationRecord
     STATUSES_HASH[status.to_sym]
   end
 
+  def to_s
+    "#{school_id} - #{status}"
+  end
+
   private
   def parse_date(date)
     return unless date
