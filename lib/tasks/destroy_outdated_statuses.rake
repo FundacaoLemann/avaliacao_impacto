@@ -40,7 +40,7 @@ namespace :db do
     if submissions.count > 1
       ['submitted', 'in_progress'].each do |status|
         puts "Removendo todos menos o status mais recente"
-        puts submissions.to_s
+        puts submissions.map(&:to_s)
         current_status = submissions.where(status: status)
         if current_status.any?
           puts " removendo todos menos o status: #{status}"
