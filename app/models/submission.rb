@@ -13,15 +13,15 @@ class Submission < ApplicationRecord
   }
 
   def redirected_at_parsed
-    DateTime.parse(redirected_at).strftime("%d/%m/%Y %H:%M") if redirected_at
+    parse_date_to_br_format(redirected_at)
   end
 
   def saved_at_parsed
-    parse_date(saved_at)
+    parse_date_to_br_format(saved_at)
   end
 
   def submitted_at_parsed
-    parse_date(submitted_at)
+    parse_date_to_br_format(submitted_at)
   end
 
   def sample_school?
@@ -37,9 +37,9 @@ class Submission < ApplicationRecord
   end
 
   private
-  def parse_date(date)
-    return unless date
-    month = date.slice!(0..2)
-    date.insert(3,month)
+  def parse_date_to_br_format(date)
+    DateTime.parse(date).strftime("%d/%m/%Y %H:%M")
+  rescue ArgumentError, TypeError
+    date
   end
 end
