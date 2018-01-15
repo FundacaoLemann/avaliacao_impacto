@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'state/:id', to: 'states#show'
   post 'submissions', to: 'submissions#create'
   get 'submissions', to: 'submissions#update'
+  get 'allowed_administrations', to: 'form_options#allowed_administrations'
 
   # active admin
   devise_for :admin_users, ActiveAdmin::Devise.config
