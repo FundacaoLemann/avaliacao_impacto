@@ -1,11 +1,22 @@
 $(function() {
   $("input[type=submit]").on('click', function(e) {
     e.preventDefault();
+    if (!isAdministrationAllowed()) {
+      swal({
+        title: 'Olá, a sua rede de ensino não está cadastrada',
+        text: 'Por favor, verifique se selecionou a rede corretamente. Caso tenha selecionado a rede corretamente, por favor, entre em contato com a equipe da Fundação Lemann no email formar@fundacaolemann.org.br',
+        icon: 'warning',
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        button: false
+      })
+      throw new Error("ForbiddenAdministration");
+    }
+
     baselineFormUrl = $("#baseline_url").val();
     followupFormUrl = $("#follow_up_url").val();
     // split id, inep and name from school
     id_inep_name = $("#school").val().split(' - ');
-
     // prefill id
     tfa_3707 = "&tfa_3707=" + $("#school_id").val();
     // prefill inep
@@ -45,7 +56,7 @@ $(function() {
       faParams = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
     }
 
-    if ($(".home.index").length > 0) {
+    if (formName == 'baseline') {
       createSubmission('baseline');
       openForm(baselineFormUrl);
     }else {
