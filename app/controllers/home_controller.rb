@@ -3,10 +3,6 @@ class HomeController < ApplicationController
     load_state_and_cities
   end
 
-  def follow_up
-    load_state_and_cities
-  end
-
   def search
     @q = School.ransack(
       name_cont: params[:school],

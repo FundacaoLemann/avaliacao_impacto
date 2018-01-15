@@ -4,6 +4,8 @@ var faParams = "";
 var deadline = "";
 var stateUrl = "";
 var cityUrl = "";
+var allowed_administrations = [];
+getAllowedAministrations();
 
 $(function() {
   $("#administration").on('change', function() {
@@ -17,18 +19,10 @@ $(function() {
 });
 
 function checkAllowedAdministrations() {
-  if (($(".home.index").length > 0) && !isAdministrationAllowed()) {
+  if (!isAdministrationAllowed()) {
     swal({
-      title: 'Olá, você está no link errado',
-      text: 'Não se preocupe. Para ler as instruções corretas e preencher o questionário da sua rede por favor clique no link abaixo.',
-      content: {
-        element: "a",
-        attributes: {
-          href: 'http://questionarioformar.fundacaolemann.org.br/fup6271',
-          innerHTML: 'Ir para o questionário correto',
-          target: '_blank'
-        }
-      },
+      title: 'Olá, a sua rede de ensino não está cadastrada',
+      text: 'Por favor, verifique se selecionou a rede corretamente. Caso tenha selecionado a rede corretamente, por favor, entre em contato com a equipe da Fundação Lemann no email formar@fundacaolemann.org.br',
       icon: 'warning',
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -36,21 +30,34 @@ function checkAllowedAdministrations() {
     })
   }else {
     $('#school').removeAttr('disabled');
-    getFormOption(administration);
+    getFormOption();
   }
 }
 
 function isAdministrationAllowed(){
-  // 3516309 - Francisco Morato | 2111300 - São Luís | 1100205 - Porto Velho
-  if((city == '3516309' || city == '2111300' || city == '1100205') && administration == 'Municipal'){
+  if (administration == 'Estadual' && allowed_administrations["state_allowed_administrations"].includes(state)){
+    return true;
+  }else if (administration == 'Municipal' && allowed_administrations["city_allowed_administrations"].includes(city)){
     return true;
   }
   return false;
 }
 
+function getAllowedAministrations(){
+  $.ajax({
+    url: '/allowed_administrations.json',
+    method: 'GET',
+    success: function(data){
+      allowed_administrations = data;
+    }
+  });
+}
+
 // get form assembly params and deadline from admin route
-function getFormOption(adm){
-  adminUrl = adm == 'Municipal' ? getCityUrl() : getStateUrl();
+function getFormOption(){
+  stateUrl = '/admin/form_options.json?' + 'q%5Bstate_or_city_equals%5D=' + state + '&q%5Bdependencia_desc_equals%5D=Estadual';
+  cityUrl = '/admin/form_options.json?' + 'q%5Bstate_or_city_equals%5D=' + city + '&q%5Bdependencia_desc_equals%5D=Municipal';
+  adminUrl = administration == 'Municipal' ? cityUrl : stateUrl;
   $.ajax({
     url: adminUrl,
     method: 'GET',
@@ -58,37 +65,8 @@ function getFormOption(adm){
       if(data[0]){
         deadline = data[0].deadline;
         faParams = data[0].form_assembly_params;
+        formName = data[0].form_name;
       }
     }
   });
-}
-
-// get state url based on the current route
-function getStateUrl(){
-  var stateUrl = '/admin/form_options.json?' +
-                 'q%5Bform_name_eq%5D=baseline' +
-                 '&q%5Bstate_or_city_equals%5D=' + state +
-                 '&q%5Bdependencia_desc_equals%5D=Estadual';
-  if ($(".home.follow_up").length > 0) {
-    stateUrl = '/admin/form_options.json?' +
-               'q%5Bform_name_eq%5D=follow_up' +
-               '&q%5Bstate_or_city_equals%5D=' + state +
-               '&q%5Bdependencia_desc_equals%5D=Estadual';
-  }
-  return stateUrl;
-}
-
-// get city url based on the current route
-function getCityUrl(){
-  var cityUrl = '/admin/form_options.json?' +
-                'q%5Bform_name%5D=baseline' +
-                '&q%5Bstate_or_city_equals%5D=' + city +
-                '&q%5Bdependencia_desc_equals%5D=Municipal';
-  if ($(".home.follow_up").length > 0) {
-    cityUrl = '/admin/form_options.json?' +
-              'q%5Bform_name%5D=baseline' +
-              '&q%5Bstate_or_city_equals%5D=' + city +
-              '&q%5Bdependencia_desc_equals%5D=Municipal';
-  }
-  return cityUrl;
 }
