@@ -32,6 +32,10 @@ class Submission < ApplicationRecord
     STATUSES_HASH[status.to_sym]
   end
 
+  def parsed_status_date
+    submitted_at_parsed || saved_at_parsed || redirected_at_parsed
+  end
+
   def to_s
     "#{id} #{school_id} - #{status}"
   end

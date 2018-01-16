@@ -25,8 +25,13 @@ ActiveAdmin.register School do
     column :municipio
     column 'Status' do |school|
       if school.submissions.any?
-        status = school.submissions.last.parsed_status
+        status = school.submissions.first.parsed_status
         status_tag "#{status}", label: status
+      end
+    end
+    column 'Data de atualização do último status' do |school|
+      if school.submissions.any?
+        school.submissions.first.parsed_status_date
       end
     end
     column 'Telefone da escola' do |school|
