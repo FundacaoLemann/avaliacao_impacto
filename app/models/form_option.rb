@@ -8,6 +8,22 @@ class FormOption < ApplicationRecord
     'F' => "tfa_2568=1"
   }.freeze
 
+  FORM_NAMES = [
+    ['Basline', 'baseline'],
+    ['Follow up','follow_up'],
+    ['Opção 3', 'option_three'],
+    ['Opção 4', 'option_four'],
+    ['Opção 5', 'option_five']
+  ]
+
+  FORM_NAMES_HASH = {
+    baseline: 'Baseline',
+    follow_up: 'Follow up',
+    option_three: 'Opção 3',
+    option_four: 'Opção 4',
+    option_five: 'Opção 5'
+  }
+
   # active admin related changes, can't put as private
   # remove extra blank item from active admin
   def sections_to_show=(items)
@@ -25,6 +41,10 @@ class FormOption < ApplicationRecord
 
   def name_state_or_city
     state_or_city.length > 2 ? name_city : name_state
+  end
+
+  def form_name_parsed
+    FORM_NAMES_HASH[form_name.to_sym]
   end
 
   private
