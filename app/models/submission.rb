@@ -36,6 +36,10 @@ class Submission < ApplicationRecord
     submitted_at_parsed || saved_at_parsed || redirected_at_parsed
   end
 
+  def parsed_form_name
+    FormOption::FORM_NAMES_HASH[form_name.to_sym] if form_name
+  end
+
   def to_s
     "#{id} #{school_id} - #{status}"
   end

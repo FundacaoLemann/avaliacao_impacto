@@ -6,12 +6,12 @@ ActiveAdmin.register FormOption do
     form_option.form_assembly_params = form_option.sections_to_form_assembly_params
   end
 
-  filter :form_name, label: 'Questionário', as: :select, collection: %w[baseline follow_up]
+  filter :form_name, label: 'Questionário', as: :select, collection: FormOption::FORM_NAMES
   filter :dependencia_desc, as: :select, collection: %w[Estadual Municipal Federal], label: 'Rede de ensino'
   filter :state_or_city_cont, label: 'Código IBGE do Estado ou cidade'
 
   index title: 'Opções do Questionário' do
-    column 'Questionário', :form_name
+    column 'Questionário', :form_name_parsed
     column 'Seções habilitadas', :sections_to_show
     column 'Rede de ensino', :dependencia_desc
     column 'Estado ou cidade', :name_state_or_city
@@ -21,7 +21,7 @@ ActiveAdmin.register FormOption do
 
   form title: 'Inserir opções de seções por rede de ensino' do |f|
     inputs do
-      input :form_name, as: :select, collection: %w[baseline follow_up], label: 'Questionário'
+      input :form_name, as: :select, collection: FormOption::FORM_NAMES, label: 'Questionário'
       input :dependencia_desc, as: :select, collection: %w[Estadual Municipal], label: 'Rede de ensino'
       input :state_or_city, label: 'Código ibge do estado ou municipio'
       input :sections_to_show, as: :check_boxes, collection: %w[A B C D E F], label: 'Habilitar seções'

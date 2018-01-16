@@ -1,3 +1,4 @@
+var formUrls = {};
 $(function() {
   $("input[type=submit]").on('click', function(e) {
     e.preventDefault();
@@ -12,9 +13,6 @@ $(function() {
       })
       throw new Error("ForbiddenAdministration");
     }
-
-    baselineFormUrl = $("#baseline_url").val();
-    followupFormUrl = $("#follow_up_url").val();
     // split id, inep and name from school
     id_inep_name = $("#school").val().split(' - ');
     // prefill id
@@ -46,6 +44,7 @@ $(function() {
       tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil";
       tfa_5734 = "&tfa_5734=Rede Federal de Ensino do Brasil";
     }
+
     // prefill deadline
     tfa_3713 = "";
     if(deadline){
@@ -56,13 +55,16 @@ $(function() {
       faParams = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&";
     }
 
-    if (formName == 'baseline') {
-      createSubmission('baseline');
-      openForm(baselineFormUrl);
-    }else {
-      createSubmission('follow_up');
-      openForm(followupFormUrl);
-    }
+    formUrls = {
+      baseline:     $("#baseline_url").val(),
+      follow_up:    $("#follow_up_url").val(),
+      option_three: $("#option_three_url").val(),
+      option_four:  $("#option_four_url").val(),
+      option_five:  $("#option_five_url").val()
+    };
+
+    createSubmission(formName);
+    openForm(formName);
   });
 });
 
@@ -86,8 +88,9 @@ function createSubmission(form) {
   });
 }
 
-function openForm(form_url) {
-  window.open(form_url + faParams + tfa_3707 + tfa_7 + tfa_5 + tfa_3719 +
+function openForm(formName) {
+  formUrl = formUrls[formName];
+  window.open(formUrl + faParams + tfa_3707 + tfa_7 + tfa_5 + tfa_3719 +
               tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3713 +
               tfa_5734);
 }
