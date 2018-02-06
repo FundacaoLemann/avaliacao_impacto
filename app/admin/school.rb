@@ -5,6 +5,8 @@ ActiveAdmin.register School do
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
     :municipio, :unidade_federativa, :num_estudantes, :ano_censo, :sample
 
+  breadcrumb do
+  end
   scope("Amostra") { |school| school.where(sample: true) }
   scope("Amostra e não iniciadas") { |school| school.where(sample: true).includes(:submissions).where(submissions: { school_id: nil }) }
 
