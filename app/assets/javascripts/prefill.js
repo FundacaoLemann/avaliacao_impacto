@@ -5,11 +5,10 @@ $(function() {
     if (!isAdministrationAllowed()) {
       swal({
         title: 'Olá, a sua rede de ensino não está cadastrada',
-        text: 'Por favor, verifique se selecionou a rede corretamente. Caso tenha selecionado a rede corretamente, por favor, entre em contato com a equipe da Fundação Lemann no email formar@fundacaolemann.org.br',
-        icon: 'warning',
-        closeOnClickOutside: false,
-        closeOnEsc: false,
-        button: false
+        text: 'Por favor, verifique se selecionou a rede corretamente.\
+          Caso tenha selecionado a rede corretamente, por favor, entre em\
+          contato com a equipe da Fundação Lemann no email formar@fundacaolemann.org.br',
+        icon: 'warning'
       })
       throw new Error("ForbiddenAdministration");
     }
