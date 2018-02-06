@@ -1,5 +1,7 @@
 ActiveAdmin.register_page "Relatório Gerencial" do
   menu priority: 1
+  breadcrumb do
+  end
   content do
     table do
       thead do

@@ -1,8 +1,11 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
-  menu label: "Usuários", priority: 5
+  menu priority: 5
+  config.batch_actions = false
+  breadcrumb do
+  end
 
-  index title: 'Usuários' do
+  index do
     selectable_column
     id_column
     column :email

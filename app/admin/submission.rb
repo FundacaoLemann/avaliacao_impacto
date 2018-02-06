@@ -1,6 +1,9 @@
 ActiveAdmin.register Submission do
   config.clear_action_items!
   menu priority: 4
+  config.batch_actions = false
+  breadcrumb do
+  end
   filter :status, as: :check_boxes, collection: Submission::STATUSES
   filter :form_name, label: 'Questionário', as: :select, collection: FormOption::FORM_NAMES
   filter :administration, label: 'Rede de Ensino', as: :select, collection: proc { Submission.all.map(&:administration).uniq }
