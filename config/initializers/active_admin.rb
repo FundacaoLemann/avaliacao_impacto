@@ -1,9 +1,4 @@
 ActiveAdmin.setup do |config|
-  # == Site Title
-  #
-  # Set the title that is displayed on the main layout
-  # for each of the active admin pages.
-  #
   config.site_title = "Sistema Preditores"
 
   # Set the link url for the title. For example, to take
@@ -113,12 +108,6 @@ ActiveAdmin.setup do |config|
   #
   # Default:
   # config.root_to = 'dashboard#index'
-
-  # == Admin Comments
-  #
-  # This allows your users to comment on any resource registered with Active Admin.
-  #
-  # You can completely disable comments:
   config.comments = false
   #
   # You can change the name under which comments are registered:
@@ -134,10 +123,6 @@ ActiveAdmin.setup do |config|
   # You can customize the comment menu:
   # config.comments_menu = { parent: 'Admin', priority: 1 }
 
-  # == Batch Actions
-  #
-  # Enable and disable Batch Actions
-  #
   config.batch_actions = true
 
   # == Controller Filters
@@ -251,17 +236,6 @@ ActiveAdmin.setup do |config|
   #
   #   end
 
-  # == Pagination
-  #
-  # Pagination is enabled by default for all resources.
-  # You can control the default per page count for all resources here.
-  #
-  # config.default_per_page = 30
-  #
-  # You can control the max per page count too.
-  #
-  # config.max_per_page = 10_000
-
   # == Filters
   #
   # By default the index screen includes a "Filters" sidebar on the right
@@ -283,11 +257,4 @@ ActiveAdmin.setup do |config|
   # override the content of the footer here.
   #
   # config.footer = 'my custom footer text'
-
-  # == Sorting
-  #
-  # By default ActiveAdmin::OrderClause is used for sorting logic
-  # You can inherit it with own class and inject it for all resources
-  #
-  # config.order_clause = MyOrderClause
 end

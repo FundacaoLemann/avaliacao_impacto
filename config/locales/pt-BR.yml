@@ -1,6 +1,22 @@
 ---
 pt-BR:
   activerecord:
+    attributes:
+      admin_user:
+        admin: Admin
+        service_manager: Gestor de Atendimento
+        service_analyst: Analista de Atendimento
+        lemann: Fundação Lemann
+      form_option:
+        baseline: Baseline
+        follow_up: Follow Up
+        option_three: Opção 3
+        option_four: Opção 4
+        option_five: Opção 5
+      submission:
+        redirected: Iniciado
+        in_progress: Salvo
+        submitted: Enviado
     models:
       school:
         one: Escola
@@ -117,6 +133,7 @@ pt-BR:
       year: Ano
   errors:
     format: "%{attribute} %{message}"
+    unauthorized: Você não tem permissão para acessar esta página
     messages:
       accepted: deve ser aceito
       blank: não pode ficar em branco
