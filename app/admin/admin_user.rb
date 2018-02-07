@@ -1,4 +1,5 @@
 ActiveAdmin.register AdminUser do
+  menu label: 'Usuários', priority: 5, if: -> { current_admin_user.sub_admin? }
   permit_params :email, :password, :password_confirmation, :role
   menu priority: 5
   config.batch_actions = false
@@ -32,4 +33,12 @@ ActiveAdmin.register AdminUser do
     f.actions
   end
 
+  controller do
+    before_action :check_auth
+
+    def check_auth
+      return if current_admin_user.sub_admin?
+      redirect_to admin_root_path, notice: (I18n.t 'errors.unauthorized')
+    end
+  end
 end

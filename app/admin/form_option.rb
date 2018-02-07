@@ -1,4 +1,5 @@
 ActiveAdmin.register FormOption do
+  menu label: "Opções do Questionário", priority: 4, if: -> { current_admin_user.admin? }
   permit_params :form_name, :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
   menu priority: 4
   config.batch_actions = false
@@ -34,6 +35,13 @@ ActiveAdmin.register FormOption do
   end
 
   controller do
-    skip_before_action :authenticate_active_admin_user
+    # this skip is for the search action on administration.js
+    skip_before_action :authenticate_active_admin_user, if: -> { request.format.json? }
+    before_action(only: :index) { check_auth }
+
+    def check_auth
+      return if current_admin_user.admin?
+      redirect_to admin_root_path, notice: (I18n.t 'errors.unauthorized')
+    end
   end
 end

@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "Relatório Gerencial" do
-  menu priority: 1
+  menu priority: 1, if: -> { current_admin_user.sub_admin? }
   breadcrumb do
   end
   content do
@@ -111,6 +111,15 @@ ActiveAdmin.register_page "Relatório Gerencial" do
           end
         end
       end
+    end
+  end
+
+  controller do
+    before_action :check_auth
+
+    def check_auth
+      return if current_admin_user.sub_admin?
+      redirect_to admin_root_path, notice: (I18n.t 'errors.unauthorized')
     end
   end
 end

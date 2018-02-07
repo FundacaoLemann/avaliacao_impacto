@@ -123,6 +123,7 @@ pt-BR:
       year: Ano
   errors:
     format: "%{attribute} %{message}"
+    unauthorized: Você não tem permissão para acessar esta página
     messages:
       accepted: deve ser aceito
       blank: não pode ficar em branco

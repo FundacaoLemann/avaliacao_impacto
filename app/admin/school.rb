@@ -1,5 +1,5 @@
 ActiveAdmin.register School do
-  menu label: 'Relatório detalhado', priority: 0
+  menu label: 'Relatório detalhado', priority: 0, if: -> { current_admin_user.sub_admin? }
   active_admin_import
   batch_action :destroy, false
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
@@ -63,8 +63,15 @@ ActiveAdmin.register School do
   end
 
   controller do
+    before_action :check_auth
+
     def scoped_collection
       super.includes :submissions
+    end
+
+    def check_auth
+      return if current_admin_user.sub_admin?
+      redirect_to admin_root_path, notice: (I18n.t 'errors.unauthorized')
     end
   end
 end
