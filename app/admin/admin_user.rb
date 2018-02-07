@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu label: 'Usuários', priority: 5, if: -> { current_admin_user.sub_admin? }
+  menu priority: 5, if: -> { current_admin_user.sub_admin? }
   permit_params :email, :password, :password_confirmation, :role
   menu priority: 5
   config.batch_actions = false

@@ -15,7 +15,7 @@ ActiveAdmin.register School do
   filter :tp_dependencia_desc, as: :select, collection: %w[Estadual Municipal Federal], label: 'Rede de ensino'
   filter :unidade_federativa_cont, label: 'Estado'
   filter :municipio_cont, label: 'Municipio'
-  filter :submissions_status, label: 'Status das escolas que já iniciaram', as: :check_boxes, collection: Submission::STATUSES
+  filter :submissions_status, label: 'Status das escolas que já iniciaram', as: :check_boxes, collection: Submission.statuses_for_select
 
   index title: 'Relatório detalhado' do
     selectable_column
@@ -27,7 +27,7 @@ ActiveAdmin.register School do
     column :municipio
     column 'Status' do |school|
       if school.submissions.any?
-        status = school.submissions.first.parsed_status
+        status = Submission.human_attribute_name(school.submissions.first.status)
         status_tag "#{status}", label: status
       end
     end
@@ -45,7 +45,6 @@ ActiveAdmin.register School do
     column 'Nome do gestor' do |school|
       school.submissions.last.submitter_name if school.submissions.any?
     end
-
   end
 
   batch_action :adicionar_na_amostra, confirm: "Confirme a ação" do |ids|

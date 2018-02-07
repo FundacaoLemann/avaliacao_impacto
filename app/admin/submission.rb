@@ -5,8 +5,8 @@ ActiveAdmin.register Submission do
   breadcrumb do
   end
 
-  filter :status, as: :check_boxes, collection: Submission::STATUSES
-  filter :form_name, label: 'Questionário', as: :select, collection: FormOption::FORM_NAMES
+  filter :status, as: :check_boxes, collection: Submission.statuses_for_select
+  filter :form_name, label: 'Questionário', as: :select, collection: FormOption.form_names_for_select
   filter :administration, label: 'Rede de Ensino', as: :select, collection: proc { Submission.all.map(&:administration).uniq }
 
   index do
@@ -14,9 +14,11 @@ ActiveAdmin.register Submission do
     column 'Escola', :school
     column 'Rede de Ensino', :administration
     column 'Amostra', :sample_school?
-    column 'Questionário', :parsed_form_name
+    column 'Questionário' do |submission|
+      FormOption.human_attribute_name(submission.form_name) if submission.form_name?
+    end
     column 'Status' do |submission|
-      status = submission.parsed_status
+      status = Submission.human_attribute_name(submission.status)
       status_tag "#{status}", label: status
      end
     column 'Telefone da escola', :school_phone

@@ -30,23 +30,18 @@ Editar os seguintes arquivos:
 
   Adicionar uma entrada nas estruturas
   ```
-  FORM_NAMES = [
-    ['Basline', 'baseline'],
-    ['Follow up','follow_up'],
-    ['Opção 3', 'option_three'],
-    ['Opção 4', 'option_four'],
-    ['Opção 5', 'option_five'],
-    ['Nome do Questionário', 'nome_do_questionario']
-  ]
+  FORM_NAMES = [:baseline, :follow_up, :option_three, :option_four, :option_five, :nome_do_questionario]
 
-  FORM_NAMES_HASH = {
-    baseline: 'Baseline',
-    follow_up: 'Follow up',
-    option_three: 'Opção 3',
-    option_four: 'Opção 4',
-    option_five: 'Opção 5',
-    nome_do_questionario: 'Nome do Questionário'
-  }
+  pt-BR:
+    activerecord:
+      attributes:
+        form_option:
+          baseline: Baseline
+          follow_up: Follow Up
+          option_three: Opção 3
+          option_four: Opção 4
+          option_five: Opção 5
+          nome_do_questionario: Nome do Questionário
   ```
   Essas estruturas servem apenas para diferenciar os valores que irão/estão no banco de dados e os valores que serão mostrados nas views. Normalmente inserimos no banco valores em inglês e fazemos um parseamento para a língua e formatação desejada.
 
