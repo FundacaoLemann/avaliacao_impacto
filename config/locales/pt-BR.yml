@@ -1,6 +1,12 @@
 ---
 pt-BR:
   activerecord:
+    attributes:
+      admin_user:
+        admin: Admin
+        service_manager: Gestor de Atendimento
+        service_analyst: Analista de Atendimento
+        lemann: Fundação Lemann
     models:
       school:
         one: Escola
