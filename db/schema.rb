@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209124745) do
+ActiveRecord::Schema.define(version: 20180209130657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,19 @@ ActiveRecord::Schema.define(version: 20180209124745) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_states_on_name"
+  end
+
+  create_table "strata", force: :cascade do |t|
+    t.string "name"
+    t.string "administration"
+    t.string "phase"
+    t.integer "size"
+    t.integer "sample_size"
+    t.string "school"
+    t.integer "school_sequence"
+    t.string "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "submissions", force: :cascade do |t|
