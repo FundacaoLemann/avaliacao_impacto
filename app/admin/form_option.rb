@@ -1,7 +1,6 @@
 ActiveAdmin.register FormOption do
   menu priority: 4, if: -> { current_admin_user.admin? }
   permit_params :form_name, :dependencia_desc, :state_or_city, :deadline, {sections_to_show: []}
-  menu priority: 4
   config.batch_actions = false
   breadcrumb do
   end
