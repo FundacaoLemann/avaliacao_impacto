@@ -12,14 +12,14 @@ $(function() {
       })
       throw new Error("ForbiddenAdministration");
     }
-    // split id, inep and name from school
-    id_inep_name = $("#school").val().split(' - ');
+    // split inep and name from school
+    inep_and_name = $("#school").val().split(' | ');
     // prefill id
     tfa_3707 = "&tfa_3707=" + $("#school_id").val();
     // prefill inep
-    tfa_5 = "&tfa_5=" + id_inep_name[0];
+    tfa_5 = "&tfa_5=" + inep_and_name[0];
     // prefill school name
-    tfa_7 = "&tfa_7=" + id_inep_name[1];
+    tfa_7 = "&tfa_7=" + inep_and_name[1];
     // prefill person name
     tfa_3719 = "&tfa_3719=" + $("#name").val();
     // prefill person email
