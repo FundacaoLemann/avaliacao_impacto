@@ -1,0 +1,19 @@
+branch-defaults:
+  master:
+    environment: production
+environment-defaults:
+  production:
+    branch: null
+    repository: null
+global:
+  application_name: sistema-preditores
+  default_ec2_keyname: preditores
+  default_platform: Ruby 2.4 (Puma)
+  default_region: us-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: git
+  workspace_type: Application
