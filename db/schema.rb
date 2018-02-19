@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206164522) do
+ActiveRecord::Schema.define(version: 20180209130657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema.define(version: 20180206164522) do
     t.string "ibge_code"
     t.index ["name"], name: "index_cities_on_name"
     t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
+  create_table "collects", force: :cascade do |t|
+    t.string "name"
+    t.string "phase"
+    t.text "administrations", default: [], array: true
+    t.string "form"
+    t.text "form_sections", default: [], array: true
+    t.string "form_assembly_params"
+    t.datetime "deadline"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "form_options", force: :cascade do |t|
@@ -76,6 +88,19 @@ ActiveRecord::Schema.define(version: 20180206164522) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_states_on_name"
+  end
+
+  create_table "strata", force: :cascade do |t|
+    t.string "name"
+    t.string "administration"
+    t.string "phase"
+    t.integer "size"
+    t.integer "sample_size"
+    t.string "school"
+    t.integer "school_sequence"
+    t.string "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "submissions", force: :cascade do |t|

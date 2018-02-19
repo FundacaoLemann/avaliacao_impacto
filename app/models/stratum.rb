@@ -1,0 +1,2 @@
+class Stratum < ApplicationRecord
+end
