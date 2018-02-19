@@ -27,6 +27,15 @@ pt-BR:
         parsed_form_sections: Seções do Questionário
         form_sections: Seções do Questionário
         deadline: Prazo
+      stratum:
+        name: Nome
+        administration: Rede de ensino
+        phase: Período
+        size: Tamanho do estrato
+        sample_size: Tamanho da mostra
+        school: INEP da escola
+        school_sequence: Sequência da escola
+        group: Grupo
     models:
       school:
         one: Escola
