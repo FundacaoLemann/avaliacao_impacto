@@ -17,6 +17,16 @@ pt-BR:
         redirected: Iniciado
         in_progress: Salvo
         submitted: Enviado
+      collect:
+        name: Nome
+        phase: Período
+        parsed_administrations: Redes de ensino
+        administrations: Redes de ensino
+        administrations_raw: Redes de ensino
+        form: Nome do Questionário
+        parsed_form_sections: Seções do Questionário
+        form_sections: Seções do Questionário
+        deadline: Prazo
     models:
       school:
         one: Escola
@@ -26,6 +36,12 @@ pt-BR:
       admin_user:
         one: Usuário
         other: Usuários
+      collect:
+        one: Coleta
+        other: Coletas
+      stratum:
+        one: Estrato
+        other: Estratos
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
