@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209130657) do
+ActiveRecord::Schema.define(version: 20180220124206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20180209130657) do
     t.datetime "updated_at", null: false
     t.string "deadline"
     t.string "form_name"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "link", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_forms_on_name"
   end
 
   create_table "schools", force: :cascade do |t|

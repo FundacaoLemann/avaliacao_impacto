@@ -36,6 +36,8 @@ pt-BR:
         school: INEP da escola
         school_sequence: Sequência da escola
         group: Grupo
+      form:
+        name: Nome
     models:
       school:
         one: Escola
@@ -51,6 +53,9 @@ pt-BR:
       stratum:
         one: Estrato
         other: Estratos
+      form:
+        one: Formulário
+        other: Formulários
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
