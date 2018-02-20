@@ -8,7 +8,8 @@ ActiveAdmin.register Collect do
 
   filter :name_cont, label: 'Nome'
   filter :phase_cont, label: 'Período'
-  filter :form_cont, label: 'Nome do Questionário'
+  filter :form_id, label: 'Questionário', as: :select,
+    collection: Form.all
 
   index do
     column :name
@@ -16,7 +17,9 @@ ActiveAdmin.register Collect do
     column :parsed_administrations do |collect|
       raw collect.parsed_administrations
     end
-    column :form
+    column :form do |collect|
+      collect.form.name
+    end
     column :parsed_form_sections
     column :deadline
     actions
@@ -27,7 +30,7 @@ ActiveAdmin.register Collect do
       input :name
       input :phase
       input :administrations_raw, as: :text
-      input :form
+      input :form_id, label: 'Formulário', as: :select, collection: Form.all.map { |form| ["#{form.name}", form.id] }
       input :form_sections, as: :check_boxes, collection: %w[A B C D E F]
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
     end

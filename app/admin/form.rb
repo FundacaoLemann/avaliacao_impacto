@@ -5,8 +5,7 @@ ActiveAdmin.register Form do
   breadcrumb do
   end
 
-  filter :name_cont, label: 'Nome do Formulário'
-  filter :link_cont
+  filter :name_cont, label: 'Nome do Questionário'
 
   controller do
     before_action :check_auth

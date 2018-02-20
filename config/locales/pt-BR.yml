@@ -54,8 +54,8 @@ pt-BR:
         one: Estrato
         other: Estratos
       form:
-        one: Formulário
-        other: Formulários
+        one: Questionário
+        other: Questionários
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

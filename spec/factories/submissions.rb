@@ -1,4 +1,3 @@
-require 'ffaker'
 FactoryGirl.define do
   factory :submission do
     school 1

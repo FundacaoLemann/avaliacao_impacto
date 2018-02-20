@@ -1,4 +1,5 @@
 class Collect < ApplicationRecord
+  belongs_to :form
   attr_accessor :administrations_raw
 
   def administrations_raw=(items)
