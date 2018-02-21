@@ -1,28 +1,28 @@
-cod_uf,nome_uf
-11,Rondônia
-12,Acre
-13,Amazonas
-14,Roraima
-15,Pará
-16,Amapá
-17,Tocantins
-21,Maranhão
-22,Piauí
-23,Ceará
-24,Rio Grande do Norte
-25,Paraíba
-26,Pernambuco
-27,Alagoas
-28,Sergipe
-29,Bahia
-31,Minas Gerais
-32,Espírito Santo
-33,Rio de Janeiro
-35,São Paulo
-41,Paraná
-42,Santa Catarina
-43,Rio Grande do Sul
-50,Mato Grosso do Sul
-51,Mato Grosso
-52,Goiás
-53,Distrito Federal
+cod_uf,nome_uf, acronym
+11,Rondônia, RO
+12,Acre, AC
+13,Amazonas, AM
+14,Roraima, RR
+15,Pará, PA
+16,Amapá, AM
+17,Tocantins, TO
+21,Maranhão, MA
+22,Piauí, PI
+23,Ceará, CE
+24,Rio Grande do Norte, RN
+25,Paraíba, PB
+26,Pernambuco, PE
+27,Alagoas, AL
+28,Sergipe, SE
+29,Bahia, BA
+31,Minas Gerais, MG
+32,Espírito Santo, ES
+33,Rio de Janeiro, RJ
+35,São Paulo, SP
+41,Paraná, PR
+42,Santa Catarina, SC
+43,Rio Grande do Sul, RS
+50,Mato Grosso do Sul, MS
+51,Mato Grosso, MT
+52,Goiás, GO
+53,Distrito Federal, DF
