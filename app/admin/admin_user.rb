@@ -26,8 +26,7 @@ ActiveAdmin.register AdminUser do
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :role, as: :select,
-        collection: AdminUser.roles.collect { |k| [AdminUser.human_attribute_name(k), k] }
+      f.input :role, as: :select, collection: AdminUser.roles.collect { |k, _| [AdminUser.human_attribute_name(k), k] }
     end
     f.actions
   end
