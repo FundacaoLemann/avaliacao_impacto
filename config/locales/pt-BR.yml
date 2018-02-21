@@ -27,6 +27,10 @@ pt-BR:
         parsed_form_sections: Seções do Questionário
         form_sections: Seções do Questionário
         deadline: Prazo
+        created: criada
+        in_progress: em progresso
+        paused: em pausa
+        archived: arquivada
       stratum:
         name: Nome
         administration: Rede de ensino

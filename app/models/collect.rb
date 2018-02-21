@@ -1,6 +1,8 @@
 class Collect < ApplicationRecord
   belongs_to :form
-  attr_accessor :administrations_raw
+  enum status: [:created, :in_progress, :paused, :archived]
+  attribute :administrations_raw
+  validates :name, :administrations_raw, :form_id, :deadline, presence: true
 
   def administrations_raw=(items)
     self.administrations = items.split("\r\n")
