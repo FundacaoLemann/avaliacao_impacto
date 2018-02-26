@@ -1,5 +1,5 @@
 ActiveAdmin.register Form do
-  menu priority: 9, if: -> { current_admin_user.admin? }
+  menu priority: 6, if: -> { current_admin_user.admin? }
   permit_params :name, :link
   config.batch_actions = false
   breadcrumb do

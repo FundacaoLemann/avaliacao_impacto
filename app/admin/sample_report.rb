@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "Relatório Gerencial" do
-  menu priority: 1, if: -> { current_admin_user.sub_admin? }
+  menu priority: 3, if: -> { current_admin_user.sub_admin? }
   breadcrumb do
   end
   content do
