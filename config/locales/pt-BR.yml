@@ -20,10 +20,7 @@ pt-BR:
       collect:
         name: Nome
         phase: Período
-        parsed_administrations: Redes de ensino
-        administrations: Redes de ensino
-        administrations_raw: Redes de ensino
-        form: Nome do Questionário
+        form: Questionário
         parsed_form_sections: Seções do Questionário
         form_sections: Seções do Questionário
         deadline: Prazo
@@ -31,6 +28,7 @@ pt-BR:
         in_progress: em progresso
         paused: em pausa
         archived: arquivada
+        administration_ids: Redes de ensino
       stratum:
         name: Nome
         administration: Rede de ensino
@@ -42,6 +40,12 @@ pt-BR:
         group: Grupo
       form:
         name: Nome
+      administration:
+        name: Descrição
+        adm: Tipo
+        state_id: Estado
+        city_id: Cidade
+        preposition: Preposição
     models:
       school:
         one: Escola
@@ -60,6 +64,9 @@ pt-BR:
       form:
         one: Questionário
         other: Questionários
+      administration:
+        one: Rede de Ensino
+        other: Redes de Ensino
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
