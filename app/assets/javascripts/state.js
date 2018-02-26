@@ -3,7 +3,7 @@ var stateName = "";
 
 $(function() {
   $("#state").on('change', function() {
-    state = $("#state").val();
+    state = parseInt($("#state").val());
     stateName = $("#state option:selected").text();
     $.ajax({
       url: '/state/' + state,

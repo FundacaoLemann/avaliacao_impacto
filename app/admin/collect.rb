@@ -6,6 +6,10 @@ ActiveAdmin.register Collect do
   breadcrumb do
   end
 
+  before_save do |collect|
+    collect.form_assembly_params = collect.sections_to_form_assembly_params
+  end
+
   filter :name_cont, label: 'Nome'
   filter :status, label: 'Status', as: :check_boxes,
     collection: Collect.statuses.collect { |k,v| [Collect.human_attribute_name(k), v]}
@@ -37,7 +41,7 @@ ActiveAdmin.register Collect do
       input :administration_ids, as: :select, collection: Administration.all.order(:name), multiple: true, input_html: { size: 20 }
       input :status, as: :select, collection: Collect.statuses.collect { |k, _| [Collect.human_attribute_name(k), k] }
       input :form_id, label: 'Formulário', as: :select, collection: Form.all.map { |form| ["#{form.name}", form.id] }
-      input :form_sections, as: :check_boxes, collection: %w[A B C D E F]
+      input :form_sections, as: :check_boxes, collection: %w[A B C D E F G H I J K L M N O]
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
     end
 

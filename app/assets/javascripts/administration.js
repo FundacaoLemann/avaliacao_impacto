@@ -5,12 +5,15 @@ var deadline = "";
 var stateUrl = "";
 var cityUrl = "";
 var allowed_administrations = [];
+var currentAdm = "";
+var formId = "";
+
 getAllowedAministrations();
 
 $(function() {
   $("#administration").on('change', function() {
     cityName = $("#city option:selected").text();
-    city = $("#city").val();
+    city = parseInt($("#city").val());
     administration = $("#administration").val();
     checkAllowedAdministrations();
     deadline = "";
@@ -29,7 +32,7 @@ function checkAllowedAdministrations() {
     })
   }else {
     $('#school').removeAttr('disabled');
-    getFormOption();
+    getCollectParams();
   }
 }
 
@@ -52,20 +55,33 @@ function getAllowedAministrations(){
   });
 }
 
-// get form assembly params and deadline from admin route
-function getFormOption(){
-  stateUrl = '/admin/form_options.json?' + 'q%5Bstate_or_city_equals%5D=' + state + '&q%5Bdependencia_desc_equals%5D=Estadual';
-  cityUrl = '/admin/form_options.json?' + 'q%5Bstate_or_city_equals%5D=' + city + '&q%5Bdependencia_desc_equals%5D=Municipal';
-  adminUrl = administration == 'Municipal' ? cityUrl : stateUrl;
+function getAministration(state_id, city_id){
   $.ajax({
-    url: adminUrl,
+    url: '/administration.json',
     method: 'GET',
+    data: { state: state_id, city: city_id },
     success: function(data){
-      if(data[0]){
-        deadline = data[0].deadline;
-        faParams = data[0].form_assembly_params;
-        formName = data[0].form_name;
+      currentAdm = data;
+    }
+  });
+}
+
+function getCollect(adm_id){
+  $.ajax({
+    url: '/collect.json',
+    method: 'GET',
+    data: { adm: adm_id },
+    success: function(data){
+      if(data){
+        deadline = data.deadline;
+        faParams = data.form_assembly_params;
+        formId = data.form_id;
       }
     }
   });
+}
+
+function getCollectParams(){
+  administration == 'Municipal' ? getAministration(city) : getAministration(state);
+  getCollect(currentAdm.id);
 }
