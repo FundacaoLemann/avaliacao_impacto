@@ -6,7 +6,6 @@ ActiveAdmin.register Submission do
   end
 
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
-  filter :form_name, label: 'Questionário', as: :select, collection: Form.all.map(&:name)
   filter :administration, label: 'Rede de Ensino', as: :select, collection: proc { Submission.all.map(&:administration).uniq }
 
   index do
