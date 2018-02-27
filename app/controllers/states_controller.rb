@@ -5,6 +5,11 @@ class StatesController < ApplicationController
     @cities = @state.cities.order(:name)
   end
 
+  def cities
+    @cities = @state.cities.order(:name)
+    render json: @cities
+  end
+
   private
 
   def set_state

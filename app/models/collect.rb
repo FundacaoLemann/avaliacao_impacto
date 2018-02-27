@@ -1,13 +1,26 @@
 class Collect < ApplicationRecord
-  attr_accessor :administrations_raw
+  belongs_to :form
+  has_and_belongs_to_many :administrations
+  enum status: [:created, :in_progress, :paused, :archived]
+  validates :name, :form_id, :deadline, presence: true
 
-  def administrations_raw=(items)
-    self.administrations = items.split("\r\n")
-  end
-
-  def administrations_raw
-    administrations.join("\n")
-  end
+  FORM_ASSEMBLY_EQUIVALENT = {
+    'A' => "tfa_63=1",
+    'B' => "tfa_64=1",
+    'C' => "tfa_65=1",
+    'D' => "tfa_66=1",
+    'E' => "tfa_2567=1",
+    'F' => "tfa_2568=1",
+    'G' => "tfa_5733=1",
+    'H' => "tfa_5734=1",
+    'I' => "tfa_5735=1",
+    'J' => "tfa_5736=1",
+    'K' => "tfa_5737=1",
+    'L' => "tfa_5738=1",
+    'M' => "tfa_5739=1",
+    'N' => "tfa_5740=1",
+    'O' => "tfa_5741=1",
+  }.freeze
 
   def form_sections=(items)
     items.delete('')
@@ -18,7 +31,11 @@ class Collect < ApplicationRecord
     form_sections.join(" ")
   end
 
-  def parsed_administrations
-    administrations.join("<br>")
+  def sections_to_form_assembly_params
+    fa_params = ''
+    form_sections.each do |section|
+      fa_params << FORM_ASSEMBLY_EQUIVALENT[section] << '&'
+    end
+    fa_params
   end
 end

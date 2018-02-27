@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu priority: 5, if: -> { current_admin_user.sub_admin? }
+  menu priority: 9, if: -> { current_admin_user.sub_admin? }
   permit_params :email, :password, :password_confirmation, :role
   config.batch_actions = false
   breadcrumb do
@@ -26,8 +26,7 @@ ActiveAdmin.register AdminUser do
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :role, as: :select,
-        collection: AdminUser.roles.collect { |k| [AdminUser.human_attribute_name(k), k] }
+      f.input :role, as: :select, collection: AdminUser.roles.collect { |k, _| [AdminUser.human_attribute_name(k), k] }
     end
     f.actions
   end

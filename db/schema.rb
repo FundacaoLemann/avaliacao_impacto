@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209130657) do
+ActiveRecord::Schema.define(version: 20180223133613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,24 @@ ActiveRecord::Schema.define(version: 20180209130657) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "administrations", force: :cascade do |t|
+    t.integer "adm"
+    t.bigint "state_id"
+    t.bigint "city_id"
+    t.string "preposition"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["adm"], name: "index_administrations_on_adm"
+    t.index ["city_id"], name: "index_administrations_on_city_id"
+    t.index ["state_id"], name: "index_administrations_on_state_id"
+  end
+
+  create_table "administrations_collects", id: false, force: :cascade do |t|
+    t.bigint "collect_id", null: false
+    t.bigint "administration_id", null: false
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -46,13 +64,14 @@ ActiveRecord::Schema.define(version: 20180209130657) do
   create_table "collects", force: :cascade do |t|
     t.string "name"
     t.string "phase"
-    t.text "administrations", default: [], array: true
-    t.string "form"
     t.text "form_sections", default: [], array: true
     t.string "form_assembly_params"
     t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "form_id"
+    t.integer "status", default: 0, null: false
+    t.index ["form_id"], name: "index_collects_on_form_id"
   end
 
   create_table "form_options", force: :cascade do |t|
@@ -64,6 +83,14 @@ ActiveRecord::Schema.define(version: 20180209130657) do
     t.datetime "updated_at", null: false
     t.string "deadline"
     t.string "form_name"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "link", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_forms_on_name"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -120,6 +147,9 @@ ActiveRecord::Schema.define(version: 20180209130657) do
     t.index ["school_id"], name: "index_submissions_on_school_id"
   end
 
+  add_foreign_key "administrations", "cities"
+  add_foreign_key "administrations", "states"
   add_foreign_key "cities", "states"
+  add_foreign_key "collects", "forms"
   add_foreign_key "submissions", "schools"
 end

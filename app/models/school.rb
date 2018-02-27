@@ -26,6 +26,6 @@ class School < ApplicationRecord
   }
 
   def to_s
-    "#{inep} - #{name}"
+    "#{inep} | #{name}"
   end
 end

@@ -1,14 +1,21 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
-.status_tag.iniciado {
+.status_tag.iniciado,
+.status_tag.criada {
   background: #3498db;
 }
 
-.status_tag.salvo {
-  background: #f1c40f;
+.status_tag.salvo,
+.status_tag.em_pausa {
+  background: #f6b93b;
 }
 
-.status_tag.enviado {
+.status_tag.enviado,
+.status_tag.em_progresso {
   background: #2ecc71;
+}
+
+.status_tag.arquivada {
+  background: #e55039;
 }

@@ -1,24 +1,36 @@
 ActiveAdmin.register Collect do
-  menu priority: 6, if: -> { current_admin_user.admin? }
+  menu priority: 5, if: -> { current_admin_user.admin? }
   permit_params :name, :phase, :form, :form_assembly_params, :deadline,
-                :administrations_raw, form_sections: []
+                :form_id, :status, form_sections: [], administration_ids: []
   config.batch_actions = false
   breadcrumb do
   end
 
+  before_save do |collect|
+    collect.form_assembly_params = collect.sections_to_form_assembly_params
+  end
+
   filter :name_cont, label: 'Nome'
-  filter :phase_cont, label: 'Período'
-  filter :form_cont, label: 'Nome do Questionário'
+  filter :status, label: 'Status', as: :check_boxes,
+    collection: Collect.statuses.collect { |k,v| [Collect.human_attribute_name(k), v]}
+  filter :form_id, label: 'Questionário', as: :select,
+    collection: Form.all
 
   index do
     column :name
     column :phase
-    column :parsed_administrations do |collect|
-      raw collect.parsed_administrations
+    column "Redes de ensino" do |collect|
+      raw collect.administrations.map(&:name).join("<br>")
     end
-    column :form
+    column :form do |collect|
+      collect.form.name
+    end
     column :parsed_form_sections
     column :deadline
+    column :status do |collect|
+      status = Collect.human_attribute_name(collect.status)
+      status_tag "#{status}", label: status
+    end
     actions
   end
 
@@ -26,9 +38,10 @@ ActiveAdmin.register Collect do
     inputs do
       input :name
       input :phase
-      input :administrations_raw, as: :text
-      input :form
-      input :form_sections, as: :check_boxes, collection: %w[A B C D E F]
+      input :administration_ids, as: :select, collection: Administration.all.order(:name), multiple: true, input_html: { size: 20 }
+      input :status, as: :select, collection: Collect.statuses.collect { |k, _| [Collect.human_attribute_name(k), k] }
+      input :form_id, label: 'Formulário', as: :select, collection: Form.all.map { |form| ["#{form.name}", form.id] }
+      input :form_sections, as: :check_boxes, collection: %w[A B C D E F G H I J K L M N O]
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
     end
 
