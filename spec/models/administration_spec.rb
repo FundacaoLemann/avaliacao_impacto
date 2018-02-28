@@ -4,4 +4,5 @@ RSpec.describe Administration, type: :model do
   it { is_expected.to belong_to(:state) }
   it { is_expected.to belong_to(:city) }
   it { is_expected.to have_and_belong_to_many(:collects) }
+  it { is_expected.to validate_uniqueness_of(:name) }
 end

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :stratum do
     name "Francisco Morato_1_3"
     administration "Francisco Morato"

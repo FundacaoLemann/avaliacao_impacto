@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :city do
-    name 'São Bento'
+    name { FFaker::AddressBR.city }
     association :state, factory: :state
   end
 end

@@ -22,6 +22,7 @@ class Collect < ApplicationRecord
     'O' => "tfa_5741=1",
   }.freeze
 
+  # this is needed because ActiveAdmin is sending an empty string
   def form_sections=(items)
     items.delete('')
     super items
