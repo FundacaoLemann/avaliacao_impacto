@@ -7,6 +7,7 @@ end
 
 gem 'active_admin_import', '3.0.0'
 gem 'activeadmin'
+gem 'activeadmin_medium_editor'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'devise-i18n'

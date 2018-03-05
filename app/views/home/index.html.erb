@@ -6,28 +6,6 @@
   <h2>Acompanhamento de dados educacionais</h2>
 <% end %>
 
-<p>
-  Esta pesquisa está sendo realizada pela Secretaria de Educação em parceria com a Fundação Lemann e será aplicada em uma amostra representativa das escolas da rede.
-</p>
-<p>
-  O objetivo é buscar mais efetividade nas políticas públicas, nas ações formativas da rede e nos demais programas pedagógicos como o Formar. Para isso, este questionário solicita <b>informações administrativas e pedagógicas</b> que devem ser fornecidas pelo <b>diretor da escola, de preferência com o apoio ou a participação do(s) coordenador(es) pedagógico(s)</b>. Todas as respostas aqui registradas são <b>confidenciais</b> e não serão divulgadas. <b>Pedimos bastante sinceridade nas respostas</b>.
-</p>
-<p>
-  Reserve aproximadamente 50 minutos para responder ao questionário.
-</p>
-<p>
-  Para responder o questionário considere como período de referência o <b>PRIMEIRO SEMESTRE LETIVO DE 2017 (PERÍODO ANTERIOR AO RECESSO ESCOLAR / FÉRIAS DO MEIO DO ANO)</b>.
-</p>
-<p>
-  As perguntas se referem ao <b>Ensino Fundamental I (1º ao 5º ano) e Ensino Fundamental II (6º ao 9º ano) regular</b>. Sabemos da enorme importância que a Educação Infantil, a Educação para Jovens e Adultos, o Ensino Médio e o Ensino Profissionalizante têm. No entanto, esse questionário se refere apenas ao Ensino Fundamental I e II regular. Por favor, tenha isso em mente enquanto responde o questionário.
-</p>
-<p>
-  Lembre-se de salvar suas respostas ao longo do preenchimento! Assim você evita perdê-las caso haja alguma oscilação na internet. Para salvar suas respostas clique no botão <i>“Salvar minhas respostas e continuar mais tarde”</i> no canto superior direito de todo questionário.
-</p>
-<p>
-  Agradecemos pelo seu tempo, dedicação e sinceridade!</br>
-  <b>EQUIPE DA SECRETARIA DE EDUCAÇÃO</b>
-</p>
-<p>
-  Responda as perguntas conforme a ordem que elas aparecem para então seguir para o questionário. (1) Nome, (2) Email, (3) Telefone da Escola, (4) Telefone pessoal ou celular para contato, (5) Estado, (6) Cidade, (7) Dependência administrativa, (8) Digite o nome da escola. Em seguida você será redirecionado ao  formulário
-</p>
+<% if Notice.first %>
+  <%= Notice.first.content.html_safe %>
+<% end %>
