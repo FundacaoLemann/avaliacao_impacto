@@ -1,5 +1,7 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
+@import "activeadmin/medium_editor_input";
+@import "activeadmin/medium_editor/themes/default.css";
 
 .status_tag.iniciado,
 .status_tag.criada {
