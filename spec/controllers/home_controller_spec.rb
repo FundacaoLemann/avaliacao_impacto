@@ -15,7 +15,7 @@ RSpec.describe HomeController, type: :controller do
 
   describe "GET #search" do
     render_views
-    before(:all) do
+    before do
       @school = create :school, name: 'Testing school'
       @another_school = create :school, name: 'Another school'
     end

@@ -1,8 +1,8 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :administration do
-    type 1
-    state 12
-    city 12893
-    preposition "de"
+    type [:federal, :estadual, :municipal].sample
+    association :state, factory: :state
+    association :city, factory: :city
+    preposition ["de", "da", "do"].sample
   end
 end

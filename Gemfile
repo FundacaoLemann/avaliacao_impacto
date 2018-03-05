@@ -26,7 +26,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.6'
@@ -43,4 +43,5 @@ group :test do
   gem 'database_cleaner'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov', require: false
 end
