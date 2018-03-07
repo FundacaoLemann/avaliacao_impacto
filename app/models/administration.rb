@@ -5,4 +5,7 @@ class Administration < ApplicationRecord
 
   enum adm: [:federal, :estadual, :municipal]
   validates :name, uniqueness: true
+
+  scope :state_administrations, -> { where(adm: :estadual) }
+  scope :city_administrations, -> { where(adm: :municipal) }
 end

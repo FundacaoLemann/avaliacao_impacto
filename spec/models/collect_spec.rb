@@ -34,4 +34,16 @@ RSpec.describe Collect, type: :model do
       )
     end
   end
+
+  describe ".in_progress_by_administration" do
+    it "returns the right collect" do
+      adm = create(:administration)
+      collect = create(:collect, status: :in_progress, administrations: [adm])
+      create(:collect, status: :created, administrations: [adm])
+      create(:collect, status: :paused, administrations: [adm])
+      create(:collect, status: :archived, administrations: [adm])
+
+      expect(Collect.in_progress_by_administration(adm.id)).to eq([collect])
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class AdministrationsController < ApplicationController
   def allowed_administrations
-    @state_allowed_administrations = Administration.where(adm: :estadual)
-    @city_allowed_administrations = Administration.where(adm: :municipal)
+    @state_allowed_administrations = Administration.state_administrations
+    @city_allowed_administrations = Administration.city_administrations
   end
 
   def show
@@ -11,7 +11,6 @@ class AdministrationsController < ApplicationController
     else
       @administration = Administration.where(state_id: params[:state])
     end
-
 
     render json: @administration.first
   end

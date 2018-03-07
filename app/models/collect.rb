@@ -39,4 +39,10 @@ class Collect < ApplicationRecord
     end
     fa_params
   end
+
+  def self.in_progress_by_administration(adm_id)
+    where(status: :in_progress)
+      .joins(:administrations)
+      .where(administrations: { id: adm_id })
+  end
 end
