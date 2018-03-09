@@ -3,7 +3,7 @@ class Administration < ApplicationRecord
   belongs_to :city, optional: true
   has_and_belongs_to_many :collects
 
-  enum adm: [:federal, :estadual, :municipal]
+  enum adm: { federal: 1, estadual: 2, municipal: 3, privada: 4 }
   validates :name, uniqueness: true
 
   scope :state_administrations, -> { where(adm: :estadual) }

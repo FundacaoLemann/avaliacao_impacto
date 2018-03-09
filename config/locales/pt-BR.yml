@@ -74,6 +74,7 @@ pt-BR:
         state_id: Estado
         city_id: Cidade
         preposition: Preposição
+        cod: Código da Rede
       notice:
         content: Texto inicial
         updated_at: Atualizado em
