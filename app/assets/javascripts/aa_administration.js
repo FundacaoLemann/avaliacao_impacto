@@ -1,4 +1,5 @@
 var stateName = "";
+var stateId = "";
 $(function() {
   $("#administration_adm").on('change', function() {
     adm = $("#administration_adm").val();
@@ -9,30 +10,32 @@ $(function() {
 
       name = "Rede Federal do Brasil";
       $("#administration_name").val(name).trigger("change");
-      console.log(name);
+      $("#administration_cod").val(1).trigger("change");
+
     }else if (adm == "estadual"){
       $("#administration_city_id").prop("disabled", true);
-      $("#administration_state_id").prop("disabled", false);
-      $("#administration_preposition").prop("disabled", false);
+      enableStateAndPreposition();
 
       $("#administration_state_id").on('change', function() {
-        stateName = $("#administration_state_id option:selected").text();
+        getStateValues();
+
         name = 'Rede Estadual ' + preposition + " "+ stateName;
         $("#administration_name").val(name).trigger("change");
+        $("#administration_cod").val("2-" + stateId).trigger("change");
       });
 
       $("#administration_preposition").on('change', function() {
-        stateName = $("#administration_state_id option:selected").text();
+        getStateValues();
         preposition = $("#administration_preposition").val();
 
         name = 'Rede Estadual ' + preposition + " "+ stateName;
         $("#administration_name").val(name).trigger("change");
-        console.log(name);
+        $("#administration_cod").val("2-" + stateId).trigger("change");
       });
-    }else if (adm == "municipal"){
-      $("#administration_state_id").prop("disabled", false);
+
+    }else if (adm == "municipal" || adm == "privada"){
+      enableStateAndPreposition();
       $("#administration_city_id").prop("disabled", false);
-      $("#administration_preposition").prop("disabled", false);
       $("#administration_city_id").html(" ");
       $("#administration_city_id").append('<option value="">' + "Selecione uma cidade" + '</option>');
 
@@ -52,20 +55,41 @@ $(function() {
       });
 
       $("#administration_city_id").on('change', function() {
-        preposition = $("#administration_preposition").val();
-        cityName = $("#administration_city_id option:selected").text();
-
-        name = 'Rede Municipal ' + preposition + " " + cityName;
-        $("#administration_name").val(name).trigger("change");
+        getCityValues();
       });
 
       $("#administration_preposition").on('change', function() {
-        cityName = $("#administration_city_id option:selected").text();
-        preposition = $("#administration_preposition").val();
-
-        name = 'Rede Municipal ' + preposition + " " + cityName;
-        $("#administration_name").val(name).trigger("change");
+        getCityValues();
       });
     }
   });
 });
+
+function getStateValues(){
+  stateName = $("#administration_state_id option:selected").text();
+  stateId = $("#administration_state_id option:selected").val();
+}
+
+function getCityValues(){
+  cityName = $("#administration_city_id option:selected").text();
+  cityIbgeCode = $("#administration_city_id option:selected").val();
+  preposition = $("#administration_preposition").val();
+
+  admCode = ""
+  admType = ""
+  if(adm == "municipal"){
+    admType = "Rede Municipal "
+    admCode = "3-"
+  }else{
+    admType = "Rede Privada "
+    admCode = "4-"
+  }
+  name = admType + preposition + " " + cityName;
+  $("#administration_name").val(name).trigger("change");
+  $("#administration_cod").val(admCode + cityIbgeCode).trigger("change");
+}
+
+function enableStateAndPreposition(){
+  $("#administration_state_id").prop("disabled", false);
+  $("#administration_preposition").prop("disabled", false);
+}
