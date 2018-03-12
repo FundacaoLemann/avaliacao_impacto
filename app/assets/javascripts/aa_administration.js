@@ -1,4 +1,5 @@
 var stateName = "";
+var stateId = "";
 $(function() {
   $("#administration_adm").on('change', function() {
     adm = $("#administration_adm").val();
@@ -13,12 +14,10 @@ $(function() {
 
     }else if (adm == "estadual"){
       $("#administration_city_id").prop("disabled", true);
-      $("#administration_state_id").prop("disabled", false);
-      $("#administration_preposition").prop("disabled", false);
+      enableStateAndPreposition();
 
       $("#administration_state_id").on('change', function() {
-        stateName = $("#administration_state_id option:selected").text();
-        stateId = $("#administration_state_id option:selected").val();
+        getStateValues();
 
         name = 'Rede Estadual ' + preposition + " "+ stateName;
         $("#administration_name").val(name).trigger("change");
@@ -26,8 +25,7 @@ $(function() {
       });
 
       $("#administration_preposition").on('change', function() {
-        stateName = $("#administration_state_id option:selected").text();
-        stateId = $("#administration_state_id option:selected").val();
+        getStateValues();
         preposition = $("#administration_preposition").val();
 
         name = 'Rede Estadual ' + preposition + " "+ stateName;
@@ -36,9 +34,8 @@ $(function() {
       });
 
     }else if (adm == "municipal" || adm == "privada"){
-      $("#administration_state_id").prop("disabled", false);
+      enableStateAndPreposition();
       $("#administration_city_id").prop("disabled", false);
-      $("#administration_preposition").prop("disabled", false);
       $("#administration_city_id").html(" ");
       $("#administration_city_id").append('<option value="">' + "Selecione uma cidade" + '</option>');
 
@@ -96,3 +93,13 @@ $(function() {
     }
   });
 });
+
+function getStateValues(){
+  stateName = $("#administration_state_id option:selected").text();
+  stateId = $("#administration_state_id option:selected").val();
+}
+
+function enableStateAndPreposition(){
+  $("#administration_state_id").prop("disabled", false);
+  $("#administration_preposition").prop("disabled", false);
+}
