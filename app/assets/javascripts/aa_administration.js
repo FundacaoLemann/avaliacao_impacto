@@ -55,40 +55,11 @@ $(function() {
       });
 
       $("#administration_city_id").on('change', function() {
-        preposition = $("#administration_preposition").val();
-        cityName = $("#administration_city_id option:selected").text();
-        cityIbgeCode = $("#administration_city_id option:selected").val();
-        admCode = ""
-        admType = ""
-        if(adm == "municipal"){
-          admType = "Rede Municipal "
-          admCode = "3-"
-        }else{
-          admType = "Rede Privada "
-          admCode = "4-"
-        }
-        name = admType + preposition + " " + cityName;
-        $("#administration_name").val(name).trigger("change");
-        $("#administration_cod").val(admCode + cityIbgeCode).trigger("change");
+        getCityValues();
       });
 
       $("#administration_preposition").on('change', function() {
-        cityName = $("#administration_city_id option:selected").text();
-        cityIbgeCode = $("#administration_city_id option:selected").val();
-        preposition = $("#administration_preposition").val();
-
-        admCode = ""
-        admType = ""
-        if(adm == "municipal"){
-          admType = "Rede Municipal "
-          admCode = "3-"
-        }else{
-          admType = "Rede Privada "
-          admCode = "4-"
-        }
-        name = admType + preposition + " " + cityName;
-        $("#administration_name").val(name).trigger("change");
-        $("#administration_cod").val(admCode + cityIbgeCode).trigger("change");
+        getCityValues();
       });
     }
   });
@@ -97,6 +68,25 @@ $(function() {
 function getStateValues(){
   stateName = $("#administration_state_id option:selected").text();
   stateId = $("#administration_state_id option:selected").val();
+}
+
+function getCityValues(){
+  cityName = $("#administration_city_id option:selected").text();
+  cityIbgeCode = $("#administration_city_id option:selected").val();
+  preposition = $("#administration_preposition").val();
+
+  admCode = ""
+  admType = ""
+  if(adm == "municipal"){
+    admType = "Rede Municipal "
+    admCode = "3-"
+  }else{
+    admType = "Rede Privada "
+    admCode = "4-"
+  }
+  name = admType + preposition + " " + cityName;
+  $("#administration_name").val(name).trigger("change");
+  $("#administration_cod").val(admCode + cityIbgeCode).trigger("change");
 }
 
 function enableStateAndPreposition(){
