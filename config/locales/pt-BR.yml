@@ -75,6 +75,7 @@ pt-BR:
         city_id: Cidade
         preposition: Preposição
         cod: Código da Rede
+        contact_name: Responsável
       notice:
         content: Texto inicial
         updated_at: Atualizado em
