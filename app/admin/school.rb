@@ -17,10 +17,14 @@ ActiveAdmin.register School do
   filter :municipio_cont, label: 'Municipio'
   filter :submissions_status, label: 'Status das escolas que já iniciaram', as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration_adm, label: 'Rede', as: :check_boxes, collection: Administration.adms.collect { |k,v| [k, v]}
+  filter :stratum_group, label: 'Grupo', as: :check_boxes, collection: %w[Amostra Repescagem]
 
   index title: 'Relatório detalhado' do
     selectable_column
     column 'Amostra', :sample
+    column 'Grupo' do |school|
+      school.stratum ? school.stratum.group : 'Fora'
+    end
     column :inep
     column 'Nome da escola', :name
     column 'Rede de Ensino' do |school|
