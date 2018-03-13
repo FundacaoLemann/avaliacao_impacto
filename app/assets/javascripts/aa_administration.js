@@ -48,7 +48,7 @@ $(function() {
           success: function(response){
 
             for (var i = 0; i < response.length; i++) {
-              $("#administration_city_id").append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
+              $("#administration_city_id").append('<option value="' + response[i].ibge_code + '">' + response[i].name + '</option>');
             }
           }
         });
