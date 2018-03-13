@@ -16,15 +16,18 @@ ActiveAdmin.register School do
   filter :unidade_federativa_cont, label: 'Estado'
   filter :municipio_cont, label: 'Municipio'
   filter :submissions_status, label: 'Status das escolas que já iniciaram', as: :check_boxes, collection: Submission.statuses_for_select
+  filter :administration_adm, label: 'Rede', as: :check_boxes, collection: Administration.adms.collect { |k,v| [k, v]}
 
   index title: 'Relatório detalhado' do
     selectable_column
     column 'Amostra', :sample
     column :inep
     column 'Nome da escola', :name
-    column 'Rede de ensino', :tp_dependencia_desc
-    column 'Estado', :unidade_federativa
-    column :municipio
+    column 'Rede de Ensino' do |school|
+      if school.administration
+        school.administration.name
+      end
+    end
     column 'Status' do |school|
       if school.submissions.any?
         status = Submission.human_attribute_name(school.submissions.first.status)
