@@ -1,7 +1,7 @@
 namespace :db do
   desc 'Update schools from 2017 data'
   task update_schools_2017: :environment do
-    CSV.foreach('lib/assets/schools_2017.csv', headers: true) do |row|
+    CSV.foreach('lib/assets/2017_schools_preditores.csv', headers: true) do |row|
       school = School.find_by_inep(row[0])
       if school
         puts "Updating school #{school}"
