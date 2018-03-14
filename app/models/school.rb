@@ -2,6 +2,8 @@ class School < ApplicationRecord
   validates :inep, uniqueness: true
   ADMINISTRATIONS = %w[Federal Estadual Municipal].freeze
   has_many :submissions
+  has_one :administration, foreign_key: 'cod', primary_key: 'adm_cod'
+  has_one :stratum, foreign_key: 'school', primary_key: 'inep'
 
   scope :municipal_on_sample_grouped_by_adm, ->{
     where(sample: true, tp_dependencia_desc: 'Municipal').
