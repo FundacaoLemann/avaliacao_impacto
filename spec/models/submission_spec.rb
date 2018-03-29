@@ -27,26 +27,6 @@ RSpec.describe Submission, type: :model do
     end
   end
 
-  describe "#sample_school?" do
-    context "when school is on sample" do
-      it "returns true" do
-        school = create(:school, sample: true)
-        submission = build(:submission, school: school)
-
-        expect(submission.sample_school?).to be_truthy
-      end
-    end
-
-    context "when school is not on sample" do
-      it "returns false" do
-        school = create(:school, sample: false)
-        submission = build(:submission, school: school)
-
-        expect(submission.sample_school?).to be_falsey
-      end
-    end
-  end
-
   describe "#parsed_status_date" do
     context "when submitted_at exists" do
       it "returns submitted_at_parsed" do

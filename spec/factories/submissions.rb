@@ -12,6 +12,6 @@ FactoryBot.define do
     modified_at { FFaker::Time.datetime }
     submitted_at { FFaker::Time.datetime }
     form_name "baseline"
-    administration "Rede Federal do Brasil"
+    adm_cod "1"
   end
 end

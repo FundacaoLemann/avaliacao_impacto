@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20180326180358) do
     t.boolean "sample", default: false
     t.string "adm_cod"
     t.index ["adm_cod"], name: "index_schools_on_adm_cod"
+    t.index ["inep"], name: "index_schools_on_inep"
     t.index ["name"], name: "index_schools_on_name"
   end
 
@@ -156,13 +157,22 @@ ActiveRecord::Schema.define(version: 20180326180358) do
     t.string "modified_at"
     t.string "submitted_at"
     t.string "form_name"
-    t.string "administration"
+    t.string "adm_cod"
+    t.bigint "collect_id"
+    t.bigint "collect_entry_id"
+    t.string "school_inep"
+    t.index ["adm_cod"], name: "index_submissions_on_adm_cod"
+    t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
+    t.index ["collect_id"], name: "index_submissions_on_collect_id"
     t.index ["school_id"], name: "index_submissions_on_school_id"
+    t.index ["school_inep"], name: "index_submissions_on_school_inep"
   end
 
-  add_foreign_key "administrations", "cities"
   add_foreign_key "administrations", "states"
   add_foreign_key "cities", "states"
+  add_foreign_key "collect_entries", "collects"
   add_foreign_key "collects", "forms"
+  add_foreign_key "submissions", "collect_entries"
+  add_foreign_key "submissions", "collects"
   add_foreign_key "submissions", "schools"
 end

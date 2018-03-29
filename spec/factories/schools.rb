@@ -10,5 +10,6 @@ FactoryBot.define do
     num_estudantes { rand(1..100) }
     ano_censo 2018
     sample [true, false].sample
+    adm_cod "1"
   end
 end
