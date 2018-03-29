@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20180326180358) do
   create_table "administrations", force: :cascade do |t|
     t.integer "adm"
     t.bigint "state_id"
-    t.bigint "city_id"
+    t.bigint "city_ibge_code"
     t.string "preposition"
     t.string "name"
     t.datetime "created_at", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180326180358) do
     t.string "cod"
     t.string "contact_name"
     t.index ["adm"], name: "index_administrations_on_adm"
-    t.index ["city_id"], name: "index_administrations_on_city_id"
+    t.index ["city_ibge_code"], name: "index_administrations_on_city_ibge_code"
     t.index ["cod"], name: "index_administrations_on_cod"
     t.index ["state_id"], name: "index_administrations_on_state_id"
   end

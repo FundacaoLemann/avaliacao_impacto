@@ -5,7 +5,7 @@ RSpec.describe AdministrationsController, type: :controller do
   describe "GET #allowed_administrations" do
     let!(:state) { create(:state) }
     let!(:city) { create(:city) }
-    let!(:city_administration) { create(:administration, city_id: city.id, adm: :municipal) }
+    let!(:city_administration) { create(:administration, city_ibge_code: city.ibge_code, adm: :municipal) }
     let!(:state_administration) { create(:administration, state_id: state.id, adm: :estadual) }
     let(:expected_json) {
       {
@@ -13,7 +13,7 @@ RSpec.describe AdministrationsController, type: :controller do
           state_administration.state_id
         ],
         "city_allowed_administrations" => [
-          city_administration.city_id
+          city_administration.city_ibge_code
         ]
       }
     }
@@ -29,13 +29,13 @@ RSpec.describe AdministrationsController, type: :controller do
   describe "GET #show" do
     let!(:state) { create(:state) }
     let!(:city) { create(:city) }
-    let!(:city_administration) { create(:administration, city_id: city.id, adm: :municipal) }
+    let!(:city_administration) { create(:administration, city_ibge_code: city.ibge_code, adm: :municipal) }
     let!(:state_administration) { create(:administration, state_id: state.id, adm: :estadual) }
 
     context "when params contains city" do
       it "returns the correct city administration" do
         request.accept = 'application/json'
-        get :show, params: { city: city.ibge_code }
+        get :show, params: { city_or_state: city.ibge_code }
 
         expect(response.body).to eq(city_administration.to_json)
       end
@@ -44,7 +44,7 @@ RSpec.describe AdministrationsController, type: :controller do
     context "when params does not contains city" do
       it "returns the state administration" do
         request.accept = 'application/json'
-        get :show, params: { state: state_administration.state_id }
+        get :show, params: { city_or_state: state_administration.state_id }
 
         expect(response.body).to eq(state_administration.to_json)
       end

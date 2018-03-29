@@ -11,7 +11,7 @@ RSpec.describe StatesController, type: :controller do
       get :show, params: { id: state.id }, xhr: true
 
       expect(response.body).to eq(
-        "$(\"[name='city_id']\").html(\"<option value=\\\"#{city.ibge_code}\\\">#{city.name}<\\/option>\");\n"
+        "$(\"[name='city_ibge_code']\").html(\"<option value=\\\"#{city.ibge_code}\\\">#{city.name}<\\/option>\");\n"
       )
     end
   end

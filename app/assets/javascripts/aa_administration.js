@@ -5,7 +5,7 @@ $(function() {
     adm = $("#administration_adm").val();
     if (adm == "federal") {
       $("#administration_state_id").prop("disabled", true);
-      $("#administration_city_id").prop("disabled", true);
+      $("#administration_city_ibge_code").prop("disabled", true);
       $("#administration_preposition").prop("disabled", true);
 
       name = "Rede Federal do Brasil";
@@ -13,7 +13,7 @@ $(function() {
       $("#administration_cod").val(1).trigger("change");
 
     }else if (adm == "estadual"){
-      $("#administration_city_id").prop("disabled", true);
+      $("#administration_city_ibge_code").prop("disabled", true);
       enableStateAndPreposition();
 
       $("#administration_state_id").on('change', function() {
@@ -35,26 +35,26 @@ $(function() {
 
     }else if (adm == "municipal" || adm == "privada"){
       enableStateAndPreposition();
-      $("#administration_city_id").prop("disabled", false);
-      $("#administration_city_id").html(" ");
-      $("#administration_city_id").append('<option value="">' + "Selecione uma cidade" + '</option>');
+      $("#administration_city_ibge_code").prop("disabled", false);
+      $("#administration_city_ibge_code").html(" ");
+      $("#administration_city_ibge_code").append('<option value="">' + "Selecione uma cidade" + '</option>');
 
       $("#administration_state_id").on('change', function() {
         state = $("#administration_state_id").val();
-        $("#administration_city_id").html(" ");
+        $("#administration_city_ibge_code").html(" ");
         $.ajax({
           url: '/cities/' + state,
           method: 'GET',
           success: function(response){
 
             for (var i = 0; i < response.length; i++) {
-              $("#administration_city_id").append('<option value="' + response[i].ibge_code + '">' + response[i].name + '</option>');
+              $("#administration_city_ibge_code").append('<option value="' + response[i].ibge_code + '">' + response[i].name + '</option>');
             }
           }
         });
       });
 
-      $("#administration_city_id").on('change', function() {
+      $("#administration_city_ibge_code").on('change', function() {
         getCityValues();
       });
 
@@ -71,8 +71,8 @@ function getStateValues(){
 }
 
 function getCityValues(){
-  cityName = $("#administration_city_id option:selected").text();
-  cityIbgeCode = $("#administration_city_id option:selected").val();
+  cityName = $("#administration_city_ibge_code option:selected").text();
+  cityIbgeCode = $("#administration_city_ibge_code option:selected").val();
   preposition = $("#administration_preposition").val();
 
   admCode = ""

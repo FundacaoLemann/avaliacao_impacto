@@ -2,6 +2,11 @@
 pt-BR:
   activerecord:
     attributes:
+      school:
+        inep: INEP
+        name: Nome
+        unidade_federativa: Estado
+        tp_dependencia_desc: Rede
       admin_user:
         admin: Admin
         service_manager: Gestor de Atendimento
@@ -59,7 +64,7 @@ pt-BR:
         phase: Período
         size: Tamanho do estrato
         sample_size: Tamanho da mostra
-        school: INEP da escola
+        school: Escola
         school_sequence: Sequência da escola
         group: Grupo
         created_at: Criado em
@@ -72,7 +77,7 @@ pt-BR:
         name: Descrição
         adm: Tipo
         state_id: Estado
-        city_id: Cidade
+        city_ibge_code: Cidade
         preposition: Preposição
         cod: Código da Rede
         contact_name: Responsável

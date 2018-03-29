@@ -1,7 +1,7 @@
 ActiveAdmin.register Administration do
   menu priority: 8, if: -> { current_admin_user.sub_admin? }
-  permit_params :adm, :state_id, :city_id, :preposition, :name, :cod, :contact_name
-  actions :all, except: [:show]
+  permit_params :adm, :state_id, :city_ibge_code, :preposition, :name, :cod, :contact_name
+  actions :all, except: [:show, :destroy]
   config.batch_actions = false
   breadcrumb do
   end
@@ -23,7 +23,7 @@ ActiveAdmin.register Administration do
       input :adm, as: :select, collection: Administration.adms.keys
 
       input :state_id, as: :select, collection: State.all.order(:name), input_html: { disabled: true }
-      input :city_id, as: :select, collection: City.first(2), input_html: { disabled: true }
+      input :city_ibge_code, as: :select, collection: City.first(2), input_html: { disabled: true }
       input :preposition, as: :select, collection: %w[da de do], input_html: { disabled: true }
       input :contact_name
       input :name, input_html: { readonly: true }
