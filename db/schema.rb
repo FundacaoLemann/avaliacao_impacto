@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313175254) do
+ActiveRecord::Schema.define(version: 20180326180358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20180313175254) do
   create_table "administrations", force: :cascade do |t|
     t.integer "adm"
     t.bigint "state_id"
-    t.bigint "city_id"
+    t.bigint "city_ibge_code"
     t.string "preposition"
     t.string "name"
     t.datetime "created_at", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180313175254) do
     t.string "cod"
     t.string "contact_name"
     t.index ["adm"], name: "index_administrations_on_adm"
-    t.index ["city_id"], name: "index_administrations_on_city_id"
+    t.index ["city_ibge_code"], name: "index_administrations_on_city_ibge_code"
     t.index ["cod"], name: "index_administrations_on_cod"
     t.index ["state_id"], name: "index_administrations_on_state_id"
   end
@@ -62,6 +62,21 @@ ActiveRecord::Schema.define(version: 20180313175254) do
     t.string "ibge_code"
     t.index ["name"], name: "index_cities_on_name"
     t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
+  create_table "collect_entries", force: :cascade do |t|
+    t.bigint "collect_id"
+    t.string "name"
+    t.string "school_inep"
+    t.string "adm_cod"
+    t.string "phase"
+    t.integer "size"
+    t.integer "sample_size"
+    t.integer "school_sequence"
+    t.string "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collect_id"], name: "index_collect_entries_on_collect_id"
   end
 
   create_table "collects", force: :cascade do |t|
@@ -117,6 +132,7 @@ ActiveRecord::Schema.define(version: 20180313175254) do
     t.boolean "sample", default: false
     t.string "adm_cod"
     t.index ["adm_cod"], name: "index_schools_on_adm_cod"
+    t.index ["inep"], name: "index_schools_on_inep"
     t.index ["name"], name: "index_schools_on_name"
   end
 
@@ -126,19 +142,6 @@ ActiveRecord::Schema.define(version: 20180313175254) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_states_on_name"
-  end
-
-  create_table "strata", force: :cascade do |t|
-    t.string "name"
-    t.string "administration"
-    t.string "phase"
-    t.integer "size"
-    t.integer "sample_size"
-    t.string "school"
-    t.integer "school_sequence"
-    t.string "group"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -154,13 +157,22 @@ ActiveRecord::Schema.define(version: 20180313175254) do
     t.string "modified_at"
     t.string "submitted_at"
     t.string "form_name"
-    t.string "administration"
+    t.string "adm_cod"
+    t.bigint "collect_id"
+    t.bigint "collect_entry_id"
+    t.string "school_inep"
+    t.index ["adm_cod"], name: "index_submissions_on_adm_cod"
+    t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
+    t.index ["collect_id"], name: "index_submissions_on_collect_id"
     t.index ["school_id"], name: "index_submissions_on_school_id"
+    t.index ["school_inep"], name: "index_submissions_on_school_inep"
   end
 
-  add_foreign_key "administrations", "cities"
   add_foreign_key "administrations", "states"
   add_foreign_key "cities", "states"
+  add_foreign_key "collect_entries", "collects"
   add_foreign_key "collects", "forms"
+  add_foreign_key "submissions", "collect_entries"
+  add_foreign_key "submissions", "collects"
   add_foreign_key "submissions", "schools"
 end

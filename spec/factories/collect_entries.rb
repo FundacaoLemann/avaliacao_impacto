@@ -1,11 +1,12 @@
 FactoryBot.define do
-  factory :stratum do
+  factory :collect_entry do
     name "Francisco Morato_1_3"
-    administration "Francisco Morato"
+    school_inep "35583613"
+    adm_cod "3-3516309"
     size 3
     sample_size 2
-    school "35583613"
     school_sequence 1
     group "Amostra"
+    association :collect, factory: :collect
   end
 end

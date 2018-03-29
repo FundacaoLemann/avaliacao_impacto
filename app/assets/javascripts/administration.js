@@ -7,6 +7,7 @@ var cityUrl = "";
 var allowed_administrations = [];
 var currentAdm = "";
 var formId = "";
+var collectId = "";
 
 getAllowedAministrations();
 
@@ -55,11 +56,11 @@ function getAllowedAministrations(){
   });
 }
 
-function getAministration(state_id, city_id){
+function getAministration(param){
   $.ajax({
     url: '/administration.json',
     method: 'GET',
-    data: { state: state_id, city: city_id },
+    data: { city_or_state: param },
     success: function(data){
       currentAdm = data;
     }
@@ -73,6 +74,7 @@ function getCollect(adm_id){
     data: { adm: adm_id },
     success: function(data){
       if(data){
+        collectId = data.id;
         deadline = data.deadline;
         faParams = data.form_assembly_params;
         formId = data.form_id;

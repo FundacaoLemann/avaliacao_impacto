@@ -1,5 +1,9 @@
 class Submission < ApplicationRecord
-  belongs_to :school
+  belongs_to :school, foreign_key: "school_inep", primary_key: "inep", optional: true
+  belongs_to :collect, optional: true
+  belongs_to :collect_entry, optional: true
+  belongs_to :administration, foreign_key: "adm_cod", primary_key: "cod", optional: true
+  delegate :group, to: :collect_entry, allow_nil: true
 
   STATUSES = [:redirected, :in_progress, :submitted].freeze
 
@@ -13,10 +17,6 @@ class Submission < ApplicationRecord
 
   def submitted_at_parsed
     parse_date_to_br_format(submitted_at)
-  end
-
-  def sample_school?
-    School.find(school_id).sample
   end
 
   def parsed_status_date

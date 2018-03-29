@@ -6,13 +6,23 @@ ActiveAdmin.register Submission do
   end
 
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
-  filter :administration, label: 'Rede de Ensino', as: :select, collection: proc { Submission.all.map(&:administration).uniq }
+  filter :administration, label: 'Rede de Ensino', as: :select, collection: Administration.all
+  filter :collect, label: 'Coleta', as: :select, collection: Collect.all
 
   index do
     column :id
-    column 'Escola', :school
-    column 'Rede de Ensino', :administration
-    column 'Amostra', :sample_school?
+    column 'Coleta' do |submission|
+      submission.collect.name if submission.collect
+    end
+    column 'Escola' do |submission|
+      submission.school.name
+    end
+    column 'Grupo' do |submission|
+      submission.collect_entry.group if submission.collect_entry
+    end
+    column 'Rede de Ensino' do |submission|
+      submission.administration.name
+    end
     column 'Questionário', :form_name
     column 'Status' do |submission|
       status = Submission.human_attribute_name(submission.status)
@@ -31,7 +41,7 @@ ActiveAdmin.register Submission do
     before_action :check_auth
 
     def scoped_collection
-      super.includes :school
+      super.includes :school, :administration
     end
 
     def check_auth

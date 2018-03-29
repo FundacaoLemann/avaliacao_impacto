@@ -43,7 +43,7 @@ RSpec.describe Collect, type: :model do
       create(:collect, status: :paused, administrations: [adm])
       create(:collect, status: :archived, administrations: [adm])
 
-      expect(Collect.in_progress_by_administration(adm.id)).to eq([collect])
+      expect(Collect.in_progress_by_administration(adm.id)).to eq(collect)
     end
   end
 end

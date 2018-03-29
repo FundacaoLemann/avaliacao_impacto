@@ -1,2 +1,0 @@
-class Stratum < ApplicationRecord
-end

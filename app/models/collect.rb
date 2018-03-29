@@ -1,6 +1,9 @@
 class Collect < ApplicationRecord
   belongs_to :form
+  has_many :collect_entries
+  has_many :submissions
   has_and_belongs_to_many :administrations
+
   enum status: [:created, :in_progress, :paused, :archived]
   validates :name, :form_id, :deadline, presence: true
 
@@ -43,6 +46,6 @@ class Collect < ApplicationRecord
   def self.in_progress_by_administration(adm_id)
     where(status: :in_progress)
       .joins(:administrations)
-      .where(administrations: { id: adm_id })
+      .where(administrations: { id: adm_id }).first
   end
 end
