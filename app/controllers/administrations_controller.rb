@@ -5,13 +5,11 @@ class AdministrationsController < ApplicationController
   end
 
   def show
-    if params[:city]
-      @city = City.where(ibge_code: params[:city])
-      @administration = Administration.where(city_id: @city.ids.first)
+    if params[:city_or_state].length > 2
+      @administration = Administration.where(city_ibge_code: params[:city_or_state])
     else
-      @administration = Administration.where(state_id: params[:state])
+      @administration = Administration.where(state_id: params[:city_or_state])
     end
-
     render json: @administration.first
   end
 end

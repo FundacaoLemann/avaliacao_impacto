@@ -13,14 +13,11 @@ $(function() {
       })
       throw new Error("ForbiddenAdministration");
     }
-    // split inep and name from school
-    inep_and_name = $("#school").val().split(' | ');
-    // prefill id
-    tfa_3707 = "&tfa_3707=" + $("#school_id").val();
+
     // prefill inep
-    tfa_5 = "&tfa_5=" + inep_and_name[0];
+    tfa_5 = "&tfa_5=" + $("#school_id").val();
     // prefill school name
-    tfa_7 = "&tfa_7=" + inep_and_name[1];
+    tfa_7 = "&tfa_7=" + $("#school").val();
     // prefill person name
     tfa_3719 = "&tfa_3719=" + $("#name").val();
     // prefill person email
@@ -29,23 +26,10 @@ $(function() {
     tfa_84 = "&tfa_84=" + $("#phone").val();
     // prefill personal phone
     tfa_86 = "&tfa_86=" + $("#personal_phone").val();
-    // prefill secretaria
-    // TODO get adm from administration
-    adm_for_submission = "";
-    if(administration == 'Estadual'){
-      adm_for_submission = "Rede Estadual" + ' de ' + stateName;
-      tfa_3710 = "&tfa_3710=Rede Estadual" + ' de ' + stateName;
-      tfa_5734 = "&tfa_5734=Rede Estadual" + ' de ' + stateName;
-    }else if (administration == 'Municipal'){
-      adm_for_submission = "Rede Municipal" + ' de ' + cityName;
-      tfa_3710 = "&tfa_3710=Rede Municipal" + ' de ' + cityName;
-      tfa_5734 = "&tfa_5734=Rede Municipal" + ' de ' + cityName;
-    }else {
-      adm_for_submission = "Rede Federal de Ensino do Brasil";
-      tfa_3710 = "&tfa_3710=Rede Federal de Ensino do Brasil";
-      tfa_5734 = "&tfa_5734=Rede Federal de Ensino do Brasil";
-    }
-
+    // prefill collect id
+    tfa_5749 = "&tfa_5749=" + collectId;
+    // prefill rede de ensino
+    tfa_3710 = "&tfa_3710=" + currentAdm.name;
     // prefill deadline
     tfa_3713 = "";
     if(deadline){
@@ -81,14 +65,15 @@ function createSubmission() {
     data: {
       submission:{
         form_name: formName,
-        school_id: $("#school_id").val(),
+        school_inep: $("#school_id").val(),
         status: 'redirected',
         school_phone: $("#phone").val(),
         submitter_name: $("#name").val(),
         submitter_email: $("#email").val(),
         submitter_phone: $("#personal_phone").val(),
         redirected_at: new Date(),
-        administration: adm_for_submission
+        adm_cod: currentAdm.cod,
+        collect_id: collectId
       }
     },
     method: 'POST'
@@ -96,7 +81,6 @@ function createSubmission() {
 }
 
 function openForm() {
-  window.open(formUrl + "?" + faParams + tfa_3707 + tfa_7 + tfa_5 + tfa_3719 +
-              tfa_80 + tfa_84 + tfa_86 + tfa_3707 + tfa_3710 + tfa_3713 +
-              tfa_5734);
+  window.open(formUrl + "?" + faParams + tfa_7 + tfa_5 + tfa_3719 +
+              tfa_80 + tfa_84 + tfa_86 + tfa_3710 + tfa_3713 + tfa_5749);
 }
