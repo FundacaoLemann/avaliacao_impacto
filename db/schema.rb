@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320133532) do
+ActiveRecord::Schema.define(version: 20180326180358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,21 @@ ActiveRecord::Schema.define(version: 20180320133532) do
     t.string "ibge_code"
     t.index ["name"], name: "index_cities_on_name"
     t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
+  create_table "collect_entries", force: :cascade do |t|
+    t.bigint "collect_id"
+    t.string "name"
+    t.string "school_inep"
+    t.string "adm_cod"
+    t.string "phase"
+    t.integer "size"
+    t.integer "sample_size"
+    t.integer "school_sequence"
+    t.string "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collect_id"], name: "index_collect_entries_on_collect_id"
   end
 
   create_table "collects", force: :cascade do |t|
