@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu priority: 9, if: -> { current_admin_user.sub_admin? }
+  menu priority: 12, if: -> { current_admin_user.sub_admin? }
   permit_params :email, :password, :password_confirmation, :role
   config.batch_actions = false
   breadcrumb do

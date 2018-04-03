@@ -1,5 +1,5 @@
 ActiveAdmin.register CollectEntry do
-  menu priority: 7, if: -> { current_admin_user.admin? }
+  menu priority: 4, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :adm_cod, :phase, :size, :sample_size, :school_inep,
                 :school_sequence, :group, :collect_id
   config.batch_actions = false

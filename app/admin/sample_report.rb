@@ -1,4 +1,5 @@
-ActiveAdmin.register_page "Relatório Gerencial de Coletas por Amostra" do
+ActiveAdmin.register_page "Gerencial por rede (apenas amostra)" do
+  menu priority: 3, parent: "Relatórios", if: -> { current_admin_user.admin? }
   content do
     h2 "População: amostra"
     Collect.find_each do |collect|

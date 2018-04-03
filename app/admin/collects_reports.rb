@@ -1,4 +1,5 @@
-ActiveAdmin.register_page "Relatório Gerencial de Coletas" do
+ActiveAdmin.register_page "Gerencial por rede" do
+  menu priority: 2, parent: "Relatórios", if: -> { current_admin_user.admin? }
   content do
     h2 "População: todas as escolas"
     Collect.find_each do |collect|

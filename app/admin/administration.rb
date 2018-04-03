@@ -1,5 +1,5 @@
 ActiveAdmin.register Administration do
-  menu priority: 8, if: -> { current_admin_user.sub_admin? }
+  menu priority: 2, parent: "Gerenciar Coletas", if: -> { current_admin_user.sub_admin? }
   permit_params :adm, :state_id, :city_ibge_code, :preposition, :name, :cod, :contact_name
   actions :all, except: [:show, :destroy]
   config.batch_actions = false
