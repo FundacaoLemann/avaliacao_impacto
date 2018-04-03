@@ -7,6 +7,9 @@ pt-BR:
         name: Nome
         unidade_federativa: Estado
         tp_dependencia_desc: Rede
+        region: Região
+        num_students_fund: Num Estudantes Fund.
+        location: Localização
       admin_user:
         admin: Admin
         service_manager: Gestor de Atendimento
@@ -58,13 +61,13 @@ pt-BR:
         paused: em pausa
         archived: arquivada
         administration_ids: Redes de ensino
-      stratum:
+      collect_entry:
         name: Nome
-        administration: Rede de ensino
+        adm_cod: Rede de ensino
         phase: Período
         size: Tamanho do estrato
-        sample_size: Tamanho da mostra
-        school: Escola
+        sample_size: Tamanho da amostra
+        school_inep: Escola
         school_sequence: Sequência da escola
         group: Grupo
         created_at: Criado em
@@ -96,7 +99,7 @@ pt-BR:
       collect:
         one: Coleta
         other: Coletas
-      stratum:
+      collect_entry:
         one: Estrato
         other: Estratos
       form:
