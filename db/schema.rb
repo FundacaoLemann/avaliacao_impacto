@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326180358) do
+ActiveRecord::Schema.define(version: 20180403130859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,9 @@ ActiveRecord::Schema.define(version: 20180326180358) do
     t.datetime "updated_at", null: false
     t.boolean "sample", default: false
     t.string "adm_cod"
+    t.string "region"
+    t.integer "num_students_fund"
+    t.string "location"
     t.index ["adm_cod"], name: "index_schools_on_adm_cod"
     t.index ["inep"], name: "index_schools_on_inep"
     t.index ["name"], name: "index_schools_on_name"
@@ -174,5 +177,4 @@ ActiveRecord::Schema.define(version: 20180326180358) do
   add_foreign_key "collects", "forms"
   add_foreign_key "submissions", "collect_entries"
   add_foreign_key "submissions", "collects"
-  add_foreign_key "submissions", "schools"
 end
