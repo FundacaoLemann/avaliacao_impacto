@@ -7,6 +7,8 @@ class School < ApplicationRecord
 
   ADMINISTRATIONS = %w[Federal Estadual Municipal].freeze
 
+  scope :fundamental, -> { where("num_students_fund > 0") }
+
   def to_s
     "#{inep} | #{name}"
   end

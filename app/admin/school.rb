@@ -11,11 +11,18 @@ ActiveAdmin.register School do
   breadcrumb do
   end
 
+  scope :fundamental
+
   filter :inep_cont, label: 'INEP'
   filter :name_cont, label: 'Nome'
   filter :unidade_federativa_cont, label: 'Estado'
   filter :municipio_cont, label: 'Municipio'
-  filter :tp_dependencia_desc, label: '',
+  filter :region_cont, label: 'Região'
+  filter :region, label: 'Região',
+    as: :check_boxes, collection: %w[Norte Sul Nordeste Sudeste Centro-Oeste]
+  filter :location, label: 'Localização',
+    as: :check_boxes, collection: %w[Urbana Rural]
+  filter :tp_dependencia_desc, label: 'Rede',
     as: :check_boxes, collection: %w[Estadual Federal Municipal Privada]
 
   index do
@@ -27,7 +34,10 @@ ActiveAdmin.register School do
     column :municipio
     column :unidade_federativa
     column :tp_dependencia_desc
+    column :region
+    column :location
     column :num_estudantes
+    column :num_students_fund
     column :ano_censo
   end
 end
