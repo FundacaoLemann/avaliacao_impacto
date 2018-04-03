@@ -1,5 +1,5 @@
 ActiveAdmin.register Collect do
-  menu priority: 5, if: -> { current_admin_user.admin? }
+  menu priority: 3, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :phase, :form, :form_assembly_params, :deadline,
                 :form_id, :status, form_sections: [], administration_ids: []
   config.batch_actions = false

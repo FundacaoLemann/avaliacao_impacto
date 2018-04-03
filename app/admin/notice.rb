@@ -1,5 +1,5 @@
 ActiveAdmin.register Notice do
-  menu priority: 10, if: -> { current_admin_user.admin? }
+  menu priority: 13, if: -> { current_admin_user.admin? }
   permit_params :content
   config.batch_actions = false
   config.clear_action_items!

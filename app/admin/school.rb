@@ -1,5 +1,5 @@
 ActiveAdmin.register School do
-  menu priority: 2, if: -> { current_admin_user.sub_admin? }
+  menu priority: 11, if: -> { current_admin_user.sub_admin? }
 
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
     :municipio, :unidade_federativa, :num_estudantes, :ano_censo, :adm_cod

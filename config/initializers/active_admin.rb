@@ -107,7 +107,7 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  # config.root_to = 'dashboard#index'
+  config.root_to = 'schools#index'
   config.comments = false
   #
   # You can change the name under which comments are registered:
