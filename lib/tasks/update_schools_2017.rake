@@ -1,39 +1,24 @@
 namespace :db do
-  desc 'Update schools from 2017 data'
-  task update_schools_2017: :environment do
+  desc "Update schools with the extra fields"
+  task update_schools: :environment do
+    not_found_schools = []
     School.transaction do
-      CSV.foreach('lib/assets/2017_schools_preditores.csv', headers: true) do |row|
+      CSV.foreach("lib/assets/school_new_fields.csv", headers: true) do |row|
         school = School.find_by_inep(row[0])
         if school
           puts "Updating school #{school}"
           school.update(
-            name: row[1],
-            tp_dependencia: row[2],
-            tp_dependencia_desc: row[3],
-            cod_municipio: row[4],
-            municipio: row[5],
-            unidade_federativa: row[6],
-            num_estudantes: row[7],
-            ano_censo: row[8],
-            adm_cod: row[9]
+            region: row[1],
+            num_students_fund: row[2],
+            location: row[3]
           )
         else
-          puts "Creating school #{row}"
-          School.create(
-            inep: row[0],
-            name: row[1],
-            tp_dependencia: row[2],
-            tp_dependencia_desc: row[3],
-            cod_municipio: row[4],
-            municipio: row[5],
-            unidade_federativa: row[6],
-            num_estudantes: row[7],
-            ano_censo: row[8],
-            adm_cod: row[9]
-          )
+          not_found_schools << row
         end
       end
     end
-    puts 'Done!'
+    p 'Done!'
+    p 'Not found schools'
+    p not_found_schools
   end
 end
