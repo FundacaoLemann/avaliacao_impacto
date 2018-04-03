@@ -177,4 +177,5 @@ ActiveRecord::Schema.define(version: 20180403130859) do
   add_foreign_key "collects", "forms"
   add_foreign_key "submissions", "collect_entries"
   add_foreign_key "submissions", "collects"
+  add_foreign_key "submissions", "schools"
 end
