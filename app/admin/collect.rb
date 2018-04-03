@@ -17,6 +17,7 @@ ActiveAdmin.register Collect do
     collection: Form.all
 
   index do
+    column :id
     column :name
     column :phase
     column "Redes de ensino" do |collect|
@@ -40,7 +41,7 @@ ActiveAdmin.register Collect do
       input :phase
       input :administration_ids, as: :select, collection: Administration.all.order(:name), multiple: true, input_html: { size: 20 }
       input :status, as: :select, collection: Collect.statuses.collect { |k, _| [Collect.human_attribute_name(k), k] }
-      input :form_id, label: 'Formulário', as: :select, collection: Form.all.map { |form| ["#{form.name}", form.id] }
+      input :form_id, label: 'Questionário', as: :select, collection: Form.all.map { |form| ["#{form.name}", form.id] }
       input :form_sections, as: :check_boxes, collection: %w[A B C D E F G H I J K L M N O]
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
     end

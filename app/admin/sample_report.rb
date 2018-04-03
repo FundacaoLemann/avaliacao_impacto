@@ -3,7 +3,7 @@ ActiveAdmin.register_page "Relatório Gerencial de Coletas por Amostra" do
     h2 "População: amostra"
     Collect.find_each do |collect|
       h3 i collect.name
-      h5 "Status: #{Collect.human_attribute_name(collect.status)} - Formulário: #{collect.form.name} - Prazo: #{collect.deadline}"
+      h5 "Status: #{Collect.human_attribute_name(collect.status)} - Questionário: #{collect.form.name} - Prazo: #{collect.deadline}"
       schools_count = 0
       repescagem_count = 0
       redirected_count = 0
