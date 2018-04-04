@@ -31,7 +31,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
                 adm.contact_name
               end
               td do
-                current_adm_schools_count = adm.schools.count
+                current_adm_schools_count = adm.schools.fundamental.count
                 schools_count[:total] += current_adm_schools_count
                 current_adm_sample_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, group: "Amostra").count
                 schools_count[:sample] += current_adm_sample_count
@@ -70,7 +70,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
               end
               td do
                 submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
-                b calculate_submitted_percent(adm.schools.count, submissions.count)
+                b calculate_submitted_percent(adm.schools.fundamental.count, submissions.count)
               end
             end
           end
