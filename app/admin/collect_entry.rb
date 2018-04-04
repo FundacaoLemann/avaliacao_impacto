@@ -10,7 +10,7 @@ ActiveAdmin.register CollectEntry do
   end
 
   filter :name_cont, label: 'Nome'
-  filter :adm_cod, label: 'Rede de Ensino', as: :select, collection: Administration.all
+  filter :administration, label: 'Rede de Ensino', as: :select, collection: Administration.all
   filter :phase_cont, label: 'Período'
   filter :school_inep_cont, label: 'INEP da Escola'
   filter :collect, label: 'Coleta', as: :select, collection: Collect.all

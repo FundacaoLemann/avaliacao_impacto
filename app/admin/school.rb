@@ -17,7 +17,7 @@ ActiveAdmin.register School do
   filter :name_cont, label: 'Nome'
   filter :unidade_federativa_cont, label: 'Estado'
   filter :municipio_cont, label: 'Municipio'
-  filter :region_cont, label: 'Região'
+  filter :administration, label: 'Rede de Ensino', as: :select, collection: Administration.all
   filter :region, label: 'Região',
     as: :check_boxes, collection: %w[Norte Sul Nordeste Sudeste Centro-Oeste]
   filter :location, label: 'Localização',
