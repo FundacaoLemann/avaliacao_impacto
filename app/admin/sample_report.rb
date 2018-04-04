@@ -9,6 +9,8 @@ ActiveAdmin.register_page "Gerencial por rede (apenas amostra)" do
       redirected_count = 0
       in_progress_count = 0
       submitted_count = 0
+      submitted_sample_count = 0
+      current_adm_sample_count = 0
       table do
         thead do
           tr do
@@ -64,16 +66,16 @@ ActiveAdmin.register_page "Gerencial por rede (apenas amostra)" do
               end
               td do
                 submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
-                sample_count = 0
+                submitted_sample_count = 0
                 submissions_groups = submissions.map(&:group)
-                submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
-                submitted_count += sample_count
+                submissions_groups.each { |group| submitted_sample_count += 1 if group == "Amostra" }
+                submitted_count += submitted_sample_count
 
-                sample_count
+                submitted_sample_count
               end
               td do
-                submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
-                b calculate_submitted_percent(adm.schools.count, submissions.count)
+
+                b calculate_submitted_percent(current_adm_sample_count, submitted_sample_count)
               end
             end
           end
