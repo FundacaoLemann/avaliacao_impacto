@@ -2,9 +2,8 @@ ActiveAdmin.register_page "Gerencial por rede" do
   menu priority: 2, parent: "Relatórios", if: -> { current_admin_user.admin? }
   content do
     h2 "População: todas as escolas"
-    Collect.find_each do |collect|
-      h3 i collect.name
-      h5 "Status: #{Collect.human_attribute_name(collect.status)} - Questionário: #{collect.form.name} - Prazo: #{collect.deadline}"
+    Collect.all.group_by(&:name).each do |collect_group|
+      h3 i collect_group[0]
       schools_count = {total: 0, sample: 0}
       redirected_count = {total: 0, sample: 0}
       in_progress_count = {total: 0, sample: 0}
@@ -22,7 +21,8 @@ ActiveAdmin.register_page "Gerencial por rede" do
           end
         end
         tbody do
-          collect.administrations.each do |adm|
+          collect_group[1].each do |collect|
+            collect.administrations.each do |adm|
             tr do
               td do
                 adm.name
@@ -31,7 +31,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
                 adm.contact_name
               end
               td do
-                current_adm_schools_count = adm.schools.count
+                current_adm_schools_count = adm.schools.fundamental.count
                 schools_count[:total] += current_adm_schools_count
                 current_adm_sample_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, group: "Amostra").count
                 schools_count[:sample] += current_adm_sample_count
@@ -70,9 +70,10 @@ ActiveAdmin.register_page "Gerencial por rede" do
               end
               td do
                 submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
-                b calculate_submitted_percent(adm.schools.count, submissions.count)
+                b calculate_submitted_percent(adm.schools.fundamental.count, submissions.count)
               end
             end
+          end
           end
         end
 
