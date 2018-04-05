@@ -2,8 +2,13 @@
 
 #### Clonagem do questionário
 1. Clonar o questionário BASE no Form Assembly (`QUESTIONARIO BASE para Acompanhamento de dados educacionais (NAO APAGAR)`)
-2. Pegar o link do questionário clonado
-3. Criar o questionário no sistema com um nome identificador e o link do questionário clonado
+2. Habilitar opção de salvar respostas no Form Assembly, o clone não traz a opção por padrão
+3. Criar o `connector` de `Form progress saved` no Form Assembly
+4. Habilitar os `connectors` no Form Assembly para que as respostas sejam mandadas para o sistema
+5. Editar o campo `form_name` no Form Assembly com o nome do questionário desejado
+6. Editar a mensagem de agradecimentos do questionário
+7. Pegar o link do questionário clonado
+8. Criar o questionário no sistema com o mesmo nome que foi colocado no form assembly e o link do questionário clonado
 
 #### Inserção das redes de ensino da coleta
 1. Checar se as redes de ensino onde a coleta irá ser aplicada já existem no sistema
