@@ -10,7 +10,7 @@ ActiveAdmin.register CollectEntry do
   end
 
   filter :name_cont, label: 'Nome'
-  filter :adm_cod, label: 'Rede de Ensino', as: :select, collection: Administration.all
+  filter :administration, label: 'Rede de Ensino', as: :select, collection: Administration.all
   filter :phase_cont, label: 'Período'
   filter :school_inep_cont, label: 'INEP da Escola'
   filter :collect, label: 'Coleta', as: :select, collection: Collect.all
@@ -33,6 +33,23 @@ ActiveAdmin.register CollectEntry do
     column "Coleta" do |collect_entry|
       collect_entry.collect.name
     end
+    actions
+  end
+
+  form do |f|
+    inputs do
+      input :name
+      input :adm_cod, as: :string
+      input :phase
+      input :size
+      input :sample_size
+      input :school_inep, as: :string
+      input :school_sequence
+      input :group
+      input :collect
+    end
+
+    actions
   end
   controller do
     before_action(only: :index) { check_auth }
