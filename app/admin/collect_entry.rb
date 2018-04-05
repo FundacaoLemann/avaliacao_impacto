@@ -33,6 +33,23 @@ ActiveAdmin.register CollectEntry do
     column "Coleta" do |collect_entry|
       collect_entry.collect.name
     end
+    actions
+  end
+
+  form do |f|
+    inputs do
+      input :name
+      input :adm_cod, as: :string
+      input :phase
+      input :size
+      input :sample_size
+      input :school_inep, as: :string
+      input :school_sequence
+      input :group
+      input :collect
+    end
+
+    actions
   end
   controller do
     before_action(only: :index) { check_auth }
