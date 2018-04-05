@@ -48,4 +48,12 @@ class Collect < ApplicationRecord
       .joins(:administrations)
       .where(administrations: { id: adm_id }).first
   end
+
+  def parsed_deadline
+    self.deadline.strftime("%d/%m/%Y %H:%M")
+  end
+
+  def attributes
+    super.merge({parsed_deadline: parsed_deadline})
+  end
 end

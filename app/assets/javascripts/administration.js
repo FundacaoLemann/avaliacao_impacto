@@ -75,7 +75,7 @@ function getCollect(adm_id){
     success: function(data){
       if(data){
         collectId = data.id;
-        deadline = data.deadline;
+        deadline = data.parsed_deadline;
         faParams = data.form_assembly_params;
         formId = data.form_id;
       }
