@@ -49,6 +49,7 @@ pt-BR:
         redirected: Iniciado
         in_progress: Salvo
         submitted: Enviado
+        card_id: Id do card
       collect:
         name: Nome
         phase: Período

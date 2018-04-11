@@ -35,6 +35,7 @@ ActiveAdmin.register Submission do
     column 'Data de redirecionamento', :redirected_at_parsed
     column 'Data de salvamento', :saved_at_parsed
     column 'Data de submissão', :submitted_at_parsed
+    column :card_id
   end
 
   controller do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411162723) do
+ActiveRecord::Schema.define(version: 20180411163155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20180411162723) do
     t.bigint "collect_id"
     t.bigint "collect_entry_id"
     t.string "school_inep"
+    t.bigint "card_id"
     t.index ["adm_cod"], name: "index_submissions_on_adm_cod"
     t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
     t.index ["collect_id"], name: "index_submissions_on_collect_id"

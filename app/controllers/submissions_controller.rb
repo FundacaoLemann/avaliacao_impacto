@@ -31,7 +31,7 @@ class SubmissionsController < ApplicationController
     params.require(:submission).permit(:school_inep, :status, :school_phone,
       :submitter_name, :submitter_email, :submitter_phone, :response_id,
       :redirected_at, :saved_at, :modified_at, :submitted_at, :form_name,
-      :adm_cod, :collect_id)
+      :adm_cod, :collect_id, :card_id)
   end
 
   def submission_fa_params
