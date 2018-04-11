@@ -61,6 +61,7 @@ pt-BR:
         paused: em pausa
         archived: arquivada
         administration_ids: Redes de ensino
+        pipe_id: Id do pipe
       collect_entry:
         name: Nome
         adm_cod: Rede de ensino

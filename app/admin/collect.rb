@@ -32,6 +32,7 @@ ActiveAdmin.register Collect do
       status = Collect.human_attribute_name(collect.status)
       status_tag "#{status}", label: status
     end
+    column :pipe_id
     actions
   end
 
