@@ -1,4 +1,4 @@
-ActiveAdmin.register_page "Gerencial por rede (apenas amostra)" do
+ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
   menu priority: 3, parent: "Relatórios", if: -> { current_admin_user.admin? }
   content do
     h2 "População: amostra"
