@@ -73,6 +73,7 @@ pt-BR:
         group: Grupo
         created_at: Criado em
         updated_at: Atualizado em
+        card_id: Id do card
       form:
         name: Nome
         created_at: Criado em

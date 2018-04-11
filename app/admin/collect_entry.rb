@@ -1,7 +1,7 @@
 ActiveAdmin.register CollectEntry do
   menu priority: 4, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :adm_cod, :phase, :size, :sample_size, :school_inep,
-                :school_sequence, :group, :collect_id
+                :school_sequence, :group, :collect_id, :card_id
   config.batch_actions = false
   config.clear_action_items!
   config.sort_order = 'collect_id_asc'
@@ -33,6 +33,7 @@ ActiveAdmin.register CollectEntry do
     column "Coleta" do |collect_entry|
       collect_entry.collect.name
     end
+    column :card_id
     actions
   end
 
@@ -47,6 +48,7 @@ ActiveAdmin.register CollectEntry do
       input :school_sequence
       input :group
       input :collect
+      input :card_id
     end
 
     actions
