@@ -12,9 +12,13 @@ ActiveAdmin.register Collect do
 
   filter :name_cont, label: 'Nome'
   filter :status, label: 'Status', as: :check_boxes,
-    collection: Collect.statuses.collect { |k,v| [Collect.human_attribute_name(k), v]}
+    collection: Collect.statuses.collect { |k,v| [Collect.human_attribute_name(k), v] }
   filter :form_id, label: 'Questionário', as: :select,
     collection: Form.all
+
+  action_item :clone_pipe, only: :show do
+    link_to 'Criar pipe no pipefy', clone_pipe_path(collect_id: collect.id) if collect.cloneable?
+  end
 
   index do
     column :id
