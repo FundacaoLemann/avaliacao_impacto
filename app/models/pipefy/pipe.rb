@@ -23,6 +23,7 @@ class Pipefy::Pipe < ApplicationRecord
   end
 
   def update_pipe_name(name)
+    update(name: name)
     {
       "query": "mutation { updatePipe(input: { id: #{pipefy_id} name: \"#{name}\" }) { pipe { id name } } }"
     }
