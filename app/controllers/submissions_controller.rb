@@ -33,7 +33,7 @@ class SubmissionsController < ApplicationController
   def update
     @submission.update(submission_fa_params) if @submission
 
-    pipe = Collect.find(submission_params[:collect_id]).pipe
+    pipe = Collect.find(submission_fa_params[:collect_id]).pipe
 
     if submission_fa_params[:status] == "submitted"
       PipefyApi.post(pipe.update_card_label(card_id, :submitted))
