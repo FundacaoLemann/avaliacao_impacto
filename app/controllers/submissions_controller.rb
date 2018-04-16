@@ -36,10 +36,10 @@ class SubmissionsController < ApplicationController
     pipe = Collect.find(submission_fa_params[:collect_id]).pipe
 
     if submission_fa_params[:status] == "submitted"
-      PipefyApi.post(pipe.update_card_label(card_id, :submitted))
-      PipefyApi.post(pipe.move_card_to_phase(card_id, :submitted))
+      PipefyApi.post(pipe.update_card_label(@submission.card_id, :submitted))
+      PipefyApi.post(pipe.move_card_to_phase(@submission.card_id, :submitted))
     else
-      PipefyApi.post(pipe.update_card_label(card_id, :in_progress))
+      PipefyApi.post(pipe.update_card_label(@submission.card_id, :in_progress))
     end
 
     head :ok
