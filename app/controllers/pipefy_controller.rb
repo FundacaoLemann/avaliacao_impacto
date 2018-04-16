@@ -8,7 +8,6 @@ class PipefyController < ApplicationController
 
     cloned_pipe = JSON.parse(PipefyApi.post(Pipefy::Pipe.show(cloned_pipe_id)))
 
-    # CREATE PIPE WITH RESPONSE
     pipe = Pipefy::Pipe.create_from_json_response(cloned_pipe)
 
     collect.update(pipe: pipe)
@@ -16,7 +15,6 @@ class PipefyController < ApplicationController
     PipefyApi.post(pipe.update_pipe_name(collect.name))
 
     collect.collect_entries.find_each do |collect_entry|
-      puts "Creating card"
       school_name = collect_entry.school.to_s
       adm_name = collect_entry.administration.name
       adm_contact = collect_entry.administration.contact_name
