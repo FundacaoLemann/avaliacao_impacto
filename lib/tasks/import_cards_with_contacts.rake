@@ -4,7 +4,6 @@ namespace :pipefy do
     ce_not_found = []
 
     CSV.foreach("lib/assets/collect_entries_2018.csv", headers: false) do |row|
-      binding.pry
       collect_entry = CollectEntry.where(school_inep: row[0], collect_id: row[1])
 
       if collect_entry
