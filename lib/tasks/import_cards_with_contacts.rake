@@ -12,7 +12,7 @@ namespace :pipefy do
         adm_contact = collect_entry.administration.contact_name
         ce_group = collect_entry.group
         contacts = parse_contacts(row)
-        response = ""
+
         response = PipefyApi.post(
           Pipefy::Card.create_card(
             "441228",
@@ -23,8 +23,8 @@ namespace :pipefy do
             contacts
           )
         )
-
-        while response == ""
+        parsed_response = JSON.parse(response.body)
+        while parsed_response.nil?
           puts "=========================================RETRYING CARD"
           response = PipefyApi.post(
             Pipefy::Card.create_card(
@@ -36,11 +36,9 @@ namespace :pipefy do
               contacts
             )
           )
+          parsed_response = JSON.parse(response.body)
         end
-
-        parsed_response = JSON.parse(response.body)
         card_id = parsed_response["data"]["createCard"]["card"]["id"]
-
         collect_entry.update(card_id: card_id.to_i)
       else
         ce_not_found << row
