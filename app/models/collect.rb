@@ -1,5 +1,6 @@
 class Collect < ApplicationRecord
   belongs_to :form
+  belongs_to :pipe, class_name: 'Pipefy::Pipe', optional: true
   has_many :collect_entries
   has_many :submissions
   has_and_belongs_to_many :administrations
@@ -55,5 +56,9 @@ class Collect < ApplicationRecord
 
   def attributes
     super.merge({parsed_deadline: parsed_deadline})
+  end
+
+  def cloneable?
+    collect_entries.present? && pipe_id.nil?
   end
 end

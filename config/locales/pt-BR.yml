@@ -49,6 +49,7 @@ pt-BR:
         redirected: Iniciado
         in_progress: Salvo
         submitted: Enviado
+        card_id: Id do card
       collect:
         name: Nome
         phase: Período
@@ -61,6 +62,7 @@ pt-BR:
         paused: em pausa
         archived: arquivada
         administration_ids: Redes de ensino
+        pipe_id: Id do pipe
       collect_entry:
         name: Nome
         adm_cod: Rede de ensino
@@ -72,6 +74,7 @@ pt-BR:
         group: Grupo
         created_at: Criado em
         updated_at: Atualizado em
+        card_id: Id do card
       form:
         name: Nome
         created_at: Criado em

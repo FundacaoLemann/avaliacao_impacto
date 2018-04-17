@@ -1,7 +1,7 @@
 ActiveAdmin.register Collect do
   menu priority: 3, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :phase, :form, :form_assembly_params, :deadline,
-                :form_id, :status, form_sections: [], administration_ids: []
+                :form_id, :status, :pipe_id, form_sections: [], administration_ids: []
   config.batch_actions = false
   breadcrumb do
   end
@@ -12,9 +12,13 @@ ActiveAdmin.register Collect do
 
   filter :name_cont, label: 'Nome'
   filter :status, label: 'Status', as: :check_boxes,
-    collection: Collect.statuses.collect { |k,v| [Collect.human_attribute_name(k), v]}
+    collection: Collect.statuses.collect { |k,v| [Collect.human_attribute_name(k), v] }
   filter :form_id, label: 'Questionário', as: :select,
     collection: Form.all
+
+  action_item :clone_pipe, only: :show do
+    link_to 'Criar pipe no pipefy', clone_pipe_path(collect_id: collect.id) if collect.cloneable?
+  end
 
   index do
     column :id
@@ -32,6 +36,7 @@ ActiveAdmin.register Collect do
       status = Collect.human_attribute_name(collect.status)
       status_tag "#{status}", label: status
     end
+    column :pipe_id
     actions
   end
 
@@ -44,6 +49,7 @@ ActiveAdmin.register Collect do
       input :form_id, label: 'Questionário', as: :select, collection: Form.all.map { |form| ["#{form.name}", form.id] }
       input :form_sections, as: :check_boxes, collection: %w[A B C D E F G H I J K L M N O]
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: 'dd/mm/yy' }
+      input :pipe_id
     end
 
     actions

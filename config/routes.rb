@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'administration', to: 'administrations#show'
   get 'collect', to: 'collects#show'
   get 'form', to: 'forms#show'
+  get 'clone_pipe', to: 'pipefy#clone_pipe'
 
   # active admin
   devise_for :admin_users, ActiveAdmin::Devise.config

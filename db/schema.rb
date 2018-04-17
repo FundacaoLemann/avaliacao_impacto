@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403130859) do
+ActiveRecord::Schema.define(version: 20180412144659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20180403130859) do
     t.string "group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "card_id"
     t.index ["collect_id"], name: "index_collect_entries_on_collect_id"
   end
 
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(version: 20180403130859) do
     t.datetime "updated_at", null: false
     t.bigint "form_id"
     t.integer "status", default: 0, null: false
+    t.bigint "pipe_id"
     t.index ["form_id"], name: "index_collects_on_form_id"
   end
 
@@ -113,6 +115,15 @@ ActiveRecord::Schema.define(version: 20180403130859) do
 
   create_table "notices", force: :cascade do |t|
     t.text "content", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipefy_pipes", force: :cascade do |t|
+    t.bigint "pipefy_id"
+    t.string "name"
+    t.text "labels", default: [], array: true
+    t.text "phases", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -164,6 +175,7 @@ ActiveRecord::Schema.define(version: 20180403130859) do
     t.bigint "collect_id"
     t.bigint "collect_entry_id"
     t.string "school_inep"
+    t.bigint "card_id"
     t.index ["adm_cod"], name: "index_submissions_on_adm_cod"
     t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
     t.index ["collect_id"], name: "index_submissions_on_collect_id"
