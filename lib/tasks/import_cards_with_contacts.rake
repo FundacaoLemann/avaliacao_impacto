@@ -4,7 +4,7 @@ namespace :pipefy do
     ce_not_found = []
 
     CSV.foreach("lib/assets/collect_entries_2018.csv", headers: false) do |row|
-      collect_entry = CollectEntry.where(school_inep: row[0], collect_id: row[1])
+      collect_entry = CollectEntry.where(school_inep: row[0], collect_id: row[1]).first
 
       if collect_entry
         puts "Creating card"
@@ -41,22 +41,23 @@ namespace :pipefy do
   end
 
   def parse_contacts(row)
-    <<-END
-      Telefone da escola: #{row[2]}
-      Nome do diretor: #{row[3]}
-      Celular do diretor: #{row[4]}
-      Email do diretor: #{row[5]}
-      Qtde de diretores: #{row[6]}
-      Qtde de coordenadores pedagógicos: #{row[7]}
-      Nome do coordenador: #{row[8]}
-      Celular do coordenador: #{row[9]}
-      Email do coordenador: #{row[10]}
-      Nome do coordenador: #{row[11]}
-      Celular do coordenador: #{row[12]}
-      Email do coordenador: #{row[13]}
-      Nome do coordenador: #{row[14]}
-      Celular do coordenador: #{row[15]}
-      Email do coordenador: #{row[16]}
-    END
+    return "sem contato" if row[2] == "PARALISADA" || row[2] == "#N/A"
+    contacts = ""
+    contacts << "Telefone da escola: #{row[2]}\n" if row[2] != "0" || row[2] == ""
+    contacts << "Nome do diretor: #{row[3]}\n" if row[3] != "0" || row[3] == ""
+    contacts << "Celular do diretor: #{row[4]}\n" if row[4] != "0" || row[4] == ""
+    contacts << "Email do diretor: #{row[5]}\n" if row[5] != "0" || row[5] == ""
+    contacts << "Qtde de diretores: #{row[6]}" if row[6] != "0" || row[6] == ""
+    contacts << "Qtde de coordenadores pedagógicos: #{row[7]}" if row[7] != "0" || row[7] == ""
+    contacts << "Nome do coordenador: #{row[8]}" if row[8] != "0" || row[8] == ""
+    contacts << "Celular do coordenador: #{row[9]}" if row[9] != "0" || row[9] == ""
+    contacts << "Email do coordenador: #{row[10]}" if row[10] != "0" || row[10] == ""
+    contacts << "Nome do coordenador: #{row[11]}" if row[11] != "0" || row[11] == ""
+    contacts << "Celular do coordenador: #{row[12]}" if row[12] != "0" || row[12] == ""
+    contacts << "Email do coordenador: #{row[13]}" if row[13] != "0" || row[13] == ""
+    contacts << "Nome do coordenador: #{row[14]}" if row[14] != "0" || row[14] == ""
+    contacts << "Celular do coordenador: #{row[15]}" if row[15] != "0" || row[15] == ""
+    contacts << "Email do coordenador: #{row[16]}" if row[16] != "0" || row[16] == ""
+    contacts
   end
 end
