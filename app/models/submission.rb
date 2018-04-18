@@ -5,7 +5,7 @@ class Submission < ApplicationRecord
   belongs_to :administration, foreign_key: "adm_cod", primary_key: "cod", optional: true
   delegate :group, to: :collect_entry, allow_nil: true
 
-  STATUSES = [:redirected, :in_progress, :submitted].freeze
+  STATUSES = [:redirected, :in_progress, :submitted, :quitter].freeze
 
   def redirected_at_parsed
     parse_date_to_br_format(redirected_at)
