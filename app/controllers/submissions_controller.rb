@@ -45,9 +45,9 @@ class SubmissionsController < ApplicationController
     head :ok
   end
 
-  def update_status
+  def quit
     submission = Submission.where(card_id: params[:card_id])
-    submission&.update(status: params[:status])
+    submission&.update(status: :quitter)
   end
 
   private

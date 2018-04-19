@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'collect', to: 'collects#show'
   get 'form', to: 'forms#show'
   get 'clone_pipe', to: 'pipefy#clone_pipe'
-  put 'update_submission_status', to: 'submissions#update_status'
+  put 'quit_submission', to: 'submissions#quit'
 
   # active admin
   devise_for :admin_users, ActiveAdmin::Devise.config
