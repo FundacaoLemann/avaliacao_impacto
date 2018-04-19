@@ -63,6 +63,7 @@ function getAministration(param){
     data: { city_or_state: param },
     success: function(data){
       currentAdm = data;
+      getCollect(currentAdm.id);
     }
   });
 }
@@ -85,5 +86,4 @@ function getCollect(adm_id){
 
 function getCollectParams(){
   administration == 'Municipal' ? getAministration(city) : getAministration(state);
-  getCollect(currentAdm.id);
 }
