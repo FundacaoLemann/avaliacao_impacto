@@ -33,6 +33,7 @@ ActiveAdmin.register CollectEntry do
     column "Coleta" do |collect_entry|
       collect_entry.collect.name
     end
+    column :substitute
     column :card_id
     actions
   end
