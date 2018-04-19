@@ -1,7 +1,7 @@
 class School < ApplicationRecord
   validates :inep, uniqueness: true
 
-  has_many :submissions
+  has_many :submissions, foreign_key: "school_inep", primary_key: "inep"
   has_many :collect_entries, foreign_key: "school_inep", primary_key: "inep"
   belongs_to :administration, foreign_key: "adm_cod", primary_key: "cod", optional: true
 
