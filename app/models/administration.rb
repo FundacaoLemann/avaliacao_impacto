@@ -13,4 +13,10 @@ class Administration < ApplicationRecord
   scope :city_administrations, -> { where(adm: :municipal) }
   scope :country_administrations, -> { where(adm: :federal) }
   scope :private_administrations, -> { where(adm: :privada) }
+
+  def self.allowed_administrations(adm)
+    where(adm: adm)
+      .joins(:collects)
+      .where(collects: { status: 'in_progress'})
+  end
 end
