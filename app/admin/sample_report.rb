@@ -9,15 +9,21 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
       redirected_count = 0
       in_progress_count = 0
       submitted_count = 0
+      quitter_count = 0
+      substitutes_count = 0
       submitted_sample_count = 0
+
       current_adm_sample_count = 0
+      current_adm_substitutes_count = 0
+      current_adm_quitter_count = 0
       table do
         thead do
           tr do
             th 'Rede'
             th 'Responsável'
             th 'Escolas na amostra'
-            th 'Escolas substituídas'
+            th 'Escolas desistentes'
+            th 'Escolas substitutas'
             th 'Iniciaram'
             th 'Salvas'
             th 'Enviadas'
@@ -41,10 +47,19 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                 current_adm_sample_count
               end
               td do
-                current_adm_repescagem_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, group: "Repescagem").count
-                repescagem_count += current_adm_repescagem_count
+                submissions = adm.submissions.where(collect_id: collect.id, status: :quitter)
+                current_adm_quitter_count = 0
+                submissions_groups = submissions.map(&:group)
+                submissions_groups.each { |group| current_adm_quitter_count += 1 if group == "Amostra" }
+                quitter_count += current_adm_quitter_count
 
-                current_adm_repescagem_count
+                current_adm_quitter_count
+              end
+              td do
+                current_adm_substitutes_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, substitute: true).count
+                substitutes_count += current_adm_substitutes_count
+
+                current_adm_substitutes_count
               end
               td do
                 submissions = adm.submissions.where(collect_id: collect.id, status: :redirected)
@@ -74,8 +89,8 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                 submitted_sample_count
               end
               td do
-
-                b calculate_submitted_percent(current_adm_sample_count, submitted_sample_count)
+                schools_total = current_adm_sample_count - current_adm_quitter_count + current_adm_substitutes_count
+                b calculate_submitted_percent(schools_total, submitted_sample_count)
               end
             end
           end
@@ -92,7 +107,10 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
             h4 b schools_count
           end
           td do
-            h4 b "#{repescagem_count} (#{calculate_submitted_percent(schools_count, repescagem_count)})"
+            h4 b "#{quitter_count} (#{calculate_submitted_percent(schools_count, quitter_count)})"
+          end
+          td do
+            h4 b "#{substitutes_count} (#{calculate_submitted_percent(schools_count, substitutes_count)})"
           end
           td do
             h4 b "#{redirected_count} (#{calculate_submitted_percent(schools_count, redirected_count)})"
@@ -104,7 +122,8 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
             h4 b "#{submitted_count}"
           end
           td do
-            h4 b "#{calculate_submitted_percent(schools_count, submitted_count)}"
+            schools_total = schools_count - quitter_count + substitutes_count
+            h4 b "#{calculate_submitted_percent(schools_total, submitted_count)}"
           end
         end
       end
