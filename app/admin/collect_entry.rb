@@ -34,6 +34,7 @@ ActiveAdmin.register CollectEntry do
       collect_entry.collect.name
     end
     column :substitute
+    column :quitter
     column :card_id
     actions
   end
