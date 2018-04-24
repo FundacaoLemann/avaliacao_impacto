@@ -1,7 +1,6 @@
 ActiveAdmin.register Form do
   menu priority: 1, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :link
-  config.batch_actions = false
   breadcrumb do
   end
 

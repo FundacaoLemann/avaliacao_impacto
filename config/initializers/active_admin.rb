@@ -123,7 +123,7 @@ ActiveAdmin.setup do |config|
   # You can customize the comment menu:
   # config.comments_menu = { parent: 'Admin', priority: 1 }
 
-  config.batch_actions = true
+  config.batch_actions = false
 
   # == Controller Filters
   #

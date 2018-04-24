@@ -1,7 +1,6 @@
 ActiveAdmin.register Submission do
   menu priority: 1, parent: "Relatórios", if: -> { current_admin_user.admin? }
   config.clear_action_items!
-  config.batch_actions = false
   breadcrumb do
   end
 

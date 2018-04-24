@@ -1,7 +1,6 @@
 ActiveAdmin.register Notice do
   menu priority: 13, if: -> { current_admin_user.admin? }
   permit_params :content
-  config.batch_actions = false
   config.clear_action_items!
   config.filters = false
   actions :all, except: [:destroy, :show]

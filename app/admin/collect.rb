@@ -2,7 +2,6 @@ ActiveAdmin.register Collect do
   menu priority: 3, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :phase, :form, :form_assembly_params, :deadline,
                 :form_id, :status, :pipe_id, form_sections: [], administration_ids: []
-  config.batch_actions = false
   breadcrumb do
   end
 

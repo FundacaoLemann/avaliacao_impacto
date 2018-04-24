@@ -4,7 +4,6 @@ ActiveAdmin.register School do
   permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
     :municipio, :unidade_federativa, :num_estudantes, :ano_censo, :adm_cod
 
-  config.batch_actions = false
   config.clear_action_items!
   active_admin_import
   config.sort_order = 'inep_asc'
