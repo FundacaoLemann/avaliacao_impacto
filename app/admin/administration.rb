@@ -2,8 +2,6 @@ ActiveAdmin.register Administration do
   menu priority: 2, parent: "Gerenciar Coletas", if: -> { current_admin_user.sub_admin? }
   permit_params :adm, :state_id, :city_ibge_code, :preposition, :name, :cod, :contact_name
   actions :all, except: [:show, :destroy]
-  breadcrumb do
-  end
 
   filter :name_cont, label: "Descrição"
   filter :cod_cont, label: "Código da Rede"

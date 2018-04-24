@@ -1,8 +1,6 @@
 ActiveAdmin.register Submission do
   menu priority: 1, parent: "Relatórios", if: -> { current_admin_user.admin? }
   config.clear_action_items!
-  breadcrumb do
-  end
 
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: 'Rede de Ensino', as: :select, collection: Administration.all

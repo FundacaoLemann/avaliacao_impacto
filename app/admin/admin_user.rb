@@ -1,8 +1,7 @@
 ActiveAdmin.register AdminUser do
   menu priority: 12, if: -> { current_admin_user.sub_admin? }
   permit_params :email, :password, :password_confirmation, :role
-  breadcrumb do
-  end
+
   index do
     selectable_column
     id_column

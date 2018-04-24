@@ -1,8 +1,6 @@
 ActiveAdmin.register Form do
   menu priority: 1, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :link
-  breadcrumb do
-  end
 
   filter :name_cont, label: 'Nome do Questionário'
 

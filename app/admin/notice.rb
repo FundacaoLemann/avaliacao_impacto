@@ -4,8 +4,6 @@ ActiveAdmin.register Notice do
   config.clear_action_items!
   config.filters = false
   actions :all, except: [:destroy, :show]
-  breadcrumb do
-  end
 
   index do
     column "Texto" do |notice|

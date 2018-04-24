@@ -7,8 +7,6 @@ ActiveAdmin.register School do
   config.clear_action_items!
   active_admin_import
   config.sort_order = 'inep_asc'
-  breadcrumb do
-  end
 
   scope :fundamental
 

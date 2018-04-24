@@ -6,8 +6,6 @@ ActiveAdmin.register CollectEntry do
   config.clear_action_items!
   config.sort_order = 'collect_id_asc'
   active_admin_import
-  breadcrumb do
-  end
 
   filter :name_cont, label: 'Nome'
   filter :administration, label: 'Rede de Ensino', as: :select, collection: Administration.all
