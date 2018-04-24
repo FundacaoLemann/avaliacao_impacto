@@ -11,7 +11,7 @@ namespace :db do
           ----------------------------------------------------------------
         END
 
-        [:redirected, :in_progress, :submitted].each do |status|
+        [:redirected, :in_progress, :submitted, :quitter].each do |status|
           destroy_all_but_the_last(school.submissions, status)
         end
 
