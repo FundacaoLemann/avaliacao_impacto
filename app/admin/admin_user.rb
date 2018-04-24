@@ -1,10 +1,9 @@
+include ActiveAdmin::ViewsHelper
 ActiveAdmin.register AdminUser do
   menu priority: 12, if: -> { current_admin_user.sub_admin? }
   permit_params :email, :password, :password_confirmation, :role
 
   index do
-    selectable_column
-    id_column
     column :email
     column :role do |admin_user|
       AdminUser.human_attribute_name(admin_user.role)
@@ -15,16 +14,19 @@ ActiveAdmin.register AdminUser do
     actions
   end
 
-  filter :email_cont, label: 'Email'
-  filter :role, as: :select,
-    collection: AdminUser.roles.collect {|k, v| [AdminUser.human_attribute_name(k), v]}
+  filter :email_cont, label: i18n_for("admin_user", "email")
+  filter :role, as: :select, collection: AdminUser.roles.collect { |k, v|
+    [AdminUser.human_attribute_name(k), v]
+  }
 
   form do |f|
     f.inputs do
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :role, as: :select, collection: AdminUser.roles.collect { |k, _| [AdminUser.human_attribute_name(k), k] }
+      f.input :role, as: :select, collection: AdminUser.roles.collect { |k, _|
+        [AdminUser.human_attribute_name(k), k]
+      }
     end
     f.actions
   end
@@ -34,7 +36,7 @@ ActiveAdmin.register AdminUser do
 
     def check_auth
       return if current_admin_user.sub_admin?
-      redirect_to admin_root_path, notice: (I18n.t 'errors.unauthorized')
+      redirect_to admin_root_path, notice: I18n.t("errors.unauthorized")
     end
   end
 end
