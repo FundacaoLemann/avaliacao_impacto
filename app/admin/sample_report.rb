@@ -51,12 +51,14 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                 current_adm_quitter_count = 0
                 submissions_groups = submissions.map(&:group)
                 submissions_groups.each { |group| current_adm_quitter_count += 1 if group == "Amostra" }
+                current_quitter_ce = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, quitter: true).count
+                current_adm_quitter_count += current_quitter_ce
                 quitter_count += current_adm_quitter_count
 
                 current_adm_quitter_count
               end
               td do
-                current_adm_substitutes_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, substitute: true).count
+                current_adm_substitutes_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, substitute: true, quitter: false).count
                 substitutes_count += current_adm_substitutes_count
 
                 current_adm_substitutes_count
