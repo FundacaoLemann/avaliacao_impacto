@@ -8,6 +8,11 @@ class FormsController < ApplicationController
   private
 
   def set_form
-    @form = Form.find(params[:id])
+    @form = Form.find(form_params[:id])
+  end
+
+  private
+  def form_params
+    params.permit(:id)
   end
 end

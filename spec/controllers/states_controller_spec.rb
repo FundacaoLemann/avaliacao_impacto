@@ -7,7 +7,7 @@ RSpec.describe StatesController, type: :controller do
   describe "GET #show" do
     render_views
     it "returns cities as options_from_collection_for_select" do
-      request.accept = 'application/javascript'
+      request.accept = "application/javascript"
       get :show, params: { id: state.id }, xhr: true
 
       expect(response.body).to eq(
@@ -18,7 +18,7 @@ RSpec.describe StatesController, type: :controller do
 
   describe "GET #cities" do
     it "returns cities as json" do
-      request.accept = 'application/json'
+      request.accept = "application/json"
       get :cities, params: { id: state.id }
 
       expect(response.body).to include(city.to_json)

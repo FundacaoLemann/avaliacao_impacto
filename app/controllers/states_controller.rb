@@ -6,13 +6,16 @@ class StatesController < ApplicationController
   end
 
   def cities
-    @cities = @state.cities.order(:name)
-    render json: @cities
+    cities = @state.cities.order(:name)
+    render json: cities
   end
 
   private
-
   def set_state
-    @state = State.find(params[:id])
+    @state = State.find(state_params[:id])
+  end
+
+  def state_params
+    params.permit(:id)
   end
 end

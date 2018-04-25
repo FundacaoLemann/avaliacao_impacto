@@ -7,7 +7,7 @@ RSpec.describe CollectsController, type: :controller do
       collect = create(:collect, status: :in_progress, administrations: [adm])
       create(:collect, status: :in_progress, administrations: [adm])
 
-      request.accept = 'application/json'
+      request.accept = "application/json"
       get :show, params: { adm: adm.id }
 
       expect(response.body).to eq(collect.to_json)

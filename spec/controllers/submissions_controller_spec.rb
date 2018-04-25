@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 RSpec.describe SubmissionsController, type: :controller do
   xdescribe "POST #create" do
     context "with valid params" do
