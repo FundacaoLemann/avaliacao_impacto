@@ -13,13 +13,13 @@ class Pipefy::Pipe < ApplicationRecord
 
   def label_id(status)
     raw_string = labels.select { |label| label.include? LABEL_MAPPING[status] }
-    parsed_json = JSON.parse raw_string.first.gsub('=>', ':')
+    parsed_json = JSON.parse raw_string.first.gsub("=>", ":")
     parsed_json["id"]
   end
 
   def phase_id(status)
     raw_string = phases.select { |phase| phase.include? PHASE_MAPPING[status] }
-    parsed_json = JSON.parse raw_string.first.gsub('=>', ':')
+    parsed_json = JSON.parse raw_string.first.gsub("=>", ":")
     parsed_json["id"]
   end
 
@@ -44,8 +44,8 @@ class Pipefy::Pipe < ApplicationRecord
 
   class << self
     def clone_query
-      organization_id = ENV['PIPEFY_ORGANIZATION_ID']
-      pipe_template_ids = ENV['PIPEFY_PIPE_TEMPLATE_ID']
+      organization_id = ENV["PIPEFY_ORGANIZATION_ID"]
+      pipe_template_ids = ENV["PIPEFY_PIPE_TEMPLATE_ID"]
       {
         "query": "mutation { clonePipes(input: { organization_id: #{organization_id} pipe_template_ids: [#{pipe_template_ids}] }) { pipes { id name } } }"
       }
