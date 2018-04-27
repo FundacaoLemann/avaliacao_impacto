@@ -81,6 +81,6 @@ function createSubmission() {
 }
 
 function openForm() {
-  window.open(formUrl + "?" + faParams + tfa_7 + tfa_5 + tfa_3719 +
-              tfa_80 + tfa_84 + tfa_86 + tfa_3710 + tfa_3713 + tfa_5749);
+  window.location.href = (formUrl + "?" + faParams + tfa_7 + tfa_5 + tfa_3719 +
+    tfa_80 + tfa_84 + tfa_86 + tfa_3710 + tfa_3713 + tfa_5749);
 }
