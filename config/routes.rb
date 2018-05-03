@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'clone_pipe', to: 'pipefy#clone_pipe'
   put 'quit_submission', to: 'submissions#quit'
   put 'collect_entry', to: 'collect_entries#update'
+  put 'card_moved', to: 'pipefy#card_moved'
 
   # active admin
   devise_for :admin_users, ActiveAdmin::Devise.config
