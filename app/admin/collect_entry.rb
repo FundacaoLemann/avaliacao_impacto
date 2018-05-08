@@ -1,7 +1,7 @@
 ActiveAdmin.register CollectEntry do
   menu priority: 4, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :adm_cod, :phase, :size, :sample_size, :school_inep,
-                :school_sequence, :group, :collect_id, :card_id
+                :school_sequence, :group, :collect_id, :card_id, :member_email
   config.batch_actions = false
   config.clear_action_items!
   config.sort_order = 'collect_id_asc'
@@ -14,6 +14,7 @@ ActiveAdmin.register CollectEntry do
   filter :phase_cont, label: 'Período'
   filter :school_inep_cont, label: 'INEP da Escola'
   filter :collect, label: 'Coleta', as: :select, collection: Collect.all
+  # filter :member_email, as: :select, collection: Pipefy::Member.all.map(&:email)
   filter :group, label: '', as: :check_boxes, collection: %w[Amostra Repescagem]
 
   index do
@@ -36,6 +37,7 @@ ActiveAdmin.register CollectEntry do
     column :substitute
     column :quitter
     column :card_id
+    column :member_email
     actions
   end
 
@@ -51,6 +53,7 @@ ActiveAdmin.register CollectEntry do
       input :group
       input :collect
       input :card_id
+      input :member_email
     end
 
     actions

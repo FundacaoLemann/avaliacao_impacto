@@ -76,6 +76,7 @@ pt-BR:
         created_at: Criado em
         updated_at: Atualizado em
         card_id: Id do card
+        member_email: Conta responsável pelo card
         substitute: Escola substituta
         quitter: Escola desistente
       form:

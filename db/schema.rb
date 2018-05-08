@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420181440) do
+ActiveRecord::Schema.define(version: 20180502174624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20180420181440) do
     t.bigint "card_id"
     t.boolean "substitute", default: false
     t.boolean "quitter", default: false
+    t.string "member_email"
     t.index ["collect_id"], name: "index_collect_entries_on_collect_id"
   end
 
@@ -117,6 +118,14 @@ ActiveRecord::Schema.define(version: 20180420181440) do
 
   create_table "notices", force: :cascade do |t|
     t.text "content", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipefy_members", force: :cascade do |t|
+    t.bigint "pipefy_id"
+    t.string "name"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

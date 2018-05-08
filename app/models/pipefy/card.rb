@@ -30,4 +30,10 @@ module Pipefy::Card
       "query": "mutation{ updateCardField(input: {card_id: #{id} field_id: \"telefone_do_gestor\" new_value: \"#{submitter_email}\" }){ card{ id } } }"
     }
   end
+
+  def update_assignee(id, member_id)
+    {
+      "query": "mutation{ updateCard(input: {id: #{id} assignee_ids: [#{member_id}] }) { card { id title }}}"
+    }
+  end
 end
