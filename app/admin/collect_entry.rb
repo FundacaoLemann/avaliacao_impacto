@@ -52,12 +52,9 @@ ActiveAdmin.register CollectEntry do
       input :group
       input :collect
       input :card_id
-<<<<<<< HEAD
       input :member_email
-=======
       input :substitute
       input :quitter
->>>>>>> 71c147b... Fix rubocop issues on Active Admin pages
     end
     actions
   end
