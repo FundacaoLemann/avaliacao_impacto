@@ -7,7 +7,8 @@ class Pipefy::Pipe < ApplicationRecord
 
   PHASE_MAPPING = {
     redirected: "Quest. em progresso",
-    submitted: "Quest. Respondido"
+    submitted: "Quest. Respondido",
+    triagem: "Triagem"
   }.freeze
 
   def label_id(status)

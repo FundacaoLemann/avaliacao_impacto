@@ -27,6 +27,15 @@ class Submission < ApplicationRecord
     collection ||= STATUSES.collect { |k| [Submission.human_attribute_name(k), k.to_s] }
   end
 
+  def contacts
+    contacts = ""
+    contacts << "Telefone da escola: #{school_phone}\n" if school_phone
+    contacts << "Nome do diretor: #{submitter_name}\n" if submitter_name
+    contacts << "Celular do diretor: #{submitter_phone}\n" if submitter_phone
+    contacts << "Email do diretor: #{submitter_email}\n" if submitter_email
+    contacts
+  end
+
   def to_s
     "#{id} #{school_id} - #{status}"
   end
