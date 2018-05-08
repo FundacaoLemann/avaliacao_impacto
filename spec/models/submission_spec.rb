@@ -1,7 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Submission, type: :model do
   it { should belong_to(:school) }
+  it { should belong_to(:collect) }
+  it { should belong_to(:collect_entry) }
+  it { should belong_to(:administration) }
 
   describe "#redirected_at_parsed" do
     it "returns redirected_at in the correct format" do

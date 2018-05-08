@@ -123,7 +123,7 @@ ActiveAdmin.setup do |config|
   # You can customize the comment menu:
   # config.comments_menu = { parent: 'Admin', priority: 1 }
 
-  config.batch_actions = true
+  config.batch_actions = false
 
   # == Controller Filters
   #
@@ -162,7 +162,7 @@ ActiveAdmin.setup do |config|
   # Breadcrumbs are enabled by default. You can customize them for individual
   # resources or you can disable them globally from here.
   #
-  # config.breadcrumb = false
+  config.breadcrumb = false
 
   # == Create Another Checkbox
   #

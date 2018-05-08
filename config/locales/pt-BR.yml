@@ -10,6 +10,8 @@ pt-BR:
         region: Região
         num_students_fund: Num Estudantes Fund.
         location: Localização
+        adm_cod: Rede de ensino
+        municipio: Cidade
       admin_user:
         admin: Admin
         service_manager: Gestor de Atendimento
@@ -50,7 +52,20 @@ pt-BR:
         in_progress: Salvo
         submitted: Enviado
         quitter: Desistente
-        card_id: Id do card
+        card_id: Pipefy card
+        adm_cod: Rede de ensino
+        collect_id: Coleta
+        school_inep: Escola
+        group: Grupo
+        form_name: Questionário
+        status: Status
+        school_phone: Tel. da Escola
+        submitter_name: Nome do Gestor
+        submitter_email: Email do gestor
+        submitter_phone: Tel. do gestor
+        redirected_at_parsed: Data de redirecionamento
+        saved_at_parsed: Data de salvamento
+        submitted_at_parsed: Data de submissão
       collect:
         name: Nome
         phase: Período
@@ -63,7 +78,9 @@ pt-BR:
         paused: em pausa
         archived: arquivada
         administration_ids: Redes de ensino
-        pipe_id: Id do pipe
+        pipe_id: Pipefy Pipe
+        status: Status
+        administrations: Redes de ensino
       collect_entry:
         name: Nome
         adm_cod: Rede de ensino
@@ -75,10 +92,12 @@ pt-BR:
         group: Grupo
         created_at: Criado em
         updated_at: Atualizado em
-        card_id: Id do card
         member_email: Conta responsável pelo card
+        card_id: Pipefy card
         substitute: Escola substituta
         quitter: Escola desistente
+        collect_id: Coleta
+        inep: Código INEP da Escola
       form:
         name: Nome
         created_at: Criado em

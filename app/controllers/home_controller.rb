@@ -1,21 +1,20 @@
 class HomeController < ApplicationController
   def index
-    load_state_and_cities
+    @states = State.all.order(:name)
+    @cities = @states.first.cities.order(:name)
   end
 
   def search
-    @q = School.ransack(
-      name_cont: params[:school],
-      cod_municipio_eq: params[:city],
-      tp_dependencia_desc_eq: params[:administration]
+    query = School.ransack(
+      name_cont: home_params[:school],
+      cod_municipio_eq: home_params[:city],
+      tp_dependencia_desc_eq: home_params[:administration]
     )
-    @schools = @q.result(distinct: true).limit(5)
+    @schools = query.result(distinct: true).limit(5)
   end
 
   private
-
-  def load_state_and_cities
-    @states = State.all.order(:name)
-    @cities = @states.first.cities.order(:name)
+  def home_params
+    params.permit(:school, :city, :administration)
   end
 end

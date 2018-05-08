@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe HomeController, type: :controller do
   describe "GET #index" do
@@ -16,8 +16,8 @@ RSpec.describe HomeController, type: :controller do
   describe "GET #search" do
     render_views
     before do
-      @school = create :school, name: 'Testing school'
-      @another_school = create :school, name: 'Another school'
+      @school = create :school, name: "Testing school"
+      @another_school = create :school, name: "Another school"
     end
 
     let(:expected_json) {
@@ -47,15 +47,15 @@ RSpec.describe HomeController, type: :controller do
     }
 
     it "returns only the matching schools" do
-      request.accept = 'application/json'
-      get :search, params: { school: 'testing' }
+      request.accept = "application/json"
+      get :search, params: { school: "testing" }
 
       expect(JSON.parse(response.body)).to eq(expected_json)
     end
 
     it "returns only the matching schools" do
-      request.accept = 'application/json'
-      get :search, params: { school: 'school' }
+      request.accept = "application/json"
+      get :search, params: { school: "school" }
 
       expect(JSON.parse(response.body)).to eq(all_schools)
     end

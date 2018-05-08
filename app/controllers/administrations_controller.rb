@@ -5,12 +5,15 @@ class AdministrationsController < ApplicationController
   end
 
   def show
-    if params[:city_or_state].length > 2
-      @administration = Administration.where(city_ibge_code: params[:city_or_state])
-    else
-      @administration = Administration.where(state_id: params[:city_or_state])
-    end
+    administration = Administration.find_administration_by_city_or_state(
+      administration_params[:city_or_state]
+    )
 
-    render json: @administration.first
+    render json: administration.first
+  end
+
+  private
+  def administration_params
+    params.permit(:city_or_state)
   end
 end

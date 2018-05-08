@@ -1,19 +1,14 @@
+include ActiveAdmin::ViewsHelper
 ActiveAdmin.register Notice do
   menu priority: 13, if: -> { current_admin_user.admin? }
   permit_params :content
-  config.batch_actions = false
   config.clear_action_items!
   config.filters = false
   actions :all, except: [:destroy, :show]
-  breadcrumb do
-  end
 
   index do
-    column "Texto" do |notice|
-      raw notice.content
-    end
+    column :content
     column :updated_at
-
     actions
   end
 
@@ -21,7 +16,6 @@ ActiveAdmin.register Notice do
     inputs do
       input :content, as: :medium_editor
     end
-
     actions
   end
 end
