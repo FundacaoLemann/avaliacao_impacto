@@ -1,0 +1,9 @@
+development:
+ host: "localhost"
+ port: "6379"
+test:
+ host: "localhost"
+ port: "6379"
+production:
+ host: "preditores-001.lkxcpo.0001.usw2.cache.amazonaws.com"
+ port: "6379"
