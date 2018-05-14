@@ -25,7 +25,7 @@ ActiveAdmin.register Submission do
     end
     column i18n_for("submission", "form_name"), :form_name
     column i18n_for("submission", "status") do |submission|
-      status = Submission.human_attribute_name(submission.status)
+      status = Submission.human_attribute_name(submission.status) if submission.status
       status_tag "#{status}", label: status
     end
     column :school_phone
