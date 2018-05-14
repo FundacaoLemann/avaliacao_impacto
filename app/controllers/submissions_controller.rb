@@ -38,7 +38,8 @@ class SubmissionsController < ApplicationController
   end
 
   def update
-    @submission.update(submission_fa_params) if @submission
+    create_missing_submission unless @submission
+    @submission.update(submission_fa_params)
 
     pipe = Collect.find(submission_fa_params[:collect_id]).pipe
 
@@ -65,6 +66,23 @@ class SubmissionsController < ApplicationController
     ).last
   end
 
+  def create_missing_submission
+    collect_entry = CollectEntry.where(
+      collect_id: submission_fa_params[:collect_id],
+      school_inep: submission_fa_params[:school_inep]
+    ).first
+    adm = Administration.find_by_cod(collect_entry.adm_cod)
+
+    Submission.create(
+      submission_fa_params.merge(
+        adm_cod: collect_entry.adm_cod,
+        collect_entry: collect_entry,
+        administration: adm,
+        card_id: collect_entry.card_id,
+      )
+    )
+  end
+
   def submission_params
     params.require(:submission).permit(:school_inep, :status, :school_phone,
       :submitter_name, :submitter_email, :submitter_phone, :response_id,
@@ -74,6 +92,7 @@ class SubmissionsController < ApplicationController
 
   def submission_fa_params
     params.permit(:form_name, :school_inep, :response_id, :saved_at,
-      :modified_at, :submitted_at, :status, :collect_id)
+      :modified_at, :submitted_at, :status, :collect_id, :submitter_name,
+      :submitter_email, :submitter_phone, :school_phone)
   end
 end
