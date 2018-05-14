@@ -2,6 +2,7 @@ include ActiveAdmin::ViewsHelper
 ActiveAdmin.register Submission do
   menu priority: 1, parent: "Relatórios", if: -> { current_admin_user.admin? }
   config.clear_action_items!
+  actions :all, except: [:show, :edit]
 
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: i18n_for("submission", "adm_cod"),
@@ -36,6 +37,7 @@ ActiveAdmin.register Submission do
     column :saved_at_parsed
     column :submitted_at_parsed
     column :card_id
+    actions
   end
 
   controller do
