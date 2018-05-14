@@ -7,8 +7,11 @@ class ReplaceQuitterWorker
     substitute = CollectEntry.where(
       collect: collect,
       administration: collect_entry.administration,
-      group: "Repescagem"
-    ).first
+      name: collect_entry.name,
+      group: "Repescagem",
+      substitute: false
+    ).order(:school_sequence).first
+    return unless substitute
     substitute.update(substitute: true)
     pipe = collect.pipe
     PipefyApi.post(pipe.move_card_to_phase(substitute.card_id, :triagem))
