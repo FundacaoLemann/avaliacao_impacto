@@ -28,6 +28,8 @@ class PipeService
     @collect.contacts.find_each do |contact|
       UpdateCardContactWorker.perform_async(contact.id)
     end
+
+    @collect.contacts.destroy_all
   end
 
   def update_members

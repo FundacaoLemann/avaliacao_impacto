@@ -29,7 +29,7 @@ class PipefyController < ApplicationController
     collect = Collect.find(params[:collect_id])
     pipe_service = PipeService.new(collect)
     pipe_service.update_cards
-    # Contacts.where(collect_id: collect_id).destroy_all
+    
     redirect_to admin_collects_path,
       notice: "O processo de atualização dos contatos com o pipefy foi iniciado, por favor acompanhe o progresso no próprio pipefy."
   end
