@@ -29,4 +29,10 @@ class PipeService
       UpdateCardContactWorker.perform_async(contact.id)
     end
   end
+
+  def update_members
+    @collect.collect_entries.find_each do |collect_entry|
+      UpdateCardMemberWorker.perform_async(collect_entry.id)
+    end
+  end
 end

@@ -26,14 +26,6 @@ class CreatePipefyCardWorker
     card_id = parsed_response["data"]["createCard"]["card"]["id"]
     collect_entry.update(card_id: card_id.to_i)
 
-    assignee = collect_entry.member.pipefy_id
-    PipefyApi.post(
-      Pipefy::Card.update_assignee(
-        card_id.to_i,
-        assignee
-      )
-    )
-
     PipefyApi.post(collect_entry.collect.pipe.move_card_to_phase(card_id.to_i, :triagem)) if ce_group == "Amostra"
   end
 end
