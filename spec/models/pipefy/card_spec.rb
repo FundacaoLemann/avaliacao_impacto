@@ -11,7 +11,7 @@ RSpec.describe Pipefy::Card, type: :model do
       contacts = "contatcs"
 
       expected_query = {
-        "query": "mutation{ createCard(input: {pipe_id: #{pipe_id} fields_attributes: [{field_id: \"escola\", field_value: \"#{school_name}\"} {field_id: \"rede_de_ensino\", field_value: \"#{adm_name}\"} {field_id: \"grupo\", field_value: \"#{ce_group}\"} {field_id: \"contato_respons_vel_pela_rede\", field_value: \"#{adm_contact}\"} {field_id: \"contatos\", field_value: \"#{contacts}\"}]}) { card {id title }}}"
+        "query": "mutation{ createCard(input: {pipe_id: #{pipe_id} fields_attributes: [{field_id: \"escola\", field_value: \"#{school_name}\"} {field_id: \"rede_de_ensino\", field_value: \"#{adm_name}\"} {field_id: \"grupo\", field_value: \"#{ce_group}\"} {field_id: \"contato_respons_vel_pela_rede\", field_value: \"#{adm_contact}\"} {field_id: \"contatos_de_outras_coletas\", field_value: \"#{contacts}\"}]}) { card {id title }}}"
       }
 
       expect(Pipefy::Card.create_card(pipe_id, school_name, adm_name, adm_contact, ce_group, contacts)).to eq(expected_query)
