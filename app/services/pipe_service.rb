@@ -23,4 +23,10 @@ class PipeService
       CreatePipefyCardWorker.perform_async(collect_entry.id, pipe_id)
     end
   end
+
+  def update_cards
+    @collect.contacts.find_each do |contact|
+      UpdateCardContactWorker.perform_async(contact.id)
+    end
+  end
 end
