@@ -113,6 +113,23 @@ pt-BR:
       notice:
         content: Texto inicial
         updated_at: Atualizado em
+      contact:
+        collect_id: Coleta
+        school_inep: Escola
+        school_phone: Tel da escola
+        principal_name: Nome do diretor
+        principal_phone: Tel do diretor
+        principal_email: Email do diretor
+        coordinator1_name: Nome do Coordenador 1
+        coordinator1_phone: Tel do Coordenador 1
+        coordinator1_email: Email do Coordenador 1
+        coordinator2_name: Nome do Coordenador 2
+        coordinator2_phone: Tel do Coordenador 2
+        coordinator2_email: Email do Coordenador 2
+        coordinator3_name: Nome do Coordenador 3
+        coordinator3_phone: Tel do Coordenador 3
+        coordinator3_email: Email do Coordenador 3
+        member_email: Conta responsável pelo card
     models:
       school:
         one: Escola
@@ -137,6 +154,9 @@ pt-BR:
       notice:
         one: Texto inicial
         other: Texto inicial
+      contact:
+        one: Contato
+        other: Contatos
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

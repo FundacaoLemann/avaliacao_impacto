@@ -2,6 +2,7 @@ class Collect < ApplicationRecord
   belongs_to :form
   belongs_to :pipe, class_name: "Pipefy::Pipe", optional: true
   has_many :collect_entries
+  has_many :contacts
   has_many :submissions
   has_and_belongs_to_many :administrations
 
