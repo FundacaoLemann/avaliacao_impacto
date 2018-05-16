@@ -3,7 +3,7 @@ class Submission < ApplicationRecord
   belongs_to :collect, optional: true
   belongs_to :collect_entry, optional: true
   belongs_to :administration, foreign_key: "adm_cod", primary_key: "cod", optional: true
-  delegate :group, to: :collect_entry, allow_nil: true
+  delegate :group, :quitter, :substitute, to: :collect_entry, allow_nil: true
 
   STATUSES = [:redirected, :in_progress, :submitted, :quitter].freeze
 
