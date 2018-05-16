@@ -86,6 +86,9 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                   submitted_sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| submitted_sample_count += 1 if group == "Amostra" }
+                  substitutes = submissions.map(&:substitute)
+                  substitutes.each { |substitute| submitted_sample_count += 1 if substitute }
+
                   submitted_count += submitted_sample_count
 
                   submitted_sample_count
