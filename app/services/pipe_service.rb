@@ -25,11 +25,9 @@ class PipeService
   end
 
   def update_cards
-    @collect.contacts.find_each do |contact|
+    @collect.contacts.select("DISTINCT ON (school_inep, collect_id) *").each do |contact|
       UpdateCardContactWorker.perform_async(contact.id)
     end
-
-    @collect.contacts.destroy_all
   end
 
   def update_members
