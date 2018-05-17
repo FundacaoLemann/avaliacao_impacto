@@ -4,6 +4,7 @@ ActiveAdmin.register Submission do
   config.clear_action_items!
   actions :all, except: [:show, :edit]
 
+  filter :school_inep_cont, label: i18n_for("submission", "school_inep")
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: i18n_for("submission", "adm_cod"),
     as: :select, collection: Administration.all
@@ -16,7 +17,7 @@ ActiveAdmin.register Submission do
       submission.collect.name if submission.collect
     end
     column i18n_for("submission", "school_inep") do |submission|
-      submission.school.name
+      submission.school.to_s
     end
     column i18n_for("submission", "group") do |submission|
       submission.collect_entry.group if submission.collect_entry
