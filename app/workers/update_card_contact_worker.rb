@@ -24,5 +24,14 @@ class UpdateCardContactWorker
     PipefyApi.post(Pipefy::Card.update_coordinator3_name(card_id, contact.coordinator3_name))
     PipefyApi.post(Pipefy::Card.update_coordinator3_phone(card_id, contact.coordinator3_phone))
     PipefyApi.post(Pipefy::Card.update_coordinator3_email(card_id, contact.coordinator3_email))
+    # update card member if present
+    return if contact.member_email.blank?
+    assignee = collect_entry.member.pipefy_id
+    PipefyApi.post(
+      Pipefy::Card.update_assignee(
+        collect_entry.card_id.to_i,
+        assignee
+      )
+    )
   end
 end
