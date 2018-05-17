@@ -36,7 +36,6 @@ ActiveAdmin.register Submission do
     column :redirected_at_parsed
     column :saved_at_parsed
     column :submitted_at_parsed
-    column :card_id
     actions
   end
 
