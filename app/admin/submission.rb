@@ -40,6 +40,22 @@ ActiveAdmin.register Submission do
     actions
   end
 
+  csv do
+    column(:coleta) { |submission| submission.collect.name if submission.collect }
+    column(:escola) { |submission| submission.school.to_s }
+    column(:group) { |submission| submission.collect_entry.group if submission.collect_entry }
+    column(:adm_cod) { |submission| submission.administration.name }
+    column :form_name
+    column(:status) { |submission| Submission.human_attribute_name(submission.status) if submission.status }
+    column :school_phone
+    column :submitter_name
+    column :submitter_email
+    column :submitter_phone
+    column :redirected_at_parsed
+    column :saved_at_parsed
+    column :submitted_at_parsed
+  end
+
   controller do
     before_action :check_auth
 
