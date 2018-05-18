@@ -31,3 +31,44 @@
 
 #### Texto inicial
 1. Editar texto inicial do sistema
+
+### Variáveis de ambiente
+
+#### Específicas do Rails
+Variáveis específicas do framework para gerenciamento de assets, segurança, autenticação e deploy.
+Não vejo cenário onde elas precisariam ser modificadas.
+```
+BUNDLE_WITHOUT
+DEVISE_SECRET_KEY
+RACK_ENV
+RAILS_SKIP_ASSET_COMPILATION
+RAILS_SKIP_MIGRATIONS
+SECRET_KEY_BASE
+```
+
+#### Integração com o Pipefy
+Variáveis específicas à integração com o Pipefy.
+
+```
+PIPEFY_GRAPHQL_ENDPOINT
+especifica o endpoint para as chamadas
+valor padrão: https://app.pipefy.com/queries
+```
+
+```
+PIPEFY_ORGANIZATION_ID
+o ID da organização Lemann no Pipefy
+ao fazer login no pipefy o id está presente na própria url
+https://app.pipefy.com/organizations/PIPEFY_ORGANIZATION_ID
+```
+
+```
+PIPEFY_PIPE_TEMPLATE_ID
+o ID de um pipe que servirá de template para clone de novas coletas
+o pipe template precisa ter todas as fases, campos iniciais, labels e permissões desejadas
+```
+
+```
+PIPEFY_TOKEN
+token de algum usuário da organização no pipefy para autorização das requisições para a API
+```
