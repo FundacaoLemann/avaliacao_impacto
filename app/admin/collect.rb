@@ -17,6 +17,14 @@ ActiveAdmin.register Collect do
     link_to "Criar pipe no pipefy", clone_pipe_path(collect_id: collect.id) if collect.cloneable?
   end
 
+  action_item :update_members, only: :show do
+    link_to "Atribuir analistas", update_members_path(collect_id: collect.id)
+  end
+
+  action_item :update_contacts, only: :show do
+    link_to "Atualizar contatos", update_contacts_path(collect_id: collect.id)
+  end
+
   index do
     column :id
     column :name

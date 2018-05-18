@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   put 'quit_submission', to: 'submissions#quit'
   put 'collect_entry', to: 'collect_entries#update'
   put 'card_moved', to: 'pipefy#card_moved'
+  get "update_contacts", to: "pipefy#update_contacts"
+  get "update_members", to: "pipefy#update_members"
 
   # active admin
   devise_for :admin_users, ActiveAdmin::Devise.config

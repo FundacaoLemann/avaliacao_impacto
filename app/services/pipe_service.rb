@@ -23,4 +23,16 @@ class PipeService
       CreatePipefyCardWorker.perform_async(collect_entry.id, pipe_id)
     end
   end
+
+  def update_cards
+    @collect.contacts.select("DISTINCT ON (school_inep, collect_id) *").each do |contact|
+      UpdateCardContactWorker.perform_async(contact.id)
+    end
+  end
+
+  def update_members
+    @collect.collect_entries.find_each do |collect_entry|
+      UpdateCardMemberWorker.perform_async(collect_entry.id)
+    end
+  end
 end

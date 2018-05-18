@@ -4,6 +4,7 @@ ActiveAdmin.register Submission do
   config.clear_action_items!
   actions :all, except: [:show, :edit]
 
+  filter :school_inep_cont, label: i18n_for("submission", "school_inep")
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: i18n_for("submission", "adm_cod"),
     as: :select, collection: Administration.all
@@ -16,7 +17,7 @@ ActiveAdmin.register Submission do
       submission.collect.name if submission.collect
     end
     column i18n_for("submission", "school_inep") do |submission|
-      submission.school.name
+      submission.school.to_s
     end
     column i18n_for("submission", "group") do |submission|
       submission.collect_entry.group if submission.collect_entry
@@ -36,8 +37,23 @@ ActiveAdmin.register Submission do
     column :redirected_at_parsed
     column :saved_at_parsed
     column :submitted_at_parsed
-    column :card_id
     actions
+  end
+
+  csv do
+    column(:coleta) { |submission| submission.collect.name if submission.collect }
+    column(:escola) { |submission| submission.school.to_s }
+    column(:group) { |submission| submission.collect_entry.group if submission.collect_entry }
+    column(:adm_cod) { |submission| submission.administration.name }
+    column :form_name
+    column(:status) { |submission| Submission.human_attribute_name(submission.status) if submission.status }
+    column :school_phone
+    column :submitter_name
+    column :submitter_email
+    column :submitter_phone
+    column :redirected_at_parsed
+    column :saved_at_parsed
+    column :submitted_at_parsed
   end
 
   controller do

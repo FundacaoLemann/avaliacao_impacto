@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502174624) do
+ActiveRecord::Schema.define(version: 20180514190933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,28 @@ ActiveRecord::Schema.define(version: 20180502174624) do
     t.integer "status", default: 0, null: false
     t.bigint "pipe_id"
     t.index ["form_id"], name: "index_collects_on_form_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.bigint "collect_id"
+    t.string "school_inep"
+    t.string "school_phone"
+    t.string "principal_name"
+    t.string "principal_phone"
+    t.string "principal_email"
+    t.string "coordinator1_name"
+    t.string "coordinator1_phone"
+    t.string "coordinator1_email"
+    t.string "coordinator2_name"
+    t.string "coordinator2_phone"
+    t.string "coordinator2_email"
+    t.string "coordinator3_name"
+    t.string "coordinator3_phone"
+    t.string "coordinator3_email"
+    t.string "member_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collect_id"], name: "index_contacts_on_collect_id"
   end
 
   create_table "form_options", force: :cascade do |t|
@@ -198,6 +220,7 @@ ActiveRecord::Schema.define(version: 20180502174624) do
   add_foreign_key "cities", "states"
   add_foreign_key "collect_entries", "collects"
   add_foreign_key "collects", "forms"
+  add_foreign_key "contacts", "collects"
   add_foreign_key "submissions", "collect_entries"
   add_foreign_key "submissions", "collects"
   add_foreign_key "submissions", "schools"
