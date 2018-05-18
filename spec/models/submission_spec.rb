@@ -76,8 +76,7 @@ RSpec.describe Submission, type: :model do
         [
           ["Iniciado", "redirected"],
           ["Salvo", "in_progress"],
-          ["Enviado", "submitted"],
-          ["Desistente", "quitter"]
+          ["Enviado", "submitted"]
         ]
       )
     end
