@@ -2,7 +2,7 @@ include ActiveAdmin::ViewsHelper
 ActiveAdmin.register Submission do
   menu priority: 1, parent: "Relatórios", if: -> { current_admin_user.admin? }
   config.clear_action_items!
-  actions :all, except: [:show, :edit]
+  actions :all, except: [:show]
 
   filter :school_inep_cont, label: i18n_for("submission", "school_inep")
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
