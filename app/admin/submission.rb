@@ -40,6 +40,27 @@ ActiveAdmin.register Submission do
     actions
   end
 
+  form do |f|
+    inputs do
+      input :school_inep, as: :string
+      input :adm_cod, as: :string
+      input :status
+      input :school_phone
+      input :submitter_name
+      input :submitter_email
+      input :submitter_phone
+      input :response_id
+      input :redirected_at
+      input :saved_at
+      input :modified_at
+      input :submitted_at
+      input :collect_id
+      input :collect_entry_id
+      input :card_id
+    end
+    actions
+  end
+
   csv do
     column(:coleta) { |submission| submission.collect.name if submission.collect }
     column(:escola) { |submission| submission.school.to_s }
