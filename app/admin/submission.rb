@@ -58,7 +58,7 @@ ActiveAdmin.register Submission do
       input :saved_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
       input :modified_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
       input :submitted_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
-      input :collect_id
+      input :collect_id, as: :select, collection: Collect.all
       input :collect_entry_id
       input :card_id
     end
