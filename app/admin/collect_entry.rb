@@ -9,11 +9,11 @@ ActiveAdmin.register CollectEntry do
 
   filter :name_cont, label: i18n_for("collect_entry", "name")
   filter :administration, label: i18n_for("collect_entry", "adm_cod"),
-    as: :select, collection: Administration.all
+    as: :select, collection: proc { Administration.all }
   filter :phase_cont, label: i18n_for("collect_entry", "phase")
   filter :school_inep_cont, label: i18n_for("collect_entry", "inep")
   filter :collect, label: i18n_for("collect_entry", "collect_id"),
-    as: :select, collection: Collect.all
+    as: :select, collection: proc { Collect.all }
   filter :group, label: "", as: :check_boxes, collection: %w[Amostra Repescagem]
 
   index do

@@ -14,7 +14,7 @@ ActiveAdmin.register School do
   filter :unidade_federativa_cont, label: i18n_for("school", "unidade_federativa")
   filter :municipio_cont, label: i18n_for("school", "municipio")
   filter :administration, label: i18n_for("school", "adm_cod"),
-    as: :select, collection: Administration.all
+    as: :select, collection: proc { Administration.all }
   filter :region, label: i18n_for("school", "region"),
     as: :check_boxes, collection: School::REGIONS
   filter :location, label: i18n_for("school", "location"),

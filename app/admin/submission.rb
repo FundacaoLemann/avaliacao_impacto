@@ -7,9 +7,9 @@ ActiveAdmin.register Submission do
   filter :school_inep_cont, label: i18n_for("submission", "school_inep")
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: i18n_for("submission", "adm_cod"),
-    as: :select, collection: Administration.all
+    as: :select, collection: proc { Administration.all }
   filter :collect, label: i18n_for("submission", "collect_id"),
-    as: :select, collection: Collect.all
+    as: :select, collection: proc { Collect.all }
 
   index do
     column :id
@@ -23,7 +23,7 @@ ActiveAdmin.register Submission do
       submission.collect_entry.group if submission.collect_entry
     end
     column i18n_for("submission", "adm_cod") do |submission|
-      submission.administration.name
+      submission.administration.name if submission.administration
     end
     column i18n_for("submission", "form_name"), :form_name
     column i18n_for("submission", "status") do |submission|
