@@ -4,6 +4,10 @@ ActiveAdmin.register Submission do
   config.clear_action_items!
   actions :all, except: [:show]
 
+  permit_params :school_inep, :adm_cod, :status, :school_phone, :submitter_name,
+    :submitter_email, :submitter_phone, :response_id, :redirected_at, :saved_at,
+    :modified_at, :submitted_at, :collect_id, :collect_entry_id, :card_id
+
   filter :school_inep_cont, label: i18n_for("submission", "school_inep")
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: i18n_for("submission", "adm_cod"),
@@ -44,16 +48,16 @@ ActiveAdmin.register Submission do
     inputs do
       input :school_inep, as: :string
       input :adm_cod, as: :string
-      input :status
+      input :status, as: :select, collection: Submission.statuses_for_select
       input :school_phone
       input :submitter_name
       input :submitter_email
       input :submitter_phone
       input :response_id
-      input :redirected_at
-      input :saved_at
-      input :modified_at
-      input :submitted_at
+      input :redirected_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
+      input :saved_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
+      input :modified_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
+      input :submitted_at, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
       input :collect_id
       input :collect_entry_id
       input :card_id
