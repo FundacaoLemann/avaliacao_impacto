@@ -7,9 +7,9 @@ ActiveAdmin.register Submission do
   filter :school_inep_cont, label: i18n_for("submission", "school_inep")
   filter :status, as: :check_boxes, collection: Submission.statuses_for_select
   filter :administration, label: i18n_for("submission", "adm_cod"),
-    as: :select, collection: Administration.all
+    as: :select, collection: proc { Administration.all }
   filter :collect, label: i18n_for("submission", "collect_id"),
-    as: :select, collection: Collect.all
+    as: :select, collection: proc { Collect.all }
 
   index do
     column :id
@@ -23,7 +23,7 @@ ActiveAdmin.register Submission do
       submission.collect_entry.group if submission.collect_entry
     end
     column i18n_for("submission", "adm_cod") do |submission|
-      submission.administration.name
+      submission.administration.name if submission.administration
     end
     column i18n_for("submission", "form_name"), :form_name
     column i18n_for("submission", "status") do |submission|
@@ -37,6 +37,27 @@ ActiveAdmin.register Submission do
     column :redirected_at_parsed
     column :saved_at_parsed
     column :submitted_at_parsed
+    actions
+  end
+
+  form do |f|
+    inputs do
+      input :school_inep, as: :string
+      input :adm_cod, as: :string
+      input :status
+      input :school_phone
+      input :submitter_name
+      input :submitter_email
+      input :submitter_phone
+      input :response_id
+      input :redirected_at
+      input :saved_at
+      input :modified_at
+      input :submitted_at
+      input :collect_id
+      input :collect_entry_id
+      input :card_id
+    end
     actions
   end
 

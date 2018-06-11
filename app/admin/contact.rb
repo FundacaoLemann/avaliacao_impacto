@@ -5,7 +5,7 @@ ActiveAdmin.register Contact do
   active_admin_import
 
   filter :collect, label: i18n_for("contact", "collect_id"),
-    as: :select, collection: Collect.all
+    as: :select, collection: proc { Collect.all }
 
   index do
     column i18n_for("contact", "collect_id") do |contact|

@@ -11,7 +11,7 @@ ActiveAdmin.register Collect do
   filter :name_cont, label: i18n_for("collect", "name")
   filter :status, label: i18n_for("collect", "status"), as: :check_boxes,
     collection: Collect.statuses.collect { |k, v| [Collect.human_attribute_name(k), v] }
-  filter :form_id, label: i18n_for("collect", "form"), as: :select, collection: Form.all
+  filter :form_id, label: i18n_for("collect", "form"), as: :select, collection: proc { Form.all }
 
   action_item :clone_pipe, only: :show do
     link_to "Criar pipe no pipefy", clone_pipe_path(collect_id: collect.id) if collect.cloneable?
