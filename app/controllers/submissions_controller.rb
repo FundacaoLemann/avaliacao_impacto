@@ -61,8 +61,8 @@ class SubmissionsController < ApplicationController
   private
   def set_submission
     @submission = Submission.where(
-      form_name: params[:form_name],
-      school_inep: params[:school_inep]
+      form_name: submission_fa_params[:form_name],
+      school_inep: submission_fa_params[:school_inep]
     ).last
   end
 
