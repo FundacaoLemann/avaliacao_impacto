@@ -64,7 +64,7 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                   current_adm_substitutes_count
                 end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :redirected)
+                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :redirected)
                   sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
@@ -73,7 +73,7 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                   sample_count
                 end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :in_progress)
+                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :in_progress)
                   sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
@@ -82,7 +82,7 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
                   sample_count
                 end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
+                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :submitted)
                   submitted_sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| submitted_sample_count += 1 if group == "Amostra" }

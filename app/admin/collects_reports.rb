@@ -39,34 +39,34 @@ ActiveAdmin.register_page "Gerencial por rede" do
                   current_adm_schools_count.to_s + " (#{current_adm_sample_count} na amostra)"
                 end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :redirected)
-                  redirected_count[:total] += submissions.count
+                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :redirected)
+                  redirected_count[:total] += submissions.reload.size
                   sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
                   redirected_count[:sample] += sample_count
 
-                  submissions.count.to_s + " (#{sample_count} na amostra)"
+                  submissions.reload.size.to_s + " (#{sample_count} na amostra)"
                 end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :in_progress)
-                  in_progress_count[:total] += submissions.count
+                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :in_progress)
+                  in_progress_count[:total] += submissions.reload.size
                   sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
                   in_progress_count[:sample] += sample_count
 
-                  submissions.count.to_s + " (#{sample_count} na amostra)"
+                  submissions.reload.size.to_s + " (#{sample_count} na amostra)"
                 end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
-                  submitted_count[:total] += submissions.count
+                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :submitted)
+                  submitted_count[:total] += submissions.reload.size
                   sample_count = 0
                   submissions_groups = submissions.map(&:group)
                   submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
                   submitted_count[:sample] += sample_count
 
-                  submissions.count.to_s + " (#{sample_count} na amostra)"
+                  submissions.reload.size.to_s + " (#{sample_count} na amostra)"
                 end
                 td do
                   submissions = adm.submissions.where(collect_id: collect.id, status: :submitted)
