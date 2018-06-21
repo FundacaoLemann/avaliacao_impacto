@@ -98,6 +98,8 @@ pt-BR:
         quitter: Escola desistente
         collect_id: Coleta
         inep: Código INEP da Escola
+        sample: Amostra
+        recapture: Repescagem
       form:
         name: Nome
         created_at: Criado em
