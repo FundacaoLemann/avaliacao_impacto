@@ -48,7 +48,7 @@ ActiveAdmin.register Submission do
     inputs do
       input :school_inep, as: :string
       input :adm_cod, as: :string
-      input :status, as: :select, collection: Submission.statuses_for_select
+      input :status
       input :school_phone
       input :submitter_name
       input :submitter_email
