@@ -5,6 +5,7 @@ class Collect < ApplicationRecord
   has_many :contacts
   has_many :submissions
   has_and_belongs_to_many :administrations
+  has_many :sample_reports
 
   enum status: [:created, :in_progress, :paused, :archived]
   validates :name, :form_id, :deadline, presence: true
