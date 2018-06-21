@@ -193,7 +193,6 @@ ActiveRecord::Schema.define(version: 20180514190933) do
 
   create_table "submissions", force: :cascade do |t|
     t.bigint "school_id"
-    t.string "status"
     t.string "school_phone"
     t.string "submitter_name"
     t.string "submitter_email"
@@ -209,6 +208,7 @@ ActiveRecord::Schema.define(version: 20180514190933) do
     t.bigint "collect_entry_id"
     t.string "school_inep"
     t.bigint "card_id"
+    t.integer "status"
     t.index ["adm_cod"], name: "index_submissions_on_adm_cod"
     t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
     t.index ["collect_id"], name: "index_submissions_on_collect_id"

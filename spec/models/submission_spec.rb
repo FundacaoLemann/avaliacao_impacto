@@ -5,6 +5,7 @@ RSpec.describe Submission, type: :model do
   it { should belong_to(:collect) }
   it { should belong_to(:collect_entry) }
   it { should belong_to(:administration) }
+  it { should define_enum_for(:status) }
 
   describe "#redirected_at_parsed" do
     it "returns redirected_at in the correct format" do
