@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514190933) do
+ActiveRecord::Schema.define(version: 20180621134810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(version: 20180514190933) do
     t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
     t.index ["collect_id"], name: "index_submissions_on_collect_id"
     t.index ["school_id"], name: "index_submissions_on_school_id"
+    t.index ["school_inep", "collect_id"], name: "index_submissions_school_inep_and_collect_id", unique: true
     t.index ["school_inep"], name: "index_submissions_on_school_inep"
   end
 
@@ -223,5 +224,4 @@ ActiveRecord::Schema.define(version: 20180514190933) do
   add_foreign_key "contacts", "collects"
   add_foreign_key "submissions", "collect_entries"
   add_foreign_key "submissions", "collects"
-  add_foreign_key "submissions", "schools"
 end
