@@ -5,4 +5,8 @@ class CollectEntry < ApplicationRecord
   belongs_to :member, class_name: 'Pipefy::Member', foreign_key: 'member_email', primary_key: 'email', optional: true
 
   enum group: { recapture: 0, sample: 1 }
+
+  def self.groups_for_filter
+    collection ||= groups.collect { |k, v| [CollectEntry.human_attribute_name(k), v] }
+  end
 end

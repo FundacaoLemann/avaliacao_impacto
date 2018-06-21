@@ -5,9 +5,7 @@ class Submission < ApplicationRecord
   belongs_to :administration, foreign_key: "adm_cod", primary_key: "cod", optional: true
   delegate :group, :quitter, :substitute, to: :collect_entry, allow_nil: true
 
-  enum status: { redirected: 0, in_progress: 1, submitted: 2 }
-
-  STATUSES = [:redirected, :in_progress, :submitted].freeze
+  enum status: { redirected: 0, in_progress: 1, submitted: 2, quitter: 3 }
 
   def redirected_at_parsed
     parse_date_to_br_format(redirected_at)
@@ -26,7 +24,7 @@ class Submission < ApplicationRecord
   end
 
   def self.statuses_for_select
-    collection ||= STATUSES.collect { |k| [Submission.human_attribute_name(k), k.to_s] }
+    collection ||= statuses.collect { |k, v| [Submission.human_attribute_name(k), v] }
   end
 
   def contacts

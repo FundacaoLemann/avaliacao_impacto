@@ -75,9 +75,10 @@ RSpec.describe Submission, type: :model do
     it "returns as array with translated keys" do
       expect(Submission.statuses_for_select).to eq(
         [
-          ["Iniciado", "redirected"],
-          ["Salvo", "in_progress"],
-          ["Enviado", "submitted"]
+          ["Iniciado", 0],
+          ["Salvo", 1],
+          ["Enviado", 2],
+          ["Desistente", 3]
         ]
       )
     end

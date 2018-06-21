@@ -6,7 +6,7 @@ FactoryBot.define do
     size 3
     sample_size 2
     school_sequence 1
-    group "Amostra"
+    group 1
     association :collect, factory: :collect
   end
 end
