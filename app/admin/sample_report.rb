@@ -4,18 +4,14 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
     h2 "População: amostra"
     Collect.all.group_by(&:name).each do |collect_group|
       h3 i collect_group[0]
-      schools_count = 0
-      repescagem_count = 0
+
+      total_sample_count = 0
       redirected_count = 0
       in_progress_count = 0
       submitted_count = 0
-      quitter_count = 0
+      quitters_count = 0
       substitutes_count = 0
-      submitted_sample_count = 0
 
-      current_adm_sample_count = 0
-      current_adm_substitutes_count = 0
-      current_adm_quitter_count = 0
       table do
         thead do
           tr do
@@ -30,72 +26,53 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
             th "% de envio"
           end
         end
+
         tbody do
           collect_group[1].each do |collect|
-            collect.administrations.each do |adm|
+            SampleReport.refresh
+            SampleReport.where(collect_id: collect.id).each do |report|
               tr do
                 td do
-                  adm.name
+                  report.administration_name
                 end
-                td do
-                  adm.contact_name
-                end
-                td do
-                  current_adm_sample_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, group: "Amostra").count
-                  schools_count += current_adm_sample_count
 
-                  current_adm_sample_count
-                end
                 td do
-                  submissions = adm.submissions.where(collect_id: collect.id, status: :quitter)
-                  current_adm_quitter_count = 0
-                  submissions_groups = submissions.map(&:group)
-                  submissions_groups.each { |group| current_adm_quitter_count += 1 if group == "Amostra" }
-                  current_quitter_ce = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, quitter: true).count
-                  current_adm_quitter_count += current_quitter_ce
-                  quitter_count += current_adm_quitter_count
-
-                  current_adm_quitter_count
+                  report.administration_contact_name
                 end
-                td do
-                  current_adm_substitutes_count = CollectEntry.where(collect_id: collect.id, adm_cod: adm.cod, substitute: true, quitter: false).count
-                  substitutes_count += current_adm_substitutes_count
 
-                  current_adm_substitutes_count
+                td do
+                  total_sample_count += report.sample_count
+                  report.sample_count
                 end
-                td do
-                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :redirected)
-                  sample_count = 0
-                  submissions_groups = submissions.map(&:group)
-                  submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
-                  redirected_count += sample_count
 
-                  sample_count
+                td do
+                  quitters_count += report.quitters_count
+                  report.quitters_count
                 end
-                td do
-                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :in_progress)
-                  sample_count = 0
-                  submissions_groups = submissions.map(&:group)
-                  submissions_groups.each { |group| sample_count += 1 if group == "Amostra" }
-                  in_progress_count += sample_count
 
-                  sample_count
+                td do
+                  substitutes_count += report.substitutes_count
+                  report.substitutes_count
                 end
+
                 td do
-                  submissions = adm.submissions.select("DISTINCT ON (school_inep) *").where(collect_id: collect.id, status: :submitted)
-                  submitted_sample_count = 0
-                  submissions_groups = submissions.map(&:group)
-                  submissions_groups.each { |group| submitted_sample_count += 1 if group == "Amostra" }
-                  substitutes = submissions.map(&:substitute)
-                  substitutes.each { |substitute| submitted_sample_count += 1 if substitute }
-
-                  submitted_count += submitted_sample_count
-
-                  submitted_sample_count
+                  redirected_count += report.redirected_count
+                  report.redirected_count
                 end
+
                 td do
-                  schools_total = current_adm_sample_count - current_adm_quitter_count + current_adm_substitutes_count
-                  b calculate_submitted_percent(schools_total, submitted_sample_count)
+                  in_progress_count += report.in_progress_count
+                  report.in_progress_count
+                end
+
+                td do
+                  submitted_count += report.submitted_count
+                  report.submitted_count
+                end
+
+                td do
+                  sample_total = report.sample_count - report.quitters_count + report.substitutes_count
+                  b calculate_submitted_percent(sample_total, report.submitted_count)
                 end
               end
             end
@@ -109,25 +86,25 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
           end
           td do; end
           td do
-            h4 b schools_count
+            h4 b total_sample_count
           end
           td do
-            h4 b "#{quitter_count} (#{calculate_submitted_percent(schools_count, quitter_count)})"
+            h4 b "#{quitters_count} (#{calculate_submitted_percent(total_sample_count, quitters_count)})"
           end
           td do
-            h4 b "#{substitutes_count} (#{calculate_submitted_percent(schools_count, substitutes_count)})"
+            h4 b "#{substitutes_count} (#{calculate_submitted_percent(total_sample_count, substitutes_count)})"
           end
           td do
-            h4 b "#{redirected_count} (#{calculate_submitted_percent(schools_count, redirected_count)})"
+            h4 b "#{redirected_count} (#{calculate_submitted_percent(total_sample_count, redirected_count)})"
           end
           td do
-            h4 b "#{in_progress_count} (#{calculate_submitted_percent(schools_count, in_progress_count)})"
+            h4 b "#{in_progress_count} (#{calculate_submitted_percent(total_sample_count, in_progress_count)})"
           end
           td do
             h4 b "#{submitted_count}"
           end
           td do
-            schools_total = schools_count - quitter_count + substitutes_count
+            schools_total = total_sample_count - quitters_count + substitutes_count
             h4 b "#{calculate_submitted_percent(schools_total, submitted_count)}"
           end
         end
