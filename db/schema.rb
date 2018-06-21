@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621150731) do
+ActiveRecord::Schema.define(version: 20180621190905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,5 +223,23 @@ ActiveRecord::Schema.define(version: 20180621150731) do
   add_foreign_key "contacts", "collects"
   add_foreign_key "submissions", "collect_entries"
   add_foreign_key "submissions", "collects"
-  add_foreign_key "submissions", "schools"
+
+  create_view "sample_reports", materialized: true,  sql_definition: <<-SQL
+      SELECT collects.id AS collect_id,
+      max((administrations.name)::text) AS administration_name,
+      max((administrations.contact_name)::text) AS administration_contact_name,
+      count(DISTINCT collect_entries.id) AS sample_count,
+      count(DISTINCT submissions.school_inep) FILTER (WHERE (submissions.status = 3)) AS quitters_count,
+      count(*) FILTER (WHERE (collect_entries.substitute = true)) AS substitutes_count,
+      count(DISTINCT submissions.school_inep) FILTER (WHERE (submissions.status = 0)) AS redirected_count,
+      count(DISTINCT submissions.school_inep) FILTER (WHERE (submissions.status = 1)) AS in_progress_count,
+      count(DISTINCT submissions.school_inep) FILTER (WHERE (submissions.status = 2)) AS submitted_count
+     FROM (((collect_entries
+       LEFT JOIN administrations ON (((administrations.cod)::text = (collect_entries.adm_cod)::text)))
+       LEFT JOIN submissions ON (((administrations.cod)::text = (submissions.adm_cod)::text)))
+       LEFT JOIN collects ON ((collect_entries.collect_id = collects.id)))
+    WHERE (collect_entries."group" = 1)
+    GROUP BY administrations.id, collects.id;
+  SQL
+
 end
