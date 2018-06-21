@@ -10,13 +10,6 @@ class SubmissionsController < ApplicationController
     adm = Administration.find_by_cod(submission_params[:adm_cod])
     card_id = collect_entry.card_id
 
-    # destroy the old submission if this is a duplicate
-    Submission.where(
-      school_inep: submission_params[:school_inep],
-      collect_id: submission_params[:collect_id],
-      status: :redirected
-    ).first&.destroy
-
     Submission.new(
       submission_params.merge(
         collect_entry: collect_entry,
@@ -25,30 +18,14 @@ class SubmissionsController < ApplicationController
       )
     ).save
 
-    pipe = Collect.find(submission_params[:collect_id]).pipe
-    PipefyApi.post(pipe.update_card_label(card_id, :redirected))
-    PipefyApi.post(pipe.move_card_to_phase(card_id, :redirected))
-
-    PipefyApi.post(Pipefy::Card.update_school_phone(card_id, submission_params[:school_phone]))
-    PipefyApi.post(Pipefy::Card.update_submitter_name(card_id, submission_params[:submitter_name]))
-    PipefyApi.post(Pipefy::Card.update_submitter_phone(card_id, submission_params[:submitter_phone]))
-    PipefyApi.post(Pipefy::Card.update_submitter_email(card_id, submission_params[:submitter_email]))
+    first_card_update
 
     head :ok
   end
 
   def update
-    create_missing_submission unless @submission
-    @submission.update(submission_fa_params)
-
-    pipe = Collect.find(submission_fa_params[:collect_id]).pipe
-
-    if submission_fa_params[:status] == "submitted"
-      PipefyApi.post(pipe.update_card_label(@submission.card_id, :submitted))
-      PipefyApi.post(pipe.move_card_to_phase(@submission.card_id, :submitted))
-    else
-      PipefyApi.post(pipe.update_card_label(@submission.card_id, :in_progress))
-    end
+    @submission ? @submission.update(submission_fa_params) : create_missing_submission
+    card_update
 
     head :ok
   end
@@ -94,5 +71,31 @@ class SubmissionsController < ApplicationController
     params.permit(:form_name, :school_inep, :response_id, :saved_at,
       :modified_at, :submitted_at, :status, :collect_id, :submitter_name,
       :submitter_email, :submitter_phone, :school_phone)
+  end
+
+  def set_pipe
+    pipe = Collect.find(submission_params[:collect_id]).pipe
+  end
+
+  def first_card_update
+    set_pipe
+    PipefyApi.post(pipe.update_card_label(card_id, :redirected))
+    PipefyApi.post(pipe.move_card_to_phase(card_id, :redirected))
+
+    PipefyApi.post(Pipefy::Card.update_school_phone(card_id, submission_params[:school_phone]))
+    PipefyApi.post(Pipefy::Card.update_submitter_name(card_id, submission_params[:submitter_name]))
+    PipefyApi.post(Pipefy::Card.update_submitter_phone(card_id, submission_params[:submitter_phone]))
+    PipefyApi.post(Pipefy::Card.update_submitter_email(card_id, submission_params[:submitter_email]))
+  end
+
+  def card_update
+    set_pipe
+
+    if submission_fa_params[:status] == "submitted"
+      PipefyApi.post(pipe.update_card_label(@submission.card_id, :submitted))
+      PipefyApi.post(pipe.move_card_to_phase(@submission.card_id, :submitted))
+    else
+      PipefyApi.post(pipe.update_card_label(@submission.card_id, :in_progress))
+    end
   end
 end
