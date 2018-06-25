@@ -16,6 +16,11 @@ class SubmissionsReport < ApplicationRecord
     collect_entries.substitutes.count
   end
 
+
+  def substitutes_count_from_collect
+    CollectEntry.where(collect_id: collect_id).substitutes.count
+  end
+
   def self.summary
     initial_counts = {
       total_sample_count: 0,

@@ -6,7 +6,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
     Collect.all.group_by(&:name).each do |(collect_name, collect_groups)|
       submissions_reports = SubmissionsReport.where(collect_id: collect_groups.map(&:id))
       summary_counts = submissions_reports.summary
-      total_substitutes = 0
+      submission_report = ""
 
       h3 i collect_name
       table do
@@ -37,11 +37,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
 
               td { report[:quitters_count] }
 
-              td do
-                current_substitutes_count = submission_report.first.substitutes_count
-                total_substitutes += current_substitutes_count
-                current_substitutes_count
-              end
+              td { submission_report.first.substitutes_count }
 
               td { report[:redirected_count] }
 
@@ -65,8 +61,8 @@ ActiveAdmin.register_page "Gerencial por rede" do
           td { h4 b "#{summary_counts[:quitters_count]} \
           (#{calculate_submitted_percent(summary_counts[:total_sample_count], summary_counts[:quitters_count])})" }
 
-          td { h4 b "#{total_substitutes} \
-          (#{calculate_submitted_percent(summary_counts[:total_sample_count], total_substitutes)})" }
+          td { h4 b "#{submission_report.first.substitutes_count_from_collect} \
+          (#{calculate_submitted_percent(summary_counts[:total_sample_count], submission_report.first.substitutes_count_from_collect)})" }
 
           td { h4 b "#{summary_counts[:redirected_count]} \
           (#{calculate_submitted_percent(summary_counts[:total_sample_count], summary_counts[:redirected_count])})" }
@@ -77,7 +73,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
           td { h4 b "#{summary_counts[:submitted_count]}" }
 
           td do
-            schools_total = summary_counts[:total_sample_count] - summary_counts[:quitters_count] + total_substitutes
+            schools_total = summary_counts[:total_sample_count] - summary_counts[:quitters_count] + submission_report.first.substitutes_count_from_collect
             h4 b "#{calculate_submitted_percent(schools_total, summary_counts[:submitted_count])}"
           end
         end
