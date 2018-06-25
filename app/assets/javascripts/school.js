@@ -6,7 +6,7 @@ document.addEventListener("turbolinks:load", function() {
     getValue: 'name',
     url: function(phrase) {
       return ('/search.json?city=' + city + '&administration=' + administration
-              + '&school=' + phrase);
+              + '&collect_id=' + collectId + '&adm_cod=' + currentAdm.cod + '&school=' + phrase);
     },
     listLocation: 'schools',
     list: {

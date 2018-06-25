@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514190933) do
+ActiveRecord::Schema.define(version: 20180625181235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,13 +73,13 @@ ActiveRecord::Schema.define(version: 20180514190933) do
     t.integer "size"
     t.integer "sample_size"
     t.integer "school_sequence"
-    t.string "group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "card_id"
     t.boolean "substitute", default: false
     t.boolean "quitter", default: false
     t.string "member_email"
+    t.integer "group"
     t.index ["collect_id"], name: "index_collect_entries_on_collect_id"
   end
 
@@ -193,7 +193,6 @@ ActiveRecord::Schema.define(version: 20180514190933) do
 
   create_table "submissions", force: :cascade do |t|
     t.bigint "school_id"
-    t.string "status"
     t.string "school_phone"
     t.string "submitter_name"
     t.string "submitter_email"
@@ -209,6 +208,7 @@ ActiveRecord::Schema.define(version: 20180514190933) do
     t.bigint "collect_entry_id"
     t.string "school_inep"
     t.bigint "card_id"
+    t.integer "status"
     t.index ["adm_cod"], name: "index_submissions_on_adm_cod"
     t.index ["collect_entry_id"], name: "index_submissions_on_collect_entry_id"
     t.index ["collect_id"], name: "index_submissions_on_collect_id"
@@ -223,5 +223,54 @@ ActiveRecord::Schema.define(version: 20180514190933) do
   add_foreign_key "contacts", "collects"
   add_foreign_key "submissions", "collect_entries"
   add_foreign_key "submissions", "collects"
-  add_foreign_key "submissions", "schools"
+
+  create_view "submissions_reports", materialized: true,  sql_definition: <<-SQL
+      SELECT t1.adm_cod,
+      t1."group" AS collect_entries_group,
+      max(t1.collect_id) AS collect_id,
+      max(t1.administration_name) AS administration_name,
+      max(t1.administration_contact_name) AS administration_contact_name,
+      count(*) AS sample_count,
+      sum(
+          CASE
+              WHEN (t1.max_status = 3) THEN 1
+              ELSE 0
+          END) AS quitters_count,
+      ( SELECT sum(
+                  CASE
+                      WHEN (collect_entries.substitute = true) THEN 1
+                      ELSE 0
+                  END) AS sum
+             FROM collect_entries
+            WHERE (((collect_entries.adm_cod)::text = t1.adm_cod) AND (collect_entries.collect_id = max(t1.collect_id)))) AS substitutes_count,
+      sum(
+          CASE
+              WHEN (t1.max_status = 0) THEN 1
+              ELSE 0
+          END) AS redirected_count,
+      sum(
+          CASE
+              WHEN (t1.max_status = 1) THEN 1
+              ELSE 0
+          END) AS in_progress_count,
+      sum(
+          CASE
+              WHEN (t1.max_status = 2) THEN 1
+              ELSE 0
+          END) AS submitted_count
+     FROM ( SELECT collect_entries.collect_id,
+              collect_entries.school_inep,
+              max(submissions.status) AS max_status,
+              max((administrations.name)::text) AS administration_name,
+              max((administrations.contact_name)::text) AS administration_contact_name,
+              max((collect_entries.adm_cod)::text) AS adm_cod,
+              collect_entries."group"
+             FROM ((collect_entries
+               LEFT JOIN submissions ON (((collect_entries.school_inep)::text = (submissions.school_inep)::text)))
+               LEFT JOIN administrations ON (((collect_entries.adm_cod)::text = (administrations.cod)::text)))
+            GROUP BY collect_entries.collect_id, collect_entries.school_inep, collect_entries."group") t1
+    GROUP BY t1.adm_cod, t1."group"
+    ORDER BY t1.adm_cod;
+  SQL
+
 end

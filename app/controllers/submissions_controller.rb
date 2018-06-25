@@ -10,13 +10,6 @@ class SubmissionsController < ApplicationController
     adm = Administration.find_by_cod(submission_params[:adm_cod])
     card_id = collect_entry.card_id
 
-    # destroy the old submission if this is a duplicate
-    Submission.where(
-      school_inep: submission_params[:school_inep],
-      collect_id: submission_params[:collect_id],
-      status: :redirected
-    ).first&.destroy
-
     Submission.new(
       submission_params.merge(
         collect_entry: collect_entry,
@@ -38,8 +31,7 @@ class SubmissionsController < ApplicationController
   end
 
   def update
-    create_missing_submission unless @submission
-    @submission.update(submission_fa_params)
+    create_submission_from_fa
 
     pipe = Collect.find(submission_fa_params[:collect_id]).pipe
 
@@ -66,7 +58,7 @@ class SubmissionsController < ApplicationController
     ).last
   end
 
-  def create_missing_submission
+  def create_submission_from_fa
     collect_entry = CollectEntry.where(
       collect_id: submission_fa_params[:collect_id],
       school_inep: submission_fa_params[:school_inep]

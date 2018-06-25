@@ -5,6 +5,7 @@ RSpec.describe Submission, type: :model do
   it { should belong_to(:collect) }
   it { should belong_to(:collect_entry) }
   it { should belong_to(:administration) }
+  it { should define_enum_for(:status) }
 
   describe "#redirected_at_parsed" do
     it "returns redirected_at in the correct format" do
@@ -74,9 +75,10 @@ RSpec.describe Submission, type: :model do
     it "returns as array with translated keys" do
       expect(Submission.statuses_for_select).to eq(
         [
-          ["Iniciado", "redirected"],
-          ["Salvo", "in_progress"],
-          ["Enviado", "submitted"]
+          ["Iniciado", 0],
+          ["Salvo", 1],
+          ["Enviado", 2],
+          ["Desistente", 3]
         ]
       )
     end

@@ -14,7 +14,7 @@ ActiveAdmin.register CollectEntry do
   filter :school_inep_cont, label: i18n_for("collect_entry", "inep")
   filter :collect, label: i18n_for("collect_entry", "collect_id"),
     as: :select, collection: proc { Collect.all }
-  filter :group, label: "", as: :check_boxes, collection: %w[Amostra Repescagem]
+  filter :group, label: "", as: :check_boxes, collection: CollectEntry.groups_for_filter
 
   index do
     column :id
@@ -29,7 +29,9 @@ ActiveAdmin.register CollectEntry do
       collect_entry.school.name
     end
     column :school_sequence
-    column :group
+    column :group do |collect_entry|
+      CollectEntry.human_attribute_name(collect_entry.group)
+    end
     column i18n_for("collect_entry", "collect_id") do |collect_entry|
       collect_entry.collect.name
     end

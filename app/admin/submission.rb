@@ -24,7 +24,7 @@ ActiveAdmin.register Submission do
       submission.school.to_s
     end
     column i18n_for("submission", "group") do |submission|
-      submission.collect_entry.group if submission.collect_entry
+      CollectEntry.human_attribute_name(submission.collect_entry.group) if submission.collect_entry
     end
     column i18n_for("submission", "adm_cod") do |submission|
       submission.administration.name if submission.administration
@@ -48,7 +48,7 @@ ActiveAdmin.register Submission do
     inputs do
       input :school_inep, as: :string
       input :adm_cod, as: :string
-      input :status, as: :select, collection: Submission.statuses_for_select
+      input :status
       input :school_phone
       input :submitter_name
       input :submitter_email
