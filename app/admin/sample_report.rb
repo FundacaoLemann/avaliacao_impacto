@@ -1,10 +1,11 @@
 ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
   menu priority: 3, parent: "Relatórios", if: -> { current_admin_user.admin? }
   content do
-    SampleReport.refresh
+    SubmissionsReport.refresh
     h2 "População: amostra"
     Collect.all.group_by(&:name).each do |(collect_name, collect_groups)|
-      summary_counts = SampleReport.where(collect_id: collect_groups.map(&:id)).summary
+      submissions_reports = SubmissionsReport.sample.where(collect_id: collect_groups.map(&:id))
+      summary_counts = submissions_reports.summary
 
       h3 i collect_name
       table do
@@ -23,27 +24,25 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
         end
 
         tbody do
-          collect_groups.each do |collect|
-            collect.sample_reports.each do |report|
-              tr do
-                td { report.administration_name }
+          submissions_reports.each do |report|
+            tr do
+              td { report.administration_name }
 
-                td { report.administration_contact_name }
+              td { report.administration_contact_name }
 
-                td { report.sample_count }
+              td { report.sample_count }
 
-                td { report.quitters_count }
+              td { report.quitters_count }
 
-                td { report.substitutes_count }
+              td { report.substitutes_count }
 
-                td { report.redirected_count }
+              td { report.redirected_count }
 
-                td { report.in_progress_count }
+              td { report.in_progress_count }
 
-                td { report.submitted_count }
+              td { report.submitted_count }
 
-                td { b calculate_submitted_percent(summary_counts[:sample_total], report.submitted_count) }
-              end
+              td { b calculate_submitted_percent(summary_counts[:sample_total], report.submitted_count) }
             end
           end
         end

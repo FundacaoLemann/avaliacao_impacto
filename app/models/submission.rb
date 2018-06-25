@@ -5,6 +5,7 @@ class Submission < ApplicationRecord
   belongs_to :administration, foreign_key: "adm_cod", primary_key: "cod", optional: true
   delegate :group, :quitter, :substitute, to: :collect_entry, allow_nil: true
 
+  # ordered by magnificence
   enum status: { redirected: 0, in_progress: 1, submitted: 2, quitter: 3 }
 
   def redirected_at_parsed
