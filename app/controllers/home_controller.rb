@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   end
 
   def search
-    query = School.ransack(
+    query = School.fundamental.ransack(
       name_cont: home_params[:school],
       cod_municipio_eq: home_params[:city],
       tp_dependencia_desc_eq: home_params[:administration]
