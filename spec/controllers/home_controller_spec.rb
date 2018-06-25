@@ -15,17 +15,26 @@ RSpec.describe HomeController, type: :controller do
 
   describe "GET #search" do
     render_views
-    before do
-      @school = create :school, name: "Testing school"
-      @another_school = create :school, name: "Another school"
+
+    let!(:form) { create(:form) }
+    let!(:administration) { create(:administration) }
+    let!(:collect) { create(:collect, administrations: [administration], form: form) }
+    let!(:school) { create(:school, name: "Testing school", cod_municipio: administration.cod, tp_dependencia_desc: "Estadual", num_students_fund: 1) }
+    let!(:another_school) { create(:school, name: "Another school", cod_municipio: administration.cod, tp_dependencia_desc: "Estadual", num_students_fund: 1) }
+    let!(:collect_entry) do
+      create(:collect_entry, :sample,
+        collect: collect,
+        school_inep: school.inep,
+        adm_cod: administration.cod
+      )
     end
 
     let(:expected_json) {
       {
         "schools" => [
           {
-            "name" => @school.name,
-            "school_id" => @school.inep
+            "name" => school.name,
+            "school_id" => school.inep
           }
         ]
       }
@@ -35,12 +44,12 @@ RSpec.describe HomeController, type: :controller do
       {
         "schools" => [
           {
-            "name" => @school.name,
-            "school_id" => @school.inep
+            "name" => school.name,
+            "school_id" => school.inep
           },
           {
-            "name" => @another_school.name,
-            "school_id" => @another_school.inep
+            "name" => another_school.name,
+            "school_id" => another_school.inep
           }
         ]
       }
@@ -48,14 +57,26 @@ RSpec.describe HomeController, type: :controller do
 
     it "returns only the matching schools" do
       request.accept = "application/json"
-      get :search, params: { school: "testing" }
+      get :search, params: {
+        school: "testing",
+        city: school.cod_municipio,
+        tp_dependencia_desc: "Estadual",
+        adm_cod: administration.cod,
+        collect_id: collect.id
+      }
 
       expect(JSON.parse(response.body)).to eq(expected_json)
     end
 
     it "returns only the matching schools" do
       request.accept = "application/json"
-      get :search, params: { school: "school" }
+      get :search, params: {
+        school: "school",
+        city: school.cod_municipio,
+        tp_dependencia_desc: "Estadual",
+        adm_cod: administration.cod,
+        collect_id: collect.id
+      }
 
       expect(JSON.parse(response.body)).to eq(all_schools)
     end
