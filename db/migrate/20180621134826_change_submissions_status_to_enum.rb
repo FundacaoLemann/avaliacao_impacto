@@ -13,7 +13,7 @@ class ChangeSubmissionsStatusToEnum < ActiveRecord::Migration[5.1]
     }.freeze
 
     Submission.find_each do |submission|
-      submission.update(status: statuses_map[submission.status_backup.to_sym])
+      submission.update(status: statuses_map[submission.status_backup&.to_sym])
     end
   end
 end
