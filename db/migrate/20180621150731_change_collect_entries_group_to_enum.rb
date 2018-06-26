@@ -12,7 +12,8 @@ class ChangeCollectEntriesGroupToEnum < ActiveRecord::Migration[5.1]
     }.freeze
 
     CollectEntry.find_each do |collect_entry|
-      collect_entry.update(group: group_map[collect_entry.group_backup.downcase.to_sym])
+      new_group = collect_entry.group_backup&.downcase
+      collect_entry.update(group: group_map[new_group&.to_sym])
     end
   end
 end
