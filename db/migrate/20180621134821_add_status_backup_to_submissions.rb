@@ -1,17 +1,25 @@
 class AddStatusBackupToSubmissions < ActiveRecord::Migration[5.1]
   def up
-    add_column :submissions, :status_backup, :string
-    copy_statuses
-    remove_column :submissions, :status
+    casting = <<~END
+      CASE status
+      WHEN 'redirected' THEN 0
+      WHEN 'in_progress' THEN 1
+      WHEN 'submitted' THEN 2
+      WHEN 'quitter' THEN 3 END
+    END
+
+    change_column :submissions, :status, :integer, using: casting
   end
 
   def down
-    Rails.logger.warn("There is an irreversible status column removal")
-  end
+    casting = <<~END
+      CASE status
+      WHEN 0 THEN 'redirected'
+      WHEN 1 THEN 'in_progress'
+      WHEN 2 THEN 'submitted'
+      WHEN 3 THEN 'quitter' END
+    END
 
-  def copy_statuses
-    Submission.find_each do |submission|
-      submission.update(status_backup: submission.status)
-    end
+    change_column :submissions, :status, :string, using: casting
   end
 end

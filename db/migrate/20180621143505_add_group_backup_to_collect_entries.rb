@@ -1,17 +1,21 @@
 class AddGroupBackupToCollectEntries < ActiveRecord::Migration[5.1]
   def up
-    add_column :collect_entries, :group_backup, :string
-    copy_group
-    remove_column :collect_entries, :group
+    casting = <<~END
+      CASE "group"
+      WHEN 'Repescagem' THEN 0
+      WHEN 'Amostra' THEN 1 END
+    END
+
+    change_column :collect_entries, :group, :integer, using: casting, null: false
   end
 
   def down
-    Rails.logger.warn("There is an irreversible group column removal")
-  end
+    casting = <<~END
+      CASE "group"
+      WHEN 0 THEN 'Repescagem'
+      WHEN 1 THEN 'Amostra' END
+    END
 
-  def copy_group
-    CollectEntry.find_each do |collect_entry|
-      collect_entry.update(group_backup: collect_entry.group)
-    end
+    change_column :collect_entries, :group, :string, using: casting, null: true
   end
 end
