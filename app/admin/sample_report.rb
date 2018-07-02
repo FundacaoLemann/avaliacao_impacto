@@ -42,7 +42,7 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
 
               td { report.submitted_count }
 
-              td { b calculate_submitted_percent(summary_counts[:sample_total], report.submitted_count) }
+              td { b calculate_submitted_percent((report.sample_count - report.quitters_count + report.substitutes_count), report.submitted_count) }
             end
           end
         end

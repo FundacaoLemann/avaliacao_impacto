@@ -28,6 +28,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
           submissions_reports.group_by(&:adm_cod).each do |(adm_cod, _)|
             submission_report = SubmissionsReport.where(adm_cod: adm_cod)
             report = submission_report.summary
+            substitutes_count = submission_report.first.substitutes_count
             tr do
               td { report[:administration_name] }
 
@@ -37,7 +38,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
 
               td { report[:quitters_count] }
 
-              td { submission_report.first.substitutes_count }
+              td { substitutes_count }
 
               td { report[:redirected_count] }
 
@@ -45,7 +46,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
 
               td { report[:submitted_count] }
 
-              td { b calculate_submitted_percent(summary_counts[:sample_total], report[:submitted_count]) }
+              td { b calculate_submitted_percent((report[:total_sample_count] - report[:quitters_count] + substitutes_count), report[:submitted_count]) }
             end
           end
         end
