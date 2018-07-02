@@ -45,7 +45,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
 
               td { report[:submitted_count] }
 
-              td { b calculate_submitted_percent(summary_counts[:sample_total], report[:submitted_count]) }
+              td { b calculate_submitted_percent(report[:total_sample_count], report[:submitted_count]) }
             end
           end
         end
