@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180625154527) do
+ActiveRecord::Schema.define(version: 20180704120845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,45 +226,101 @@ ActiveRecord::Schema.define(version: 20180625154527) do
   add_foreign_key "submissions", "schools"
 
   create_view "submissions_reports", materialized: true,  sql_definition: <<-SQL
-      SELECT t1.adm_cod,
-      t1."group" AS collect_entries_group,
-      max(t1.collect_id) AS collect_id,
-      max(t1.administration_name) AS administration_name,
-      max(t1.administration_contact_name) AS administration_contact_name,
-      count(*) AS sample_count,
-      sum(
+      SELECT matview.adm_cod,
+      max(matview.collect_id) AS collect_id,
+      max(matview.administration_name) AS adm_name,
+      max(matview.administration_contact_name) AS adm_contact,
+      sum((matview.sample_count)::integer) AS total_schools_count,
+      sum((
           CASE
-              WHEN (t1.max_status = 3) THEN 1
-              ELSE 0
-          END) AS quitters_count,
-      sum(
+              WHEN (matview.collect_entries_group = 1) THEN matview.sample_count
+              ELSE (0)::bigint
+          END)::integer) AS sample_count,
+      sum((matview.quitter_count)::integer) AS quitters_count,
+      sum((
           CASE
-              WHEN (t1.max_status = 0) THEN 1
-              ELSE 0
-          END) AS redirected_count,
-      sum(
+              WHEN (matview.collect_entries_group = 1) THEN matview.quitter_count
+              ELSE (0)::bigint
+          END)::integer) AS quitters_in_sample_count,
+      sum((matview.substitute_count)::integer) AS substitutes_count,
+      sum((matview.redirected_count)::integer) AS redirected_count,
+      sum((
           CASE
-              WHEN (t1.max_status = 1) THEN 1
-              ELSE 0
-          END) AS in_progress_count,
-      sum(
+              WHEN (matview.collect_entries_group = 1) THEN matview.redirected_count
+              ELSE (0)::bigint
+          END)::integer) AS redirected_in_sample_count,
+      sum((matview.in_progress_count)::integer) AS in_progress_count,
+      sum((
           CASE
-              WHEN (t1.max_status = 2) THEN 1
-              ELSE 0
-          END) AS submitted_count
-     FROM ( SELECT collect_entries.collect_id,
-              collect_entries.school_inep,
-              max(submissions.status) AS max_status,
-              max((administrations.name)::text) AS administration_name,
-              max((administrations.contact_name)::text) AS administration_contact_name,
-              max((collect_entries.adm_cod)::text) AS adm_cod,
-              collect_entries."group"
-             FROM ((collect_entries
-               LEFT JOIN submissions ON (((collect_entries.school_inep)::text = (submissions.school_inep)::text)))
-               LEFT JOIN administrations ON (((collect_entries.adm_cod)::text = (administrations.cod)::text)))
-            GROUP BY collect_entries.collect_id, collect_entries.school_inep, collect_entries."group") t1
-    GROUP BY t1.adm_cod, t1."group"
-    ORDER BY t1.adm_cod;
+              WHEN (matview.collect_entries_group = 1) THEN matview.in_progress_count
+              ELSE (0)::bigint
+          END)::integer) AS in_progress_in_sample_count,
+      sum((matview.submitted_count)::integer) AS submitted_count,
+      sum((
+          CASE
+              WHEN (matview.collect_entries_group = 1) THEN matview.submitted_count
+              ELSE (0)::bigint
+          END)::integer) AS submitted_in_sample_count,
+      sum((matview.answered_count)::integer) AS answered_count,
+      round(((sum(matview.answered_count) * 100.0) / sum(
+          CASE
+              WHEN (matview.collect_entries_group = 1) THEN matview.sample_count
+              ELSE (0)::bigint
+          END)), 2) AS sample_percent,
+      round(((sum(matview.submitted_count) * 100.0) / sum(matview.sample_count)), 2) AS total_percent
+     FROM ( SELECT t1.adm_cod,
+              t1."group" AS collect_entries_group,
+              max(t1.collect_id) AS collect_id,
+              max(t1.administration_name) AS administration_name,
+              max(t1.administration_contact_name) AS administration_contact_name,
+              count(*) AS sample_count,
+              sum(t1.quitters) AS quitter_count,
+              sum(
+                  CASE
+                      WHEN (t1.max_status = 0) THEN 1
+                      ELSE 0
+                  END) AS redirected_count,
+              sum(
+                  CASE
+                      WHEN (t1.max_status = 1) THEN 1
+                      ELSE 0
+                  END) AS in_progress_count,
+              sum(
+                  CASE
+                      WHEN (t1.max_status = 2) THEN 1
+                      ELSE 0
+                  END) AS submitted_count,
+              sum(t1.substitutes) AS substitute_count,
+              sum(t1.answered) AS answered_count
+             FROM ( SELECT collect_entries.collect_id,
+                      collect_entries.school_inep,
+                      max(submissions.status) AS max_status,
+                      max((administrations.name)::text) AS administration_name,
+                      max((administrations.contact_name)::text) AS administration_contact_name,
+                      max((collect_entries.adm_cod)::text) AS adm_cod,
+                      max(
+                          CASE
+                              WHEN collect_entries.substitute THEN 1
+                              ELSE 0
+                          END) AS substitutes,
+                      max(
+                          CASE
+                              WHEN ((submissions.status = 2) AND (NOT collect_entries.quitter) AND ((collect_entries."group" = 1) OR ((collect_entries."group" = 0) AND collect_entries.substitute))) THEN 1
+                              ELSE 0
+                          END) AS answered,
+                      max(
+                          CASE
+                              WHEN collect_entries.quitter THEN 1
+                              ELSE 0
+                          END) AS quitters,
+                      collect_entries."group"
+                     FROM ((collect_entries
+                       LEFT JOIN submissions ON (((collect_entries.school_inep)::text = (submissions.school_inep)::text)))
+                       LEFT JOIN administrations ON (((collect_entries.adm_cod)::text = (administrations.cod)::text)))
+                    GROUP BY collect_entries.collect_id, collect_entries.school_inep, collect_entries."group") t1
+            GROUP BY t1.adm_cod, t1."group"
+            ORDER BY t1.adm_cod) matview
+    GROUP BY matview.adm_cod;
   SQL
 
 end
