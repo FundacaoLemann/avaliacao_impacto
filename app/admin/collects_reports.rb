@@ -6,7 +6,6 @@ ActiveAdmin.register_page "Gerencial por rede" do
     Collect.all.group_by(&:name).each do |(collect_name, collect_groups)|
       submissions_reports = SubmissionsReport.where(collect_id: collect_groups.map(&:id))
       summary_counts = submissions_reports.summary
-      submission_report = ""
 
       h3 i collect_name
       table do
@@ -25,28 +24,25 @@ ActiveAdmin.register_page "Gerencial por rede" do
         end
 
         tbody do
-          submissions_reports.group_by(&:adm_cod).each do |(adm_cod, _)|
-            submission_report = SubmissionsReport.where(adm_cod: adm_cod)
-            report = submission_report.summary
-            substitutes_count = submission_report.first.substitutes_count
+          submissions_reports.each do |report|
             tr do
-              td { report[:administration_name] }
+              td { report.adm_name }
 
-              td { report[:administration_contact_name] }
+              td { report.adm_contact }
 
-              td { report[:total_sample_count] }
+              td { "#{report.total_schools_count} (#{report.sample_count} na amostra)" }
 
-              td { report[:quitters_count] }
+              td { "#{report.quitters_count} (#{report.quitters_in_sample_count} na amostra)" }
 
-              td { substitutes_count }
+              td { report.substitutes_count }
 
-              td { report[:redirected_count] }
+              td { "#{report.redirected_count} (#{report.redirected_in_sample_count} na amostra)" }
 
-              td { report[:in_progress_count] }
+              td { "#{report.in_progress_count} (#{report.in_progress_in_sample_count} na amostra)" }
 
-              td { report[:submitted_count] }
+              td { "#{report.submitted_count} (#{report.answered_count} na amostra)" }
 
-              td { b calculate_submitted_percent((report[:total_sample_count] - report[:quitters_count] + substitutes_count), report[:submitted_count]) }
+              td { "#{report.total_percent}%" }
             end
           end
         end
@@ -57,25 +53,24 @@ ActiveAdmin.register_page "Gerencial por rede" do
 
           td {}
 
-          td { h4 b summary_counts[:total_sample_count] }
+          td { h4 b summary_counts.total_schools_count }
 
-          td { h4 b "#{summary_counts[:quitters_count]} \
-          (#{calculate_submitted_percent(summary_counts[:total_sample_count], summary_counts[:quitters_count])})" }
+          td { h4 b "#{summary_counts.quitters_count} \
+          (#{calculate_submitted_percent(summary_counts.total_schools_count, summary_counts.quitters_count)})" }
 
-          td { h4 b "#{submission_report.first.substitutes_count_from_collect} \
-          (#{calculate_submitted_percent(summary_counts[:total_sample_count], submission_report.first.substitutes_count_from_collect)})" }
+          td { h4 b "#{summary_counts.substitutes_count} \
+          (#{calculate_submitted_percent(summary_counts.total_schools_count, summary_counts.substitutes_count)})" }
 
-          td { h4 b "#{summary_counts[:redirected_count]} \
-          (#{calculate_submitted_percent(summary_counts[:total_sample_count], summary_counts[:redirected_count])})" }
+          td { h4 b "#{summary_counts.redirected_count} \
+          (#{calculate_submitted_percent(summary_counts.total_schools_count, summary_counts.redirected_count)})" }
 
-          td { h4 b "#{summary_counts[:in_progress_count]} \
-          (#{calculate_submitted_percent(summary_counts[:total_sample_count], summary_counts[:in_progress_count])})" }
+          td { h4 b "#{summary_counts.in_progress_count} \
+          (#{calculate_submitted_percent(summary_counts.total_schools_count, summary_counts.in_progress_count)})" }
 
-          td { h4 b "#{summary_counts[:submitted_count]}" }
+          td { h4 b "#{summary_counts.submitted_count}" }
 
           td do
-            schools_total = summary_counts[:total_sample_count] - summary_counts[:quitters_count] + submission_report.first.substitutes_count_from_collect
-            h4 b "#{calculate_submitted_percent(schools_total, summary_counts[:submitted_count])}"
+            h4 b "#{calculate_submitted_percent(summary_counts.total_schools_count, summary_counts.submitted_count)}"
           end
         end
       end
