@@ -70,8 +70,7 @@ ActiveAdmin.register_page "Gerencial por rede (apenas escolas da amostra)" do
           td { h4 b "#{summary_counts.answered_count}" }
 
           td do
-            schools_total = summary_counts.sample_count - summary_counts.quitters_in_sample_count + summary_counts.substitutes_count
-            h4 b "#{calculate_submitted_percent(schools_total, summary_counts.answered_count)}"
+            h4 b " #{calculate_submitted_percent(summary_counts.sample_count, summary_counts.answered_count)}"
           end
         end
       end

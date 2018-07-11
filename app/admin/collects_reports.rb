@@ -70,8 +70,7 @@ ActiveAdmin.register_page "Gerencial por rede" do
           td { h4 b "#{summary_counts.submitted_count}" }
 
           td do
-            schools_total = summary_counts.total_schools_count - summary_counts.quitters_count + summary_counts.substitutes_count
-            h4 b "#{calculate_submitted_percent(schools_total, summary_counts.submitted_count)}"
+            h4 b "#{calculate_submitted_percent(summary_counts.total_schools_count, summary_counts.submitted_count)}"
           end
         end
       end
