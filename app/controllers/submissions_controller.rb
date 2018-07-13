@@ -1,45 +1,42 @@
 class SubmissionsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_submission, only: :update
+  before_action :set_collect_entry, :set_adm, only: :create
 
   def create
-    collect_entry = CollectEntry.where(
-      collect_id: submission_params[:collect_id],
-      school_inep: submission_params[:school_inep]
-    ).first
-    adm = Administration.find_by_cod(submission_params[:adm_cod])
-    card_id = collect_entry.card_id
-
-    Submission.new(
-      submission_params.merge(
-        collect_entry: collect_entry,
-        administration: adm,
-        card_id: card_id
-      )
-    ).save
-
     pipe = Collect.find(submission_params[:collect_id]).pipe
-    PipefyApi.post(pipe.update_card_label(card_id, :redirected))
-    PipefyApi.post(pipe.move_card_to_phase(card_id, :redirected))
+    submission = Submission.create(
+      submission_params.merge(
+        collect_entry: @collect_entry,
+        administration: @adm,
+        card_id: @collect_entry.card_id
+      )
+    )
 
-    PipefyApi.post(Pipefy::Card.update_school_phone(card_id, submission_params[:school_phone]))
-    PipefyApi.post(Pipefy::Card.update_submitter_name(card_id, submission_params[:submitter_name]))
-    PipefyApi.post(Pipefy::Card.update_submitter_phone(card_id, submission_params[:submitter_phone]))
-    PipefyApi.post(Pipefy::Card.update_submitter_email(card_id, submission_params[:submitter_email]))
+    # check for sibling submissions and only update pipefy if none
+    if !submission.siblings.any?
+      PipeService.first_card_update(@collect_entry, pipe, submission_params)
+    end
 
     head :ok
   end
 
   def update
-    create_submission_from_fa
-
+    submission = create_submission_from_fa
     pipe = Collect.find(submission_fa_params[:collect_id]).pipe
 
-    if submission_fa_params[:status] == "submitted"
-      PipefyApi.post(pipe.update_card_label(@submission.card_id, :submitted))
-      PipefyApi.post(pipe.move_card_to_phase(@submission.card_id, :submitted))
+    if submission.siblings.any?
+      max_status = submission.siblings.pluck(:status).max
+      if submission_fa_params[:status] == "submitted" && max_status != "submitted"
+        PipeService.update_card_to_submitted(submission, pipe)
+      elsif submission_fa_params[:status] == "in_progress" && max_status == "redirected"
+        PipefyApi.post(pipe.update_card_label(submission.card_id, :in_progress))
+      end
     else
-      PipefyApi.post(pipe.update_card_label(@submission.card_id, :in_progress))
+      if submission_fa_params[:status] == "in_progress"
+        PipefyApi.post(pipe.update_card_label(submission.card_id, :in_progress))
+      end
+
+      PipeService.update_card_to_submitted(submission, pipe)
     end
 
     head :ok
@@ -51,11 +48,16 @@ class SubmissionsController < ApplicationController
   end
 
   private
-  def set_submission
-    @submission = Submission.where(
-      form_name: submission_fa_params[:form_name],
-      school_inep: submission_fa_params[:school_inep]
-    ).last
+
+  def set_collect_entry
+    @collect_entry = CollectEntry.where(
+      collect_id: submission_params[:collect_id],
+      school_inep: submission_params[:school_inep]
+    ).first
+  end
+
+  def set_adm
+    @adm = Administration.find_by_cod(submission_params[:adm_cod])
   end
 
   def create_submission_from_fa

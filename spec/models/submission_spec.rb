@@ -91,4 +91,28 @@ RSpec.describe Submission, type: :model do
       expect(submission.to_s).to eq("#{submission.id} #{submission.school_id} - #{submission.status}")
     end
   end
+
+  describe ".siblings" do
+    context "when there is no siblings" do
+      let(:collect) { create :collect }
+      let(:collect_entry) { create :collect_entry }
+      let(:submission) { create(:submission, school_inep: '1', collect: collect, collect_entry: collect_entry ) }
+      let(:another_submission) { create(:submission, school_inep: '2', collect: collect, collect_entry: collect_entry ) }
+
+      it "returns no siblings for both submissions" do
+        expect(submission.siblings).to be_empty
+        expect(another_submission.siblings).to be_empty
+      end
+    end
+
+    context "when there is siblings" do
+      let(:collect) { create :collect }
+      let(:collect_entry) { create :collect_entry }
+      let(:submissions) { create_list(:submission, 2, school_inep: '1', collect: collect, collect_entry: collect_entry ) }
+
+      it "returns the sibling" do
+        expect(submissions.first.siblings).to eq([submissions.last])
+      end
+    end
+  end
 end

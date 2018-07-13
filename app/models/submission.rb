@@ -37,6 +37,16 @@ class Submission < ApplicationRecord
     contacts
   end
 
+  def siblings
+    Submission
+    .where.not(id: id)
+    .where(
+      school_inep: school_inep,
+      collect: collect,
+      collect_entry: collect_entry
+    )
+  end
+
   def to_s
     "#{id} #{school_id} - #{status}"
   end

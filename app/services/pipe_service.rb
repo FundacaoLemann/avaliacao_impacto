@@ -35,4 +35,19 @@ class PipeService
       UpdateCardMemberWorker.perform_async(collect_entry.id)
     end
   end
+
+  def self.first_card_update(collect_entry, pipe, params)
+    PipefyApi.post(pipe.update_card_label(collect_entry.card_id, :redirected))
+    PipefyApi.post(pipe.move_card_to_phase(collect_entry.card_id, :redirected))
+
+    PipefyApi.post(Pipefy::Card.update_school_phone(collect_entry.card_id, params[:school_phone]))
+    PipefyApi.post(Pipefy::Card.update_submitter_name(collect_entry.card_id, params[:submitter_name]))
+    PipefyApi.post(Pipefy::Card.update_submitter_phone(collect_entry.card_id, params[:submitter_phone]))
+    PipefyApi.post(Pipefy::Card.update_submitter_email(collect_entry.card_id, params[:submitter_email]))
+  end
+
+  def self.update_card_to_submitted(submission, pipe)
+    PipefyApi.post(pipe.update_card_label(submission.card_id, :submitted))
+    PipefyApi.post(pipe.move_card_to_phase(submission.card_id, :submitted))
+  end
 end
