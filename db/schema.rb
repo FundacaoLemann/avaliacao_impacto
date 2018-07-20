@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180704120845) do
+ActiveRecord::Schema.define(version: 20180711172442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,17 +277,17 @@ ActiveRecord::Schema.define(version: 20180704120845) do
               sum(t1.quitters) AS quitter_count,
               sum(
                   CASE
-                      WHEN (t1.max_status = 0) THEN 1
+                      WHEN ((t1.max_status = 0) AND (t1.quitters = 0)) THEN 1
                       ELSE 0
                   END) AS redirected_count,
               sum(
                   CASE
-                      WHEN (t1.max_status = 1) THEN 1
+                      WHEN ((t1.max_status = 1) AND (t1.quitters = 0)) THEN 1
                       ELSE 0
                   END) AS in_progress_count,
               sum(
                   CASE
-                      WHEN (t1.max_status = 2) THEN 1
+                      WHEN ((t1.max_status = 2) AND (t1.quitters = 0)) THEN 1
                       ELSE 0
                   END) AS submitted_count,
               sum(t1.substitutes) AS substitute_count,
