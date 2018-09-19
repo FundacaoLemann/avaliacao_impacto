@@ -6,7 +6,7 @@ class CollectEntry < ApplicationRecord
 
   scope :substitutes, -> { where substitute: true }
 
-  enum group: { recapture: 0, sample: 1 }
+  enum group: { recapture: 0, Repescagem: 0, sample: 1, Amostra: 1 }
 
   def self.groups_for_filter
     collection ||= groups.collect { |k, v| [CollectEntry.human_attribute_name(k), v] }
