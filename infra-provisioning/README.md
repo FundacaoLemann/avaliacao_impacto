@@ -33,7 +33,7 @@ Após a criação, faça a configuração do **Security Group** do RDS.
     * Caso ainda não tenha criado, veja a seção [Security Group](#security-group)
 1. Clique em **Save**
 
-## Security Group (servidores de aplicação)
+## Security Group
 
 A criação de métricas de acesso de rede para garantir a segurança e comunicação dos serviços para ser o elo de que vai interligar os sistema.
 
@@ -60,8 +60,105 @@ A criação de métricas de acesso de rede para garantir a segurança e comunica
 1. Selecione **Web server environment**
 1. Clique em **Select**
 
-### Adicionando informações do ambiente
+### Environment information
 
-1. Informe o nome do ambiente - será o nome da instância *EC2*
-1. Informe o domínio (opcional)
-1. Informe a descrição (opcional)
+1. Defina o nome do ambiente em **Environment name** - será o nome da instância *EC2*
+    * *Domain* e *Description* são opcionais
+
+![Environment information](environment_information.png)
+
+### Base configuration
+
+1. Selecione **Preconfigured platform**
+1. Abra a lista suspensa e escolha por *Ruby*
+1. Selecione **Existing version** ou **Upload your code** em **Application code**
+1. Selecione pela versão desejada
+1. Clique no botão **Configure more options**
+
+![Base configuration](base_configuration.png)
+
+> Se selecionar a opção **Upload your code**, siga os passos em [Atualize a aplicação com a versão de código desejada](#atualize-a-aplicação-com-a-versão-de-código-desejada)
+
+### Configure more options
+
+Nesta seão serão apresentadas as demais configurações para habilitar o funcionamento do ambiente. Teremos a seções:
+
+* Software
+* Instances
+* Capacity
+* Load balancer
+* Rolling updates and deployments
+* Security
+* Monitoring
+* Notifications
+* Network
+* Database
+* Tags
+
+Para todas elas, clique em **Modify** abaixo, para que possam ser configuradas.
+
+#### Geral (IMPORTANTE)
+
+1. Selecione o tipo de uso como **Custom configuration**
+1. Clique em **Change platform configuration**
+1. Na lista suspensa, selecione **Puma with Ruby 2.4 running on 64bit Amazozn Linux/2.6.0**
+
+![Configurações gerais](general-configuration.png)
+![Versão de plataforma](platform-version.png)
+
+> Durante os testes, foi encontrado um bug com a versão 2.5 do Ruby, inteferindo na criação do ambiente, devido a isto deve ser utilizado o Ruby 2.4.
+
+#### Software
+
+Configure as variáveis de ambiente para que o sistema possa funcionar. Estas variáveis de ambiente serão configuradas a cada vez que o ambiente foi iniciado. Caso alguma seja alterada, será realizada a configuração no ambiente.
+
+Os valores sempre vão ser compostos por *chave* e *valor*. Não esqueça de adicionar as chaves de acesso ao RDS, criado na seção [RDS - Relational Database Service](#rds-relational-database-service), com as chaves:
+* RDS_DB_NAME
+* RDS_HOSTNAME
+* RDS_PASSWORD
+* RDS_PORT
+* RDS_USERNAME
+
+> Se o ambiente precisar ser reconstruído devido a alguma alteração necessária, não se esqueça de buscar as configurações do que será substituído.
+
+#### Security
+
+Apenas altere a opção **EC2 key pair** com a chave que será utilizada
+
+> O padrão atual de chave é **admin-fl**
+
+![Configurações de segurança](security-configuration.png)
+
+#### Instances
+
+1. Selecione o tamanho para o ambiente
+    * Produção: mínimo **t2.small**
+    * Staging: mínimo **t2.micro**
+1. A opção **AMI ID** é opcional, gerado automaticamente
+1. Nas opções de **Root volume (boot device)** podem ser mantidas como **(Container default)**
+1. A seção **EC2 security groups** é como os sistemas vão se comunicar. Selecione o grupo criado no processo [Security Group](#security-group)
+    * ![Security Group criado para Preditores](ec2-security-group-preditores.png)
+1. Clique em **Save**
+
+#### Database (ATENÇÃO)
+
+Na configuração de database, não selecione nenhuma opção, deixe como está, pois isto será garantido pela configuração de variáveis de ambiente, criado na seção [Software](#software).
+
+## Atualize a aplicação com a versão de código desejada
+
+1. Compacte os arquivos e diretórios da raiz do repositório, que fazem referência ao projeto em si.
+    * Não inclua os diretórios `.git` e `infra-provisioning`
+    * Não inclua o arquivo `.gitignore`
+
+
+Se quiser um processo através de código:
+1. Clone o respotiório: `git clone git@github.com:FundacaoLemann/sistema-preditores.git`
+1. Execute a compactação sem incluir os diretórios e arquivos desnecessários: `zip preditores.zip -r sistema-preditores/ -x "sistema-preditores/.git/*" -x "sistema-preditores/.gitignore" -x "sistema-preditores/infra-provisioning/*"`
+
+> Descrição do comando ZIP:
+> * **zip** - binário para executar o comando
+> * **preditores.zip** - arquivo que será gerado da compactação
+> * **-r sistema-preditores/** - comando para recursividade com o diretório para compactação
+> * **-x "sistema-preditores/.git/*"** - não compacta o diretório e seus arquivos
+> * **-x "sistema-preditores/.gitignore"** - não compacta o arquivo *.gitignore*
+> * **-x "sistema-preditores/infra-provisioning/*"** - não compacta o diretório e seus arquivos
