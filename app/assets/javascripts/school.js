@@ -14,6 +14,7 @@ document.addEventListener("turbolinks:load", function() {
         $('#button').removeAttr('disabled');
         schoolId = $("#school").getSelectedItemData().school_id;
         $("#school_id").val(schoolId).trigger("change");
+        document.getElementById("school").disabled = true;
       }
     }
   };
