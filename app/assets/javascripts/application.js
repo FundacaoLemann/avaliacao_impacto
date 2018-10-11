@@ -6,4 +6,5 @@
 //= require jquery.mask.min
 //= require phone-mask
 //= require sweetalert.min
+//= require select2-full
 //= require_tree .
