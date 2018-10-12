@@ -15,4 +15,5 @@
  *= require spectre
  *= require home
  *= require_self
+ *= require select2
  */

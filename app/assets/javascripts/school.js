@@ -1,22 +1,33 @@
-// school search
+// school search with select2
 document.addEventListener("turbolinks:load", function() {
-  $input = $("[data-behavior='search']");
-  var options = {
-    adjustWidth: false,
-    getValue: 'name',
-    url: function(phrase) {
-      return ('/search.json?city=' + city + '&administration=' + administration
-              + '&collect_id=' + collectId + '&adm_cod=' + currentAdm.cod + '&school=' + phrase);
-    },
-    listLocation: 'schools',
-    list: {
-      onChooseEvent: function() {
-        $('#button').removeAttr('disabled');
-        schoolId = $("#school").getSelectedItemData().school_id;
-        $("#school_id").val(schoolId).trigger("change");
-      }
-    }
-  };
 
-  $input.easyAutocomplete(options);
+  $("#school").select2({
+    ajax: {
+      url: function(params) {
+        var school = (!params.term)?'':params.term;      
+        return ('/search.json?city=' + city + '&administration=' + administration
+                + '&collect_id=' + collectId + '&=' + currentAdm.cod + '&school='+school);
+      },
+      dataType: 'json',
+      data: function (params) {
+          search: params.term;
+      },
+      processResults: function (data) {
+        return {
+          results: $.map(data["schools"], function(value, index){
+            return {id: value.school_id, text: value.school_id + ' | ' + value.name};
+          })
+        };
+      },
+      cache: true
+    }
+  });
+
+  $("#school").on("select2:select", function (e) {
+    $('#button').removeAttr('disabled');
+    schoolInepCode = e.params.data.id;
+    schoolName = e.params.data.text.split(" | ")[1];
+  });
+
+  
 });

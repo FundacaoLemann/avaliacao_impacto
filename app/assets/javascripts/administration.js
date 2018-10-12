@@ -8,6 +8,8 @@ var allowed_administrations = [];
 var currentAdm = "";
 var formId = "";
 var collectId = "";
+var schoolInepCode = "";
+var schoolName = "";
 
 getAllowedAministrations();
 

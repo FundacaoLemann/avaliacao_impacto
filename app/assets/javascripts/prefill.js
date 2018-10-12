@@ -15,9 +15,9 @@ $(function() {
     }
 
     // prefill inep
-    tfa_5 = "&tfa_5=" + $("#school_id").val();
+    tfa_5 = "&tfa_5=" + schoolInepCode;
     // prefill school name
-    tfa_7 = "&tfa_7=" + $("#school").val();
+    tfa_7 = "&tfa_7=" + schoolName;
     // prefill person name
     tfa_3719 = "&tfa_3719=" + $("#name").val();
     // prefill person email
@@ -65,7 +65,7 @@ function createSubmission() {
     data: {
       submission:{
         form_name: formName,
-        school_inep: $("#school_id").val(),
+        school_inep: schoolInepCode,
         status: 'redirected',
         school_phone: $("#phone").val(),
         submitter_name: $("#name").val(),

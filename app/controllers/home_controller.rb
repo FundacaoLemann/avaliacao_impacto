@@ -10,14 +10,14 @@ class HomeController < ApplicationController
       cod_municipio_eq: home_params[:city],
       tp_dependencia_desc_eq: home_params[:administration]
     )
-    result = query.result(distinct: true).limit(5)
+    result = query.result(distinct: true).limit(15)
 
     @schools = result.reject { |school| unpermitted_collect_entries.include?(school.inep) }
   end
 
   private
   def home_params
-    params.permit(:school, :city, :administration, :collect_id, :adm_cod)
+    params.permit(:school, :city, :administration, :collect_id, :adm_cod) 
   end
 
   def unpermitted_collect_entries
