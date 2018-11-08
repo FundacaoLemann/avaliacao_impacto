@@ -14,7 +14,7 @@ ActiveAdmin.register CollectEntry do
   filter :school_inep_cont, label: i18n_for("collect_entry", "inep")
   filter :collect, label: i18n_for("collect_entry", "collect_id"),
     as: :select, collection: proc { Collect.all }
-  filter :group, label: "", as: :check_boxes, collection: CollectEntry.groups_for_filter
+  filter :group, label: "", as: :check_boxes, collection: { "Amostra": 1, "Repescagem": 0 }
 
   index do
     column :id
@@ -51,7 +51,7 @@ ActiveAdmin.register CollectEntry do
       input :sample_size
       input :school_inep, as: :string
       input :school_sequence
-      input :group
+      input :group, collection: ["Amostra", "Repescagem"]
       input :collect
       input :card_id
       input :member_email
