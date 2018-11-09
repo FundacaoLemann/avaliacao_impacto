@@ -8,7 +8,7 @@ class CreatePipefyCardWorker
     school_name = collect_entry.school.to_s
     adm_name = collect_entry.administration.name
     adm_contact = collect_entry.administration.contact_name
-    ce_group = collect_entry.group
+    ce_group = collect_entry.grupo
 
     contacts = Submission.where(school_inep: collect_entry.school.inep).map(&:contacts)
 
