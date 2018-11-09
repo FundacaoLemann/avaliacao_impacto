@@ -11,4 +11,12 @@ class CollectEntry < ApplicationRecord
   def self.groups_for_filter
     collection ||= groups.collect { |k, v| [CollectEntry.human_attribute_name(k), v] }
   end
+
+  def grupo
+    if group == "sample" || group == 1
+      return "Amostra"
+    elsif group == "recapture" || group == 0
+      return "Repescagem"
+    end
+  end
 end

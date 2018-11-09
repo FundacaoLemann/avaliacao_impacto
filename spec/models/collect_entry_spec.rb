@@ -25,4 +25,40 @@ RSpec.describe CollectEntry, type: :model do
       end
     end
   end
+
+  describe '#grupo' do
+    let(:collect_entry) { create(:collect_entry, group: group) }
+
+    context 'Repescagem' do
+      let(:group) { "Repescagem" }
+
+      it "returns Repescagem" do
+        expect(collect_entry.grupo).to eq("Repescagem")
+      end
+    end
+
+    context 'recapture' do
+      let(:group) { "recapture" }
+
+      it "returns Repescagem" do
+        expect(collect_entry.grupo).to eq("Repescagem")
+      end
+    end
+
+    context 'Amostra' do
+      let(:group) { "Amostra" }
+
+      it "returns Amostra" do
+        expect(collect_entry.grupo).to eq("Amostra")
+      end
+    end
+
+    context 'sample' do
+      let(:group) { "sample" }
+
+      it "returns Amostra" do
+        expect(collect_entry.grupo).to eq("Amostra")
+      end
+    end
+  end
 end
