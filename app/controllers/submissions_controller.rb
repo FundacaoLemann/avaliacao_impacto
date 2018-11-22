@@ -34,9 +34,9 @@ class SubmissionsController < ApplicationController
     else
       if submission_fa_params[:status] == "in_progress"
         PipefyApi.post(pipe.update_card_label(submission.card_id, :in_progress))
+      elsif submission_fa_params[:status] == "submitted"
+        PipeService.update_card_to_submitted(submission, pipe)
       end
-
-      PipeService.update_card_to_submitted(submission, pipe)
     end
 
     head :ok

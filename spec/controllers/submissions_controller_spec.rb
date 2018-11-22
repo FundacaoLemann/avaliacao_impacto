@@ -110,6 +110,12 @@ RSpec.describe SubmissionsController, type: :controller do
 
           post :update, params: params.merge(status: 'in_progress')
         end
+
+        it "does not calls Pipefy.update_card_to_submitted" do
+          expect(PipeService).not_to receive(:update_card_to_submitted)
+
+          post :update, params: params.merge(status: 'in_progress')
+        end
       end
 
       context "and status is submitted" do
