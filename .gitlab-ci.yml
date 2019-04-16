@@ -1,0 +1,61 @@
+---
+image: docker:18.01.0-ce-git
+services:
+- docker:18.01.0-ce-dind
+
+stages:
+- build
+- deploy
+
+variables:
+  PROJECT_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+
+
+build to homolog:
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t $PROJECT_IMAGE -f compose/production/Dockerfile .
+    - docker push $PROJECT_IMAGE
+  only:
+    - /master/
+  environment: homolog
+  tags:
+    - docker
+
+# deploy to homolog:
+#   stage: deploy
+#   image: cdrx/rancher-gitlab-deploy
+#   script:
+#     - upgrade --environment Eleicoes --stack lula-site-dev --service wordpress --no-finish-upgrade
+#   only:
+#     - /master/
+#   environment: homolog
+#   tags:
+#     - docker
+
+
+build to production:
+  stage: build
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build -t $PROJECT_IMAGE -f compose/production/Dockerfile .
+    - docker tag $PROJECT_IMAGE "$CI_REGISTRY_IMAGE:latest"
+    - docker push $PROJECT_IMAGE
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+  only:
+    - tags
+  environment: production
+  tags:
+    - docker
+
+# deploy to production:
+#   stage: deploy
+#   image: cdrx/rancher-gitlab-deploy
+#   script:
+#     - upgrade --environment Eleicoes --stack lula-site-prod --service wordpress --no-finish-upgrade
+#   only:
+#     - tags
+#   environment: production
+#   tags:
+#     - docker
