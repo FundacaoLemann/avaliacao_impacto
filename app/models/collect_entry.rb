@@ -13,9 +13,9 @@ class CollectEntry < ApplicationRecord
   end
 
   def grupo
-    if group == "sample" || group == 1
+    if group == "sample" || group == "Amostra" || group == 1
       return "Amostra"
-    elsif group == "recapture" || group == 0
+    elsif group == "recapture" || group == "Repescagem" || group == 0
       return "Repescagem"
     end
   end
