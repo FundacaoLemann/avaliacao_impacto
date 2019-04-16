@@ -6,7 +6,9 @@ class PipefyController < ApplicationController
     case pipe_params[:current_phase]
     when "Desistentes"
       collect_entry.update(quitter: true)
-      ReplaceQuitterWorker.perform_async(collect_entry.id)
+      # ReplaceQuitterWorker.perform_async(collect_entry.id)
+    when "Contato Realizado com Gestor"
+      collect_entry.update(quitter: false)
     when "Triagem"
       return unless pipe_params[:group] == "Repescagem"
       collect_entry.update(substitute: true)
