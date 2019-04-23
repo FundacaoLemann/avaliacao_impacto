@@ -46,6 +46,10 @@ RAILS_SKIP_MIGRATIONS
 SECRET_KEY_BASE
 ```
 
+#### Variáveis para depuração
+
+`SENTRY_DSN`: Opcional. Indica a DSN de acesso a uma instalação Sentry para enviar relatórios de erros da aplicação.
+
 #### Integração com o Pipefy
 Variáveis específicas à integração com o Pipefy.
 

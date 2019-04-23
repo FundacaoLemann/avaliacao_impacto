@@ -27,5 +27,13 @@ module PredictorsSystem
     config.generators.system_tests = nil
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'pt-BR'
+    
+    # Send error reports to remote server if the DSN is present
+    if ENV['SENTRY_DSN'].present?
+      Raven.configure do |config|
+        config.dsn = ENV['SENTRY_DSN']
+      end
+    end
+    
   end
 end
