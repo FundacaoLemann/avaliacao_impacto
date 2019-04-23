@@ -48,6 +48,9 @@ SECRET_KEY_BASE
 
 #### Variáveis para depuração
 
+`DEVELOPMENT_CONSOLE_ALLOWED_IP`: Opcional. Se a aplicação estiver em modo de desenvolvimento, especifica quais IPs podem acessar o console web.
+Valor padrão: '192.168.0.0/16'
+
 `SENTRY_DSN`: Opcional. Indica a DSN de acesso a uma instalação Sentry para enviar relatórios de erros da aplicação.
 
 #### Integração com o Pipefy

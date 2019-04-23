@@ -53,6 +53,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
-  # In development mode, allow any IP to use the console
-  config.web_console.whitelisted_ips = '0.0.0.0/0'
+  # In development mode, check which IP adresses should use the console
+  if ENV['DEVELOPMENT_CONSOLE_ALLOWED_IP'].present?
+    config.web_console.whitelisted_ips = ENV['DEVELOPMENT_CONSOLE_ALLOWED_IP']
+  else
+    config.web_console.whitelisted_ips = '192.168.0.0/16'
+  end
+
 end
