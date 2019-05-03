@@ -7,7 +7,9 @@ module PipefyApi
     }
 
     # Since RestClient may raise an exception, prepare some debug data beforehand
-    Raven.capture_message("Error interacting with Pipefy API", :extra => {'request_body'=> values.to_json})
+    Raven.extra_context(
+      request_body: values.to_json,
+    )
 
     response = RestClient.post(endpoint, values, headers)
 
