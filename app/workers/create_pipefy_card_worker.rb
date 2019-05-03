@@ -16,8 +16,6 @@ class CreatePipefyCardWorker
     adm_contact = collect_entry.administration.contact_name
     ce_group = collect_entry.grupo
 
-    contacts = Submission.where(school_inep: collect_entry.school.inep).map(&:contacts)
-
     response = PipefyApi.post(
       Pipefy::Card.create_card(
         pipe_id,
@@ -25,7 +23,7 @@ class CreatePipefyCardWorker
         adm_name,
         adm_contact,
         ce_group,
-        contacts
+        []
       )
     )
     parsed_response = JSON.parse(response.body)
