@@ -2,6 +2,12 @@ class CreatePipefyCardWorker
   include Sidekiq::Worker
 
   def perform(collect_entry_id, pipe_id)
+    # Before starting, set some context data in case of something going wrong
+    Raven.extra_context(
+      collect_entry_id: collect_entry_id,
+      pipe_id: pipe_id
+    )
+
     collect_entry = CollectEntry.find(collect_entry_id)
     return if collect_entry.card_id
 
@@ -27,5 +33,8 @@ class CreatePipefyCardWorker
     collect_entry.update(card_id: card_id.to_i)
 
     PipefyApi.post(collect_entry.collect.pipe.move_card_to_phase(card_id.to_i, :triagem)) if ce_group == "Amostra"
+
+    # Clear the Raven context now, so future errors won't be reported with this data
+    Raven::Context.clear!
   end
 end

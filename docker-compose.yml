@@ -28,7 +28,8 @@ services:
       - RAILS_SKIP_MIGRATIONS=false
       - SECRET_KEY_BASE=4dd4da4ff58133d33c6a8fee87202bdec22ef6d48c6a6a4ee51b0461433aef5f35fdc1f59149f2951bd2f043bf14e2aaddfea2b06bab86d70bee356dadc01ac9
       - REDIS_URL=redis
-      - DEVELOPMENT_CONSOLE_ALLOWED_IP=192.168.0.0/16
+      - DEVELOPMENT_CONSOLE_ALLOWED_IP=172.0.0.0/8
+      - SENTRY_DSN=https://e8190f4eee4d4481a304a791da0e6121:100d5936252a4e9b8e630fb22879ecf1@sentry.hacklab.com.br/33
     ports:
       - 80:3000
     stdin_open: true

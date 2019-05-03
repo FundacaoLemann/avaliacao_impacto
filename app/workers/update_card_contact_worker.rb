@@ -2,6 +2,11 @@ class UpdateCardContactWorker
   include Sidekiq::Worker
 
   def perform(contact_id)
+    # Before starting, set some context data in case of something going wrong
+    Raven.extra_context(
+      contact_id: contact_id
+    )
+
     contact = Contact.find(contact_id)
     collect_entry = CollectEntry.where(
       collect: contact.collect,
@@ -24,6 +29,10 @@ class UpdateCardContactWorker
     PipefyApi.post(Pipefy::Card.update_coordinator3_name(card_id, contact.coordinator3_name))
     PipefyApi.post(Pipefy::Card.update_coordinator3_phone(card_id, contact.coordinator3_phone))
     PipefyApi.post(Pipefy::Card.update_coordinator3_email(card_id, contact.coordinator3_email))
+
+    # Clear the Raven context now, so future errors won't be reported with this data
+    Raven::Context.clear!
+
     # update card member if present
     return if contact.member_email.blank?
     assignee = collect_entry.member.pipefy_id
