@@ -22,6 +22,12 @@ class SubmissionsController < ApplicationController
 
   def update
     submission = create_submission_from_fa
+
+    # If the submission object could not be created, stop the process now
+    unless submission
+      return
+    end
+
     pipe = Collect.find(submission_fa_params[:collect_id]).pipe
 
     if submission.siblings.any?
@@ -64,7 +70,17 @@ class SubmissionsController < ApplicationController
     collect_entry = CollectEntry.where(
       collect_id: submission_fa_params[:collect_id],
       school_inep: submission_fa_params[:school_inep]
-    ).first
+    )
+
+    # If there is no collect_entry for the current school,
+    # no submission object can be created.
+    # Stop this process now
+    unless collect_entry.exists?
+      return
+    end
+
+    collect_entry = collect_entry.first
+
     adm = Administration.find_by_cod(collect_entry.adm_cod)
 
     Submission.create(
