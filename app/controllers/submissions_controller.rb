@@ -42,7 +42,10 @@ class SubmissionsController < ApplicationController
         PipefyApi.post(pipe.update_card_label(submission.card_id, :in_progress))
       end
 
-      PipeService.update_card_to_submitted(submission, pipe)
+      # Update the Pipefy card, but only do it if the form status is "submitted"
+      if submission_fa_params[:status] == "submitted" && max_status != "submitted"
+        PipeService.update_card_to_submitted(submission, pipe)
+      end
     end
 
     head :ok
