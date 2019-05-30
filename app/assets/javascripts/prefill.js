@@ -39,6 +39,10 @@ $(function() {
     if(!faParams){
       faParams = "tfa_63=1&tfa_64=1&tfa_65=1&tfa_66=1&tfa_2567=1&tfa_2568=1&tfa_5733=1&tfa_5734=1&tfa_5735=1&tfa_5736=1&tfa_5737=1&tfa_5738=1&tfa_5739=1&tfa_5740=1&tfa_5741=1&";
     }
+
+    // Disable the submit button while the requests are beign loaded
+    $('#button').attr('disabled', true);
+
     getForm(formId);
   });
 });
@@ -53,7 +57,10 @@ function getForm(form_id){
       formName = data.name;
 
       createSubmission();
-      openForm();
+    },
+    error: function(error){
+      // If something went wrong, re-enable the submit button
+      $('#button').removeAttr('disabled');
     }
   });
 }
@@ -76,7 +83,14 @@ function createSubmission() {
         collect_id: collectId
       }
     },
-    method: 'POST'
+    method: 'POST',
+    success: function(data){
+      openForm();
+    },
+    error: function(error){
+      // If something went wrong, re-enable the submit button
+      $('#button').removeAttr('disabled');
+    }
   });
 }
 
