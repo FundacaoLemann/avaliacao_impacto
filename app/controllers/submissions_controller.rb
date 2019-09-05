@@ -4,16 +4,28 @@ class SubmissionsController < ApplicationController
 
   def create
     pipe = Collect.find(submission_params[:collect_id]).pipe
-    submission = Submission.create(
-      submission_params.merge(
-        collect_entry: @collect_entry,
-        administration: @adm,
-        card_id: @collect_entry.card_id
+
+    # If the school is part of a Collect, then include its card info on the Submission object
+    if @collect_entry
+      submission = Submission.create(
+        submission_params.merge(
+          collect_entry: @collect_entry,
+          administration: @adm,
+          card_id: @collect_entry.card_id
+        )
       )
-    )
+    else
+      submission = Submission.create(
+        submission_params.merge(
+          collect_entry: @collect_entry,
+          administration: @adm,
+        )
+      )
+    end
 
     # check for sibling submissions and only update pipefy if none
-    if !submission.siblings.any?
+    # Also, only update Pipefy if the school is part of a Collect
+    if !submission.siblings.any? and @collect_entry
       PipeService.first_card_update(@collect_entry, pipe, submission_params)
     end
 
