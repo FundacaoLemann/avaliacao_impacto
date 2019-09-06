@@ -3,6 +3,11 @@ var formUrl = "";
 $(function() {
   $("input[type=submit]").on('click', function(e) {
     e.preventDefault();
+
+    if (!checkRequiredInputs()) {
+      throw new Error("ForbiddenSubmission");
+    }
+
     if (!isAdministrationAllowed()) {
       swal({
         title: 'Olá, a sua rede de ensino não está cadastrada',
@@ -46,6 +51,29 @@ $(function() {
     getForm(formId);
   });
 });
+
+// FIXME: Since school data is not stored in a traditional form field
+// validation possibilities are somewhat limited. An input should be used
+function isSchoolInputValid(school_data) {
+  return (school_data !== 'Digite o nome da sua escola sem caracteres especiais. Ex: Flavia Dutra');
+}
+
+function checkRequiredInputs() {
+  name = $("#name").val();
+  email = $("#email").val();
+  personal_phone = $("#personal_phone").val();
+  phone = $("#phone").val();
+  school_field = $("#select2-school-container").text();
+  if (isEmpty(name) || isEmpty(email) || isEmpty(personal_phone) || isEmpty(phone) || !isSchoolInputValid(school_field)) {
+    swal({
+      title: 'Informações obrigatórias',
+      text: 'Antes de prosseguir, por favor preencha todas as informações.',
+      icon: 'warning',
+    });
+    return false;
+  }
+  return true;
+}
 
 function getForm(form_id){
   $.ajax({
