@@ -1,0 +1,15 @@
+<%= semantic_form_for [:admin, @school], builder: Formtastic::FormBuilder do |f| %>
+  <%= f.semantic_errors %>
+  <%= f.inputs do %>
+    <%= f.input :name, as: :string %>
+    <%= f.input :adm_cod, as: :select, :collection => Administration.all.map{ |a| [a.name, a.cod] } %>
+    <%= f.input :tp_dependencia_desc, as: :select, :collection => %w[Estadual Federal Municipal Privada] %>
+    <%= f.input :region, as: :select, :collection => School::REGIONS %>
+    <%= f.input :location, as: :select, :collection => School::LOCATIONS %>
+    <%= f.input :num_estudantes, as: :number %>
+    <%= f.input :num_students_fund, as: :number %>
+    <%= f.input :ano_censo, as: :number %>
+    <%= f.input :sample %>
+  <% end %>
+  <%= f.actions %>
+<% end %>

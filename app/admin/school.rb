@@ -1,8 +1,8 @@
 include ActiveAdmin::ViewsHelper
 ActiveAdmin.register School do
+  form partial: 'form'
   menu priority: 11, if: -> { current_admin_user.sub_admin? }
-  permit_params :inep, :name, :tp_dependencia, :tp_dependencia_desc, :cod_municipio,
-    :municipio, :unidade_federativa, :num_estudantes, :ano_censo, :adm_cod
+  permit_params :name, :adm_cod, :tp_dependencia_desc, :region, :location, :num_estudantes, :num_students_fund, :ano_censo, :sample
   config.clear_action_items!
   active_admin_import
   config.sort_order = "inep_asc"
@@ -36,5 +36,8 @@ ActiveAdmin.register School do
     column :num_estudantes
     column :num_students_fund
     column :ano_censo
+    actions :defaults => false do |school|
+      link_to I18n.t('active_admin.edit'), edit_admin_school_path(school)
+    end
   end
 end
