@@ -5,7 +5,11 @@ ActiveAdmin.register CollectEntry do
     :school_sequence, :group, :collect_id, :card_id, :substitute, :quitter, :member_email
   config.clear_action_items!
   config.sort_order = "collect_id_asc"
-  active_admin_import
+
+  active_admin_import batch_size: 100000,
+    template_object: ActiveAdminImport::Model.new(
+      force_encoding: :auto
+    )
 
   filter :name_cont, label: i18n_for("collect_entry", "name")
   filter :administration, label: i18n_for("collect_entry", "adm_cod"),

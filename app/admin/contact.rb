@@ -2,7 +2,11 @@ include ActiveAdmin::ViewsHelper
 ActiveAdmin.register Contact do
   menu priority: 15, if: -> { current_admin_user.admin? }
   config.clear_action_items!
-  active_admin_import
+
+  active_admin_import batch_size: 100000,
+    template_object: ActiveAdminImport::Model.new(
+      force_encoding: :auto
+    )
 
   filter :collect, label: i18n_for("contact", "collect_id"),
     as: :select, collection: proc { Collect.all }
