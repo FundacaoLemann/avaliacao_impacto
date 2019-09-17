@@ -4,8 +4,12 @@ ActiveAdmin.register School do
   menu priority: 11, if: -> { current_admin_user.sub_admin? }
   permit_params :name, :adm_cod, :tp_dependencia_desc, :region, :location, :num_estudantes, :num_students_fund, :ano_censo, :sample
   config.clear_action_items!
-  active_admin_import
   config.sort_order = "inep_asc"
+
+  active_admin_import batch_size: 100000,
+    template_object: ActiveAdminImport::Model.new(
+      force_encoding: :auto
+    )
 
   scope :fundamental
 
