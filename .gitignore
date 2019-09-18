@@ -46,3 +46,6 @@ bower.json
 # Docker specific ignores
 postgres_data/
 compose/local/postgres_init_data/*.sql*
+
+# Temporary files
+.*.sw*

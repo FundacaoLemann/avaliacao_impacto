@@ -9,7 +9,14 @@ ActiveAdmin.register CollectEntry do
   active_admin_import batch_size: 100000,
     template_object: ActiveAdminImport::Model.new(
       force_encoding: :auto
-    )
+    ),
+    before_batch_import: proc { |import|
+      import.headers['collect_id'] = 'collect_id'
+      import.csv_lines.map! do |line|
+        line << import.model.collect_id.to_s
+        line
+      end
+    }
 
   filter :name_cont, label: i18n_for("collect_entry", "name")
   filter :administration, label: i18n_for("collect_entry", "adm_cod"),

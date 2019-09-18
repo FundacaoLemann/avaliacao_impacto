@@ -6,7 +6,14 @@ ActiveAdmin.register Contact do
   active_admin_import batch_size: 100000,
     template_object: ActiveAdminImport::Model.new(
       force_encoding: :auto
-    )
+    ),
+    before_batch_import: proc { |import|
+      import.headers['collect_id'] = 'collect_id'
+      import.csv_lines.map! do |line|
+        line << import.model.collect_id.to_s
+        line
+      end
+    }
 
   filter :collect, label: i18n_for("contact", "collect_id"),
     as: :select, collection: proc { Collect.all }
