@@ -5,6 +5,7 @@
       <%= f.label t('activerecord.attributes.submission.collect_id') %>
       <%= f.select :collect_id, options_for_select(Collect.all.collect{ |c| [c.name, c.id] }), { include_blank: true, selected: nil } %>
     </li>
+    <%= f.input :send_to_pipefy, as: :boolean %>
   <% end %>
 
   <%= f.actions do %>

@@ -66,6 +66,7 @@ pt-BR:
         redirected_at_parsed: Data de redirecionamento
         saved_at_parsed: Data de salvamento
         submitted_at_parsed: Data de submissão
+        send_to_pipefy: Enviar para o Pipefy?
       collect:
         name: Nome
         phase: Período
@@ -132,6 +133,7 @@ pt-BR:
         coordinator3_phone: Tel do Coordenador 3
         coordinator3_email: Email do Coordenador 3
         member_email: Conta responsável pelo card
+        send_to_pipefy: Enviar para o Pipefy?
     models:
       school:
         one: Escola
