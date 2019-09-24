@@ -162,6 +162,7 @@ pt-BR:
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
+        invalid_contacts_csv: 'com id %{collect_id} e school_inep %{inep} não tem um estrato correspondente que tenha um card_id válido'
         restrict_dependent_destroy:
           has_one: Não é possível excluir o registro pois existe um %{record} dependente
           has_many: Não é possível excluir o registro pois existem %{record} dependentes
