@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190924125156) do
+ActiveRecord::Schema.define(version: 20180711172442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,9 +114,8 @@ ActiveRecord::Schema.define(version: 20190924125156) do
     t.string "coordinator3_phone"
     t.string "coordinator3_email"
     t.string "member_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean "send_to_pipefy", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["collect_id"], name: "index_contacts_on_collect_id"
   end
 
