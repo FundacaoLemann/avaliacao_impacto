@@ -1,7 +1,7 @@
 class Contact < ApplicationRecord
   belongs_to :collect
   belongs_to :school, foreign_key: "school_inep", primary_key: "inep", optional: true
-  validate :valid_collect_entry_exists
+  validate :valid_collect_entry_exists, if: proc { |contact| contact.send_to_pipefy }
 
   private
 
