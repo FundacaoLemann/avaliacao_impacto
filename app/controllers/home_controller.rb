@@ -5,7 +5,9 @@ class HomeController < ApplicationController
   end
 
   def search
-    query = School.ransack(
+    collect = Collect.where(id: home_params[:collect_id].to_i).last
+    query = (collect && collect.show_all_schools) ? School : School.fundamental
+    query = query.ransack(
       name_cont: home_params[:school],
       cod_municipio_eq: home_params[:city],
       tp_dependencia_desc_eq: home_params[:administration]
