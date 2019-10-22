@@ -2,7 +2,7 @@ class StatesController < ApplicationController
   before_action :set_state
 
   def show
-    @cities = @state.cities.order(:name)
+    @cities = [City.new(name: '')] + @state.cities.order(:name)
   end
 
   def cities
