@@ -2,7 +2,7 @@ include ActiveAdmin::ViewsHelper
 ActiveAdmin.register Collect do
   menu priority: 3, parent: "Gerenciar Coletas", if: -> { current_admin_user.admin? }
   permit_params :name, :phase, :form, :form_assembly_params, :deadline, :form_id,
-    :status, :pipe_id, form_sections: [], administration_ids: []
+    :status, :pipe_id, :show_all_schools, form_sections: [], administration_ids: []
 
   before_save do |collect|
     collect.form_assembly_params = collect.sections_to_form_assembly_params
@@ -42,6 +42,7 @@ ActiveAdmin.register Collect do
       status_tag "#{status}", label: status
     end
     column :pipe_id
+    column :show_all_schools
     actions
   end
 
@@ -59,6 +60,7 @@ ActiveAdmin.register Collect do
         collection: %w[A B C D E F G H I J K L M N O]
       input :deadline, as: :datepicker, datepicker_options: { dateFormat: "dd/mm/yy" }
       input :pipe_id
+      input :show_all_schools
     end
     actions
   end

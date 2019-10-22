@@ -82,6 +82,7 @@ pt-BR:
         pipe_id: Pipefy Pipe
         status: Status
         administrations: Redes de ensino
+        show_all_schools: Mostrar todas as escolas
       collect_entry:
         name: Nome
         adm_cod: Rede de ensino
