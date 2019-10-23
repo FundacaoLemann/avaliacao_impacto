@@ -37,6 +37,7 @@ class PipeService
   end
 
   def self.first_card_update(collect_entry, pipe, params)
+    return if unless pipe
     PipefyApi.post(pipe.update_card_label(collect_entry.card_id, :redirected))
     PipefyApi.post(pipe.move_card_to_phase(collect_entry.card_id, :redirected))
 
@@ -47,6 +48,7 @@ class PipeService
   end
 
   def self.update_card_to_submitted(submission, pipe)
+    return if unless pipe
     PipefyApi.post(pipe.update_card_label(submission.card_id, :submitted))
     PipefyApi.post(pipe.move_card_to_phase(submission.card_id, :submitted))
   end
